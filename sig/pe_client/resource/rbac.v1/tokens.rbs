@@ -1,0 +1,10 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class Tokens < Base
+        def generate: (login: String, password: String, ?lifetime: String?, ?label: String?) -> Hash[String, String]
+        def create: (lifetime: String, description: String, ?client: String) -> Hash[String, String]
+      end
+    end
+  end
+end

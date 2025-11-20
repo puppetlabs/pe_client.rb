@@ -1,0 +1,17 @@
+module PEClient
+  module Resource
+    class RBACV2 < Base
+      BASE_PATH: String
+      PORT: Integer
+
+      @users: RBACV2::Users
+      def users: () -> RBACV2::Users
+      @groups: RBACV2::Groups
+      def groups: () -> RBACV2::Groups
+      @tokens: RBACV2::Tokens
+      def tokens: () -> RBACV2::Tokens
+      @ldap: RBACV2::LDAP
+      def ldap: () -> RBACV2::LDAP
+    end
+  end
+end

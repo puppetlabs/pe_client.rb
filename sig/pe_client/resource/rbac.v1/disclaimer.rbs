@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class Disclaimer < Base
+        BASE_PATH: String
+        COMMAND_BASE_PATH: String
+
+        def get: () -> Hash[String, untyped]
+        def set: (String) -> Hash[String, untyped]
+        def remove: () -> Hash[String, untyped]
+      end
+    end
+  end
+end

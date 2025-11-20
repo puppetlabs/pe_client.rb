@@ -1,0 +1,19 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Groups < Base
+        BASE_PATH: String
+
+        def get: () -> Array[Hash[String, untyped]]
+               | (String) -> Hash[String, untyped]
+        def create: (name: String, parent: String, ?id: String?, ?environment: String?, ?environment_trumps: bool?, ?description: String?, ?rule: String?, ?variables: Hash[Symbol | String, String]?, ?classes: Hash[Symbol | String, String], ?config_data: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+        def update: (String, Hash[Symbol | String, untyped]) -> Hash[String, untyped]
+        def delete: (String) -> Hash[String, untyped]
+        def pin: (String, Array[String]) -> Hash[String, untyped]
+        def unpin: (String, Array[String]) -> Hash[String, untyped]
+        def rules: (String) -> Hash[String, untyped]
+        def nodes: (String) -> Hash[String, untyped]
+      end
+    end
+  end
+end

@@ -1,35 +1,104 @@
-# Pe::Client
+# PEClient Ruby Gem
 
-TODO: Delete this and the text below, and describe your gem
+PEClient is a Ruby client library for interacting with Puppet Enterprise (PE) API endpoints.
+It provides convenient access to PE's HTTP APIs.
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/pe/client`. To experiment with that code, run `bin/console` for an interactive prompt.
+> [!NOTE]
+> This gem is a work in progress and may not cover all PE API endpoints.
+> The specification for this gem focuses on PE 2025.6 and Puppet Core 8.16 APIs.
+> If you use different versions of PE or Puppet Core, some endpoints may not be available or may behave differently.
+
+## Features
+Currently implemented endpoints:
+- Node Inventory v1
+- Node Classifier v1
+- RBAC v1 and v2
 
 ## Installation
-
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
-
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+bundle add pe_client --git https://github.com/puppetlabs/pe_client.rb
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+gem install specific_install
+gem specific_install https://github.com/puppetlabs/pe_client.rb
 ```
 
 ## Usage
 
-TODO: Write usage instructions here
+```ruby
+require "pe_client"
+
+client = PEClient.new(
+  api_key: "YOUR_API_KEY",
+  base_url: "https://your-pe-server.example.com",
+  ca_file: '/path/to/ca_crt.pem' # Can be retrieved from the PE Server at: /etc/puppetlabs/puppetserver/ca/ca_crt.pem
+)
+
+# Access Node Classifier v1 resources
+## List Groups
+groups = client.node_classifier_v1.groups.get
+
+# Access RBAC v1 resources
+## List all users
+users = client.rbac_v1.users.list
+
+# Error handling
+begin
+  users = client.rbac_v1.users.list("invalid SID")
+rescue PEClient::HTTPError => e
+  puts "HTTP #{e.response.code} error: #{e.response.body}"
+rescue PEClient::Error => e
+  puts "General errors: #{e.message}"
+end
+```
+
+See [Puppet Enterprise API documentation](https://help.puppet.com/pe/2025.6/topics/api_index.html) for details on available endpoints and data models.
 
 ## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+After checking out the repo, run:
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and the created tag, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+```bash
+bin/setup
+```
+
+To run tests:
+
+```bash
+bundle exec rake spec
+```
+
+To experiment with the code:
+
+```bash
+bin/console
+```
+
+To install this gem onto your local machine:
+
+```bash
+bundle exec rake install
+```
+
+To release a new version:
+- Update the version number in `lib/pe_client/version.rb`
+- Run:
+
+```bash
+bundle exec rake release
+```
+
+This will create a git tag, push commits and the tag, and publish the gem to [rubygems.org](https://rubygems.org).
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/pe-client.
+Bug reports and pull requests are welcome on GitHub at [https://github.com/puppetlabs/pe_client.rb](https://github.com/puppetlabs/pe_client.rb).
+
+## License
+
+Apache-2.0 © Perforce Software, Inc.

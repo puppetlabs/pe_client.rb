@@ -1,0 +1,264 @@
+# frozen_string_literal: true
+
+RSpec.describe PEClient::Client do
+  let(:api_key) { "test_api_key_12345" }
+  let(:base_url) { "https://puppet.example.com:8143" }
+  let(:client) { described_class.new(api_key: api_key, base_url: base_url) }
+
+  describe "#initialize" do
+    it "creates a client with required parameters" do
+      expect(client).to be_a(PEClient::Client)
+      expect(client.api_key).to eq(api_key)
+      expect(client.base_url).to be_a(URI)
+      expect(client.base_url.to_s).to eq(base_url)
+    end
+
+    it "accepts a URI object as base_url" do
+      uri = URI.parse(base_url)
+      client = described_class.new(api_key: api_key, base_url: uri)
+      expect(client.base_url).to eq(uri)
+    end
+
+    it "creates a Faraday connection" do
+      expect(client.connection).to be_a(Faraday::Connection)
+    end
+
+    it "sets proper headers" do
+      headers = client.connection.headers
+      expect(headers["X-Authentication"]).to eq(api_key)
+      expect(headers["User-Agent"]).to match(/PEClient\/#{PEClient::VERSION}/o)
+      expect(headers["User-Agent"]).to match(/Ruby\/#{RUBY_VERSION}/o)
+    end
+
+    it "allows customizing the Faraday connection with a block" do
+      custom_client = described_class.new(api_key: api_key, base_url: base_url) do |conn|
+        conn.headers["Custom-Header"] = "custom_value"
+      end
+      expect(custom_client.connection.headers["Custom-Header"]).to eq("custom_value")
+    end
+  end
+
+  describe "#get" do
+    it "makes a GET request" do
+      stub_request(:get, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, body: '{"result": "success"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.get("/test/path")
+      expect(response).to eq({"result" => "success"})
+    end
+
+    it "includes query parameters" do
+      stub_request(:get, "#{base_url}/test/path?foo=bar&baz=qux")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, body: '{"result": "success"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.get("/test/path", params: {foo: "bar", baz: "qux"})
+      expect(response).to eq({"result" => "success"})
+    end
+
+    it "includes custom headers" do
+      stub_request(:get, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key, "Custom-Header" => "value"})
+        .to_return(status: 200, body: '{"result": "success"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.get("/test/path", headers: {"Custom-Header" => "value"})
+      expect(response).to eq({"result" => "success"})
+    end
+
+    it "handles 303 redirects" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 303, headers: {"Location" => "https://example.com/new-location"})
+
+      response = client.get("/test/path")
+      expect(response).to eq({"location" => "https://example.com/new-location"})
+    end
+
+    it "raises BadRequestError on 400" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 400, body: '{"error": "bad request"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::BadRequestError)
+    end
+
+    it "raises UnauthorizedError on 401" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 401, body: '{"error": "unauthorized"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::UnauthorizedError)
+    end
+
+    it "raises ForbiddenError on 403" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 403, body: '{"error": "forbidden"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::ForbiddenError)
+    end
+
+    it "raises NotFoundError on 404" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 404, body: '{"error": "not found"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::NotFoundError)
+    end
+
+    it "raises ConflictError on 409" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 409, body: '{"error": "conflict"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::ConflictError)
+    end
+
+    it "raises ServerError on 500" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 500, body: '{"error": "server error"}', headers: {"Content-Type" => "application/json"})
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::ServerError)
+    end
+
+    it "raises HTTPError on other status codes" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 418, body: "I'm a teapot")
+
+      expect { client.get("/test/path") }.to raise_error(PEClient::HTTPError)
+    end
+  end
+
+  describe "#post" do
+    it "makes a POST request with body" do
+      stub_request(:post, "#{base_url}/test/path")
+        .with(
+          body: '{"key":"value"}',
+          headers: {"X-Authentication" => api_key, "Content-Type" => "application/json"}
+        )
+        .to_return(status: 200, body: '{"result": "created"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.post("/test/path", body: {key: "value"})
+      expect(response).to eq({"result" => "created"})
+    end
+
+    it "includes query parameters in URL" do
+      stub_request(:post, "#{base_url}/test/path?foo=bar")
+        .with(
+          body: '{"key":"value"}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"result": "created"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.post("/test/path", body: {key: "value"}, params: {foo: "bar"})
+      expect(response).to eq({"result" => "created"})
+    end
+
+    it "includes custom headers" do
+      stub_request(:post, "#{base_url}/test/path")
+        .with(
+          body: '{"key":"value"}',
+          headers: {"X-Authentication" => api_key, "Custom-Header" => "value"}
+        )
+        .to_return(status: 200, body: '{"result": "created"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.post("/test/path", body: {key: "value"}, headers: {"Custom-Header" => "value"})
+      expect(response).to eq({"result" => "created"})
+    end
+  end
+
+  describe "#put" do
+    it "makes a PUT request with body" do
+      stub_request(:put, "#{base_url}/test/path")
+        .with(
+          body: '{"key":"updated"}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"result": "updated"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.put("/test/path", body: {key: "updated"})
+      expect(response).to eq({"result" => "updated"})
+    end
+
+    it "includes query parameters in URL" do
+      stub_request(:put, "#{base_url}/test/path?foo=bar")
+        .with(
+          body: '{"key":"updated"}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"result": "updated"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.put("/test/path", body: {key: "updated"}, params: {foo: "bar"})
+      expect(response).to eq({"result" => "updated"})
+    end
+  end
+
+  describe "#delete" do
+    it "makes a DELETE request" do
+      stub_request(:delete, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, body: '{"result": "deleted"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.delete("/test/path")
+      expect(response).to eq({"result" => "deleted"})
+    end
+
+    it "includes custom headers" do
+      stub_request(:delete, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key, "Custom-Header" => "value"})
+        .to_return(status: 200, body: '{"result": "deleted"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.delete("/test/path", headers: {"Custom-Header" => "value"})
+      expect(response).to eq({"result" => "deleted"})
+    end
+  end
+
+  describe "resource methods" do
+    describe "#node_inventory_v1" do
+      it "returns a NodeInventoryV1 resource" do
+        resource = client.node_inventory_v1
+        expect(resource).to be_a(PEClient::Resource::NodeInventoryV1)
+      end
+
+      it "memoizes the resource" do
+        resource1 = client.node_inventory_v1
+        resource2 = client.node_inventory_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#rbac_v1" do
+      it "returns an RBACV1 resource" do
+        resource = client.rbac_v1
+        expect(resource).to be_a(PEClient::Resource::RBACV1)
+      end
+
+      it "memoizes the resource" do
+        resource1 = client.rbac_v1
+        resource2 = client.rbac_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#rbac_v2" do
+      it "returns an RBACV2 resource" do
+        resource = client.rbac_v2
+        expect(resource).to be_a(PEClient::Resource::RBACV2)
+      end
+
+      it "memoizes the resource" do
+        resource1 = client.rbac_v2
+        resource2 = client.rbac_v2
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#node_classifier_v1" do
+      it "returns a NodeClassifierV1 resource" do
+        resource = client.node_classifier_v1
+        expect(resource).to be_a(PEClient::Resource::NodeClassifierV1)
+      end
+
+      it "memoizes the resource" do
+        resource1 = client.node_classifier_v1
+        resource2 = client.node_classifier_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+  end
+end

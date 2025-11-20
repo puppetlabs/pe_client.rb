@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Environments < Base
+        BASE_PATH: String
+
+        def get: (?String?) -> Array[Hash[String, untyped]]
+        def create: (String) -> Hash[String, untyped]
+        def classes: (String, ?String?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

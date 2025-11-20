@@ -1,0 +1,9 @@
+module PEClient
+  module Resource
+    class BaseWithPort
+      @client: Client
+
+      def initialize: (Client, ?port: Integer) -> void
+    end
+  end
+end

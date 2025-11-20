@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class NodeInventoryV1 < Base
+      BASE_PATH: String
+      PORT: Integer
+
+      def connections: (?certnames: Array[String], ?sensitive: bool, ?extract: Array[String]) -> Hash[String, untyped]
+      def create_connections: (certnames: Array[String], type: String, ?parameters: Hash[String | Symbol, untyped], ?sensitive_parameters: Hash[String | Symbol, untyped], ?duplicates: String) -> Hash[String, untyped]
+      def delete_connections: (Array[String]) -> Hash[String, untyped]
+    end
+  end
+end

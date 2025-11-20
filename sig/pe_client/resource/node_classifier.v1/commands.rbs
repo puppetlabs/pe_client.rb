@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Commands < Base
+        BASE_PATH: String
+
+        def unpin_from_all: (Array[String]) -> Hash[String, untyped]
+      end
+    end
+  end
+end

@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class Permissions < Base
+        BASE_PATH: String
+
+        def types: () -> Array[Hash[String, untyped]]
+        def permitted: (token: String, permissions: Array[Hash[String | Symbol, untyped]]) -> Array[bool]
+        def instances: (object_type: String, action: String) -> Array[String]
+        def user_instances: (object_type: String, action: String, uuid: String) -> Array[String]
+      end
+    end
+  end
+end

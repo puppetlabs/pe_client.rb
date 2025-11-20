@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Rules < Base
+        BASE_PATH: String
+
+        def translate: (?format: String?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

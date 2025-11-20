@@ -1,0 +1,27 @@
+module PEClient
+  module Resource
+    class RBACV1 < Base
+      BASE_PATH: String
+      PORT: Integer
+
+      @users: RBACV1::Users
+      def users: () -> RBACV1::Users
+      @groups: RBACV1::Groups
+      def groups: () -> RBACV1::Groups
+      @roles: RBACV1::Roles
+      def roles: () -> RBACV1::Roles
+      @permissions: RBACV1::Permissions
+      def permissions: () -> RBACV1::Permissions
+      @tokens: RBACV1::Tokens
+      def tokens: () -> RBACV1::Tokens
+      @ldap: RBACV1::LDAP
+      def ldap: () -> RBACV1::LDAP
+      @saml: RBACV1::SAML
+      def saml: () -> RBACV1::SAML
+      @passwords: RBACV1::Passwords
+      def passwords: () -> RBACV1::Passwords
+      @disclaimer: RBACV1::Disclaimer
+      def disclaimer: () -> RBACV1::Disclaimer
+    end
+  end
+end

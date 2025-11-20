@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class UpdateClasses < Base
+        BASE_PATH: String
+
+        def update: (?environment: String?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

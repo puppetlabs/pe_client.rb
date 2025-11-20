@@ -1,0 +1,21 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class Users < Base
+        BASE_PATH: String
+        COMMAND_BASE_PATH: String
+
+        def get: (?String | nil) -> Hash[String, untyped]
+        def current: () -> Hash[String, untyped]
+        def tokens: (String, ?limit: Integer?, ?offset: Integer?, ?order_by: String?, ?order: String?) -> Hash[String, untyped]
+        def create: (email: String, display_name: String, login: String, ?role_ids: Array[String], ?password: String?) -> Hash[String, untyped]
+        def edit: (String, Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def delete: (String) -> Hash[String, untyped]
+        def add_roles: (String, Array[String]) -> Hash[String, untyped]
+        def remove_roles: (String, Array[String]) -> Hash[String, untyped]
+        def revoke: (String) -> Hash[String, untyped]
+        def reinstate: (String) -> Hash[String, untyped]
+      end
+    end
+  end
+end

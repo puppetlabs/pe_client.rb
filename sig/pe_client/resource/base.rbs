@@ -1,0 +1,9 @@
+module PEClient
+  module Resource
+    class Base
+      @client: Client
+
+      def initialize: (Client) -> void
+    end
+  end
+end

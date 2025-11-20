@@ -2,10 +2,18 @@
 # frozen_string_literal: true
 
 require "bundler/setup"
-require "pe/client"
+require "pe_client"
 
 # You can add fixtures and/or initialization code here to make experimenting
 # with your gem easier. You can also use a different console, if you like.
+
+if ENV["PE_CLIENT_BASE_URL"]
+  @client = PEClient::Client.new(
+    base_url: ENV["PE_CLIENT_BASE_URL"],
+    api_key: ENV["PE_CLIENT_API_KEY"],
+    ca_file: ENV["PE_CLIENT_CA_FILE"],
+  )
+end
 
 require "irb"
 IRB.start(__FILE__)

@@ -1,0 +1,23 @@
+module PEClient
+  class Error < StandardError
+  end
+
+  class HTTPError < Error
+    attr_reader response: Faraday::Response
+
+    def initialize: (Faraday::Response, ?String?) -> void
+  end
+
+  class BadRequestError < HTTPError
+  end
+  class UnauthorizedError < HTTPError
+  end
+  class ForbiddenError < HTTPError
+  end
+  class NotFoundError < HTTPError
+  end
+  class ConflictError < HTTPError
+  end
+  class ServerError < HTTPError
+  end
+end

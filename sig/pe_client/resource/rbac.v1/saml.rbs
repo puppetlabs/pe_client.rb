@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class SAML < Base
+        BASE_PATH: String
+
+        def configure: (Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def get: () -> Hash[String, untyped]
+        def delete: () -> Hash[String, untyped]
+        def meta: () -> Hash[String, untyped]
+      end
+    end
+  end
+end

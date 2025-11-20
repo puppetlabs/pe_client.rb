@@ -1,0 +1,6 @@
+module PEClient
+  VERSION: String
+
+  def self.new: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> Client
+  def self.deprecated: (String, String) -> void
+end

@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class GroupChildren < Base
+        BASE_PATH: String
+
+        def get: (String, ?depth: Integer?) -> Array[Hash[String, untyped]]
+      end
+    end
+  end
+end

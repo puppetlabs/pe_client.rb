@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class RBACV2
+      class Users < Base
+        BASE_PATH: String
+
+        def get: (?offset: Integer?, ?limit: Integer?, ?order: String?, ?order_by: String?, ?filter: String?, ?include_roles: bool?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

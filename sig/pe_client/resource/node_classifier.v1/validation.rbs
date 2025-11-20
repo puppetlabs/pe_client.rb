@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Validation < Base
+        BASE_PATH: String
+
+        def group: (name: String, environment: String, environment_trumps: bool, parent: String, rule: String, ?description: String, ?variables: Hash[String, untyped], ?classes: Hash[Symbol | String, untyped], ?parameters: Hash[Symbol | String, untyped]) -> Hash[String, untyped]
+      end
+    end
+  end
+end

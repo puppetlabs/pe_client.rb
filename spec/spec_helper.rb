@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-require "pe/client"
+require "pe_client"
+require "webmock/rspec"
+
+ENV["RBS_TEST_TARGET"] ||= "PEClient::*"
+ENV["RBS_TEST_LOGLEVEL"] ||= "fatal"
+require "rbs/test/setup"
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
@@ -12,4 +17,7 @@ RSpec.configure do |config|
   config.expect_with :rspec do |c|
     c.syntax = :expect
   end
+
+  # WebMock configuration
+  WebMock.disable_net_connect!(allow_localhost: true)
 end

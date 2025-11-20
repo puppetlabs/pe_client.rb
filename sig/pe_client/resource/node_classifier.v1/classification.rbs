@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Classification < Base
+        BASE_PATH: String
+
+        def get: (String, ?fact: Hash[Symbol | String, untyped]?, ?trusted: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+        def explanation: (String, ?fact: Hash[Symbol | String, untyped]?, ?trusted: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

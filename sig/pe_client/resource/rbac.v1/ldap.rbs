@@ -1,0 +1,17 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class LDAP < Base
+        BASE_PATH: String
+        COMMAND_BASE_PATH: String
+
+        def create: (Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def update: (Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def delete: (String) -> Hash[String, untyped]
+        def test: (Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def ds_test: (?Hash[String | Symbol, untyped]?) -> Hash[String, untyped]
+        def ds: (?Hash[String | Symbol, untyped]?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class RBACV2
+      class LDAP < Base
+        BASE_PATH: String
+
+        def get: (?uuid: nil) -> Array[Hash[String, untyped]]
+               | (uuid: String) -> Hash[String, untyped]
+        def ds: () -> Array[Hash[String, untyped]]
+      end
+    end
+  end
+end

@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1
+      class Classes < Base
+        BASE_PATH: String
+
+        def get: () -> Array[Hash[String, untyped]]
+      end
+    end
+  end
+end

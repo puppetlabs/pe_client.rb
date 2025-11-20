@@ -1,0 +1,21 @@
+module PEClient
+  module Resource
+    class RBACV1
+      class Roles < Base
+        BASE_PATH: String
+        COMMAND_BASE_PATH: String
+
+        def get: (?String?) -> Hash[String, untyped]
+        def create: (permissions: Array[String], group_ids: Array[String], user_ids: Array[String], display_name: String, ?description: String?) -> Hash[String, untyped]
+        def edit: (String, Hash[String | Symbol, untyped]) -> Hash[String, untyped]
+        def delete: (String) -> Hash[String, untyped]
+        def add_users: (String, Array[String]) -> Hash[String, untyped]
+        def remove_users: (String, Array[String]) -> Hash[String, untyped]
+        def add_groups: (String, Array[String]) -> Hash[String, untyped]
+        def remove_groups: (String, Array[String]) -> Hash[String, untyped]
+        def add_permissions: (String, Array[Hash[String | Symbol, untyped]]) -> Hash[String, untyped]
+        def remove_permissions: (String, Array[Hash[String | Symbol, untyped]]) -> Hash[String, untyped]
+      end
+    end
+  end
+end

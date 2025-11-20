@@ -1,0 +1,33 @@
+module PEClient
+  module Resource
+    class NodeClassifierV1 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      @groups: NodeClassifierV1::Groups
+      def groups: () -> NodeClassifierV1::Groups
+      @classes: NodeClassifierV1::Classes
+      def classes: () -> NodeClassifierV1::Classes
+      @classification: NodeClassifierV1::Classification
+      def classification: () -> NodeClassifierV1::Classification
+      @commands: NodeClassifierV1::Commands
+      def commands: () -> NodeClassifierV1::Commands
+      @environments: NodeClassifierV1::Environments
+      def environments: () -> NodeClassifierV1::Environments
+      @nodes: NodeClassifierV1::Nodes
+      def nodes: () -> NodeClassifierV1::Nodes
+      @group_children: NodeClassifierV1::GroupChildren
+      def group_children: () -> NodeClassifierV1::GroupChildren
+      @rules: NodeClassifierV1::Rules
+      def rules: () -> NodeClassifierV1::Rules
+      @import_hierarchy: NodeClassifierV1::ImportHierarchy
+      def import_hierarchy: () -> NodeClassifierV1::ImportHierarchy
+      @last_class_update: NodeClassifierV1::LastClassUpdate
+      def last_class_update: () -> NodeClassifierV1::LastClassUpdate
+      @update_classes: NodeClassifierV1::UpdateClasses
+      def update_classes: () -> NodeClassifierV1::UpdateClasses
+      @validation: NodeClassifierV1::Validation
+      def validation: () -> NodeClassifierV1::Validation
+    end
+  end
+end

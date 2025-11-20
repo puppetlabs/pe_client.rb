@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class RBACV2
+      class Tokens < Base
+        BASE_PATH: String
+
+        def delete: (?token: String?, ?revoke_tokens: Array[String]?, ?revoke_tokens_by_usernames: Array[String]?, ?revoke_tokens_by_labels: Array[String]?, ?revoke_tokens_by_ids: Array[String]?) -> Hash[String, untyped]
+        def authenticate: (String, ?update_last_activity: bool?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

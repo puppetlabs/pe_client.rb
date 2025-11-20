@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class RBACV2
+      class Groups < Base
+        BASE_PATH: String
+
+        def create: (login: String, role_ids: Array[String], ?display_name: String?, ?identity_provider_id: String?, ?validate: bool?) -> Hash[String, String]
+      end
+    end
+  end
+end

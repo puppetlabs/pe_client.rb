@@ -1,0 +1,26 @@
+module PEClient
+  class Client
+    attr_reader api_key: String
+    attr_reader base_url: URI
+    attr_reader connection: Faraday::Connection
+
+    def initialize: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> void
+    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, untyped], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
+    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
+    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
+    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?headers: Hash[String | Symbol, untyped]) -> (Hash[String, untyped] | Array[untyped])
+
+    # Resources
+    @node_inventory_v1: Resource::NodeInventoryV1
+    def node_inventory_v1: () -> Resource::NodeInventoryV1
+    @rbac_v1: Resource::RBACV1
+    def rbac_v1: () -> Resource::RBACV1
+    @rbac_v2: Resource::RBACV2
+    def rbac_v2: () -> Resource::RBACV2
+    @node_classifier_v1: Resource::NodeClassifierV1
+    def node_classifier_v1: -> Resource::NodeClassifierV1
+
+    # Private methods
+    def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped])
+  end
+end
