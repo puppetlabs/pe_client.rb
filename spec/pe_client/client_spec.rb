@@ -3,7 +3,7 @@
 RSpec.describe PEClient::Client do
   let(:api_key) { "test_api_key_12345" }
   let(:base_url) { "https://puppet.example.com:8143" }
-  let(:client) { described_class.new(api_key: api_key, base_url: base_url) }
+  let(:client) { described_class.new(api_key: api_key, base_url: base_url, ca_file: nil) }
 
   describe "#initialize" do
     it "creates a client with required parameters" do
@@ -15,7 +15,7 @@ RSpec.describe PEClient::Client do
 
     it "accepts a URI object as base_url" do
       uri = URI.parse(base_url)
-      client = described_class.new(api_key: api_key, base_url: uri)
+      client = described_class.new(api_key: api_key, base_url: uri, ca_file: nil)
       expect(client.base_url).to eq(uri)
     end
 
@@ -31,7 +31,7 @@ RSpec.describe PEClient::Client do
     end
 
     it "allows customizing the Faraday connection with a block" do
-      custom_client = described_class.new(api_key: api_key, base_url: base_url) do |conn|
+      custom_client = described_class.new(api_key: api_key, base_url: base_url, ca_file: nil) do |conn|
         conn.headers["Custom-Header"] = "custom_value"
       end
       expect(custom_client.connection.headers["Custom-Header"]).to eq("custom_value")

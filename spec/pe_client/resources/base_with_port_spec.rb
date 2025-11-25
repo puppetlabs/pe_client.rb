@@ -6,7 +6,7 @@ require_relative "../../../lib/pe_client/resources/base_with_port"
 RSpec.describe PEClient::Resource::BaseWithPort do
   let(:api_key) { "test_api_key" }
   let(:base_url) { "https://puppet.example.com:8143" }
-  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url) }
+  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
 
   # Create a test class that uses BaseWithPort
   before(:all) do

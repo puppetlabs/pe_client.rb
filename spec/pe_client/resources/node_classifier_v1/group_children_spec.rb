@@ -6,7 +6,7 @@ require_relative "../../../../lib/pe_client/resources/node_classifier.v1/group_c
 RSpec.describe PEClient::Resource::NodeClassifierV1::GroupChildren do
   let(:api_key) { "test_api_key" }
   let(:base_url) { "https://puppet.example.com:4433" }
-  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url) }
+  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
   let(:group_id) { "00000000-0000-4000-8000-000000000000" }
 

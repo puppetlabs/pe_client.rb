@@ -5,7 +5,7 @@ require_relative "../../../lib/pe_client/resources/rbac.v2"
 RSpec.describe PEClient::Resource::RBACV2 do
   let(:api_key) { "test_api_key" }
   let(:base_url) { "https://puppet.example.com:8143" }
-  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url) }
+  let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
 
   describe "#users" do
