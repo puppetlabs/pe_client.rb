@@ -33,7 +33,7 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Environments do
         )
 
       response = resource.get("production")
-      expect(response).to eq([{ "name" => "production" }])
+      expect(response).to eq([{"name" => "production"}])
     end
   end
 

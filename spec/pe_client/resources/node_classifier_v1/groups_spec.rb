@@ -72,7 +72,7 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Groups do
           body: '{"name":"Updated Name"}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.update(group_id, {"name" => "Updated Name"})
       expect(response).to eq({})

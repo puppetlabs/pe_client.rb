@@ -1,0 +1,28 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      BASE_PATH: String
+      PORT: Integer
+
+      def get: () -> Hash[String, untyped]
+      def usage: (?start_date: String?, ?end_date: String?, ?events: String?) -> Hash[String, untyped]
+
+      @command: OrchestratorV1::Command
+      def command: () -> OrchestratorV1::Command
+      @inventory: OrchestratorV1::Inventory
+      def inventory: () -> OrchestratorV1::Inventory
+      @jobs: OrchestratorV1::Jobs
+      def jobs: () -> OrchestratorV1::Jobs
+      @scheduled_jobs: OrchestratorV1::ScheduledJobs
+      def scheduled_jobs: () -> OrchestratorV1::ScheduledJobs
+      @plans: OrchestratorV1::Plans
+      def plans: () -> OrchestratorV1::Plans
+      @plan_jobs: OrchestratorV1::PlanJobs
+      def plan_jobs: () -> OrchestratorV1::PlanJobs
+      @tasks: OrchestratorV1::Tasks
+      def tasks: () -> OrchestratorV1::Tasks
+      @scopes: OrchestratorV1::Scopes
+      def scopes: () -> OrchestratorV1::Scopes
+    end
+  end
+end

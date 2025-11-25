@@ -65,7 +65,7 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
           body: '{"login":"ldap-group","role_ids":[],"identity_provider_id":"uuid-123","display_name":"Test Group"}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.create(
         login: "ldap-group",
@@ -86,7 +86,7 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
           body: attributes.to_json,
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.edit(group_sid, attributes)
       expect(response).to eq({})

@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class Tasks < Base
+        BASE_PATH: String
+
+        def get: (?module_name: String?, ?task_name: String?, ?environment: String?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

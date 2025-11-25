@@ -43,7 +43,7 @@ RSpec.describe PEClient::Resource::RBACV1::LDAP do
           body: ldap_config.to_json,
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.update(ldap_config)
       expect(response).to eq({})

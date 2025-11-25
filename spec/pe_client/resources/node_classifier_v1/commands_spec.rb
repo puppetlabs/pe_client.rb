@@ -16,7 +16,7 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Commands do
           body: '{"nodes":["node1.example.com","node2.example.com"]}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.unpin_from_all(["node1.example.com", "node2.example.com"])
       expect(response).to eq({})

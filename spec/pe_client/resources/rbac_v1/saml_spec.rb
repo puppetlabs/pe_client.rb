@@ -21,7 +21,7 @@ RSpec.describe PEClient::Resource::RBACV1::SAML do
           body: saml_config.to_json,
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.configure(saml_config)
       expect(response).to eq({})
