@@ -29,7 +29,7 @@ module PEClient
         # Retrieve a list of node groups descending from a specific node group,
         #
         # @param id [String]
-        # @param depth [Integer, nil] optional depth parameter to limit how many levels of descendants are returned.
+        # @param depth [Integer] optional depth parameter to limit how many levels of descendants are returned.
         #   For example, depth: 2 limits the response to the group's immediate children and first grandchildren.
         #   If depth: 0 the response only returns the base group and no children or grandchildren.
         #

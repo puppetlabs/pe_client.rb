@@ -56,7 +56,7 @@ module PEClient
         # Check whether a password is valid.
         #
         # @param password [String] A password string to validate for compliance with password format and complexity requirements.
-        # @param reset_token [String, nil] You can provide a password reset token to identify the user for password validation.
+        # @param reset_token [String] You can provide a password reset token to identify the user for password validation.
         #   You can get password reset tokens from the {#generate_reset_token} method.
         #
         # @return [Hash]

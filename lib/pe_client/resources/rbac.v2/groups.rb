@@ -36,10 +36,10 @@ module PEClient
         #   This could be an LDAP login or a SAML identifier for the group.
         # @param role_ids [Array<String>] An array of role IDs defining the roles that you want to assign to users in this group.
         #   An empty array might be valid, but users can't do anything in PE if they are not assigned to any roles.
-        # @param display_name [String, nil] Specify a name for the group as you want it to appear in the PE console.
+        # @param display_name [String] Specify a name for the group as you want it to appear in the PE console.
         #   If the group you're creating originates from an LDAP group, the LDAP group's Display name setting overrides this parameter.
-        # @param identity_provider_id [String, nil] Specify the UUID of an identity provider (SAML or LDAP) to bind to the group.
-        # @param validate [Boolean, nil] Specifying whether you want to validate if the group exists on the LDAP server prior to creating it.
+        # @param identity_provider_id [String] Specify the UUID of an identity provider (SAML or LDAP) to bind to the group.
+        # @param validate [Boolean] Specifying whether you want to validate if the group exists on the LDAP server prior to creating it.
         #   The default is true.
         #   Set this to false if you don't want to validate the group's existence in LDAP.
         #

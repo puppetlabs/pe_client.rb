@@ -28,7 +28,7 @@ module PEClient
 
         # Retrieves one or more groups.
         #
-        # @param id [String, nil]
+        # @param id [String]
         #
         # @return [Hash, Array<Hash>]
         def get(id = nil)
@@ -43,19 +43,19 @@ module PEClient
         #
         # @param name [String] The name of the node group.
         # @param parent [String] The ID of the node group's parent.
-        # @param id [String, nil]
-        # @param environment [String, nil] The name of the node group's environment.
+        # @param id [String]
+        # @param environment [String] The name of the node group's environment.
         #   This is optional.
         #   If omitted, the default value is production.
-        # @param environment_trumps [Boolean, nil] When a node belongs to two or more groups, this Boolean indicates whether this node group's environment overrides environments defined by other node groups.
+        # @param environment_trumps [Boolean] When a node belongs to two or more groups, this Boolean indicates whether this node group's environment overrides environments defined by other node groups.
         #   This is optional.
         #   If omitted, the default value is false.
-        # @param description [String, nil] Describing the node group.
+        # @param description [String] Describing the node group.
         #   This is optional.
         #   If omitted, the node group has no description.
-        # @param rule [String, nil] The condition that must be satisfied for a node to be classified into this node group.
+        # @param rule [String] The condition that must be satisfied for a node to be classified into this node group.
         #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/2025.6/topics/forming_node_classifier_requests.htm].
-        # @param variables [Hash{Symbol, String => String}, nil] An optional object that defines the names and values of any top-level variables set by the node group.
+        # @param variables [Hash{Symbol, String => String}] An optional object that defines the names and values of any top-level variables set by the node group.
         #   Supply key-value pairs of variable names and corresponding variable values.
         #   Variable values can be any type of JSON value.
         #   The variables object can be omitted if the node group does not define any top-level variables.
@@ -66,7 +66,7 @@ module PEClient
         #   Within the nested objects, the keys are the parameter names (as strings), and each value is the parameter's assigned value (which can be any type of JSON value).
         #   If no classes are declared, then classes must be supplied as an empty object ({}).
         #   If missing, the server returns a 400 Bad request response.
-        # @param config_data [Hash{Symbol, String => Any}, nil] An optional object that defines the class parameters to be used by nodes in the group.
+        # @param config_data [Hash{Symbol, String => Any}] An optional object that defines the class parameters to be used by nodes in the group.
         #   Its structure is the same as the classes object.
         #   No configuration data is stored if you supply a config_data object that only contains a class name, such as `"config_data" => {"qux" => {}}`.
         #

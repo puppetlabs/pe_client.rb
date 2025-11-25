@@ -28,11 +28,11 @@ module PEClient
 
         # Retrieve check-in history for all nodes or a specific node that have checked in with the node classifier.
         #
-        # @param node [String, nil] The name of a specific node to retrieve check-in history for.
+        # @param node [String] The name of a specific node to retrieve check-in history for.
         #   If nil, retrieves check-in history for all nodes.
-        # @param limit [Integer, nil] The maximum number of check-in records to retrieve.
+        # @param limit [Integer] The maximum number of check-in records to retrieve.
         #   Cannot be used with the `node` parameter.
-        # @param offset [Integer, nil] The number of check-in records to skip before starting to return results.
+        # @param offset [Integer] The number of check-in records to skip before starting to return results.
         #   Cannot be used with the `node` parameter.
         #
         # @return [Hash]

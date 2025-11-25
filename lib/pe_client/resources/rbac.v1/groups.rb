@@ -34,7 +34,7 @@ module PEClient
         # Fetch information about all user groups.
         # if a SID is provided, fetch information about that specific group.
         #
-        # @param sid [String, nil] The Subject ID of the group. If nil, retrieves all groups.
+        # @param sid [String] The Subject ID of the group. If nil, retrieves all groups.
         #
         # @return [Hash]
         def get(sid = nil)
@@ -48,7 +48,7 @@ module PEClient
         # @param role_ids [Array<String>] An array of IDs defining the roles that you want to assign to users in this group.
         #   Roles grant permissions to group members.
         # @param identity_provider_id [String] Specify the UUID of an identity provider to bind to the group.
-        # @param display_name [String, nil] Specify a name for the group that is visible in the PE console.
+        # @param display_name [String] Specify a name for the group that is visible in the PE console.
         #   If this group originates from an LDAP group, this value is determined by the group's Display name setting in LDAP.
         #
         # @return [Hash]

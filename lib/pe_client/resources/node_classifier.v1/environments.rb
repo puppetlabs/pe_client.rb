@@ -30,7 +30,7 @@ module PEClient
         # Retrieve a list of all environments the node classifier knows about at the time of the request.
         # Or Retrieve information about a specific environment.
         #
-        # @param name [String, nil] The name of the environment to retrieve.
+        # @param name [String] The name of the environment to retrieve.
         #   If nil, retrieves all environments.
         #
         # @return [Array<Hash>]
@@ -54,7 +54,7 @@ module PEClient
         # Retrieve a list of all classes (that the node classifier knows about) or a specific class in a specific environment.
         #
         # @param environment [String]
-        # @param name [String, nil] The name of the class to retrieve.
+        # @param name [String] The name of the class to retrieve.
         #   If nil, retrieves all classes in the environment.
         #
         # @return [Hash]

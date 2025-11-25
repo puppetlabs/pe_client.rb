@@ -33,7 +33,7 @@ module PEClient
         # Get a list of all local and remote users.
         # If a user SID is provided, get details for that specific user.
         #
-        # @param sid [String, nil] The Subject ID of the user. If nil, retrieves all users.
+        # @param sid [String] The Subject ID of the user. If nil, retrieves all users.
         #
         # @return [Hash]
         def get(sid = nil)
@@ -51,14 +51,14 @@ module PEClient
         # Get a list of tokens for a user.
         #
         # @param sid [String] The Subject ID of the user.
-        # @param limit [Integer, nil] An integer specifying the maximum number of records to return.
+        # @param limit [Integer] An integer specifying the maximum number of records to return.
         #   If omitted, all records are returned.
-        # @param offset [Integer, nil] Specify a zero-indexed integer to specify the index value of the first record to return.
+        # @param offset [Integer] Specify a zero-indexed integer to specify the index value of the first record to return.
         #   If omitted, the default is position 0 (the first record). For example, offset=5 would start from the 6th record.
-        # @param order_by [String, nil] Specify one of the following strings to define the order in which records are returned:
+        # @param order_by [String] Specify one of the following strings to define the order in which records are returned:
         #   "creation_date", "expiration_date", "last_active_date", "client"
         #   If omitted, the default is "creation_date".
-        # @param order [String, nil] Determines the sort order as either ascending (asc) or descending (desc).
+        # @param order [String] Determines the sort order as either ascending (asc) or descending (desc).
         #   If omitted, the default is asc.
         #
         # @return [Hash]
@@ -73,7 +73,7 @@ module PEClient
         # @param login [String] The username for the user to use to login.
         # @param role_ids [Array<String>] An array of role IDs defining the roles that you want to assign to the new user.
         #   An empty array is valid, but the user can't do anything in PE if they are not assigned to any roles.
-        # @param password [String, nil] A password the user can use to login.
+        # @param password [String] A password the user can use to login.
         #   For the password to work in the PE console, it must be at least six characters.
         #   This field is optional, however user accounts are not usable until a password is set.
         #   You can also use the Passwords endpoints to generate a password reset token the user can use to login for the first time.

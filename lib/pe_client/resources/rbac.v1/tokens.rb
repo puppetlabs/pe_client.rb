@@ -28,9 +28,9 @@ module PEClient
         #
         # @param login [String]
         # @param password [String]
-        # @param lifetime [String, nil] The duration that the token is valid for.
+        # @param lifetime [String] The duration that the token is valid for.
         #   This is a string that consists of a number followed by a unit, such as "1h" for one hour or "30m" for thirty minutes.
-        # @param label [String, nil] A label to identify the token.
+        # @param label [String] A label to identify the token.
         #
         # @return [Hash]
         #

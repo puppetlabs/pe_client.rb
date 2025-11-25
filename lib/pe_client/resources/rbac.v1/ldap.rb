@@ -100,7 +100,7 @@ module PEClient
         #
         # @deprecated Use {#test} instead.
         #
-        # @param attributes [Hash, nil] The attributes for the new LDAP connection.
+        # @param attributes [Hash] The attributes for the new LDAP connection.
         #
         # @return [Hash]
         #
@@ -119,7 +119,7 @@ module PEClient
         #
         # @deprecated Use {#create}, {#update}, {#delete} instead.
         #
-        # @param attributes [Hash, nil] The attributes for the new LDAP connection.
+        # @param attributes [Hash] The attributes for the new LDAP connection.
         #
         # @return [Hash]
         #

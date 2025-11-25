@@ -30,10 +30,10 @@ module PEClient
         # Retrieve a specific node's classification information based on facts supplied in the body of your request.
         #
         # @param name [String]
-        # @param fact [Hash{Symbol, String => Any}, nil] Containing regular, non-trusted facts associated with the node.
+        # @param fact [Hash{Symbol, String => Any}] Containing regular, non-trusted facts associated with the node.
         #   The object contains key/value pairs of fact names and fact values.
         #   Fact values can be strings, Integers, Booleans, Arrays, or Hashes.
-        # @param trusted [Hash{Symbol, String => Any}, nil] Containing trusted facts associated with the node.
+        # @param trusted [Hash{Symbol, String => Any}] Containing trusted facts associated with the node.
         #   The object contains key/value pairs of fact names and fact values.
         #   Fact values can be Strings, Integers, Booleans, Arrays, or Hashes.
         #
@@ -45,10 +45,10 @@ module PEClient
         # Retrieve a detailed explanation about how a node is classified based on facts supplied in the body of your request.
         #
         # @param name [String]
-        # @param fact [Hash{Symbol, String => Any}, nil] Containing regular, non-trusted facts associated with the node.
+        # @param fact [Hash{Symbol, String => Any}] Containing regular, non-trusted facts associated with the node.
         #   The object contains key/value pairs of fact names and fact values.
         #   Fact values can be strings, Integers, Booleans, Arrays, or Hashes.
-        # @param trusted [Hash{Symbol, String => Any}, nil] Containing trusted facts associated with the node.
+        # @param trusted [Hash{Symbol, String => Any}] Containing trusted facts associated with the node.
         #   The object contains key/value pairs of fact names and fact values.
         #   Fact values can be Strings, Integers, Booleans, Arrays, or Hashes.
         #

@@ -89,7 +89,7 @@ module PEClient
     # HTTP DELETE request
     #
     # @param path [String] API endpoint path
-    # @param body [Hash, nil] Request body
+    # @param body [Hash] Request body
     # @param headers [Hash]
     #
     # @return [Hash, Array] Parsed JSON response

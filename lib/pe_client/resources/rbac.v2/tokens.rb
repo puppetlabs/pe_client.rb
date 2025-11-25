@@ -29,7 +29,7 @@ module PEClient
 
         # Use this endpoint to revoke one or more authentication tokens, ensuring the tokens can no longer be used with RBAC to access PE services.
         #
-        # @param token [String, nil] The authentication token to use for authorization.
+        # @param token [String] The authentication token to use for authorization.
         #   Cannot be used with other parameters.
         # @param revoke_tokens [Array<String>] Supply a list of complete authentication tokens you want to revoke.
         #   Any user can revoke any token by supplying the complete token in this parameter.

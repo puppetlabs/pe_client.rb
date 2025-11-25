@@ -33,7 +33,7 @@ module PEClient
 
         # Fetches information about all user roles.
         #
-        # @param rid [String, nil] The Role ID of the group. If nil, retrieves all groups.
+        # @param rid [String] The Role ID of the group. If nil, retrieves all groups.
         #
         # @return [Hash]
         def get(rid = nil)
@@ -52,7 +52,7 @@ module PEClient
         #   You do not need to repeat any users who are part of a group mentioned in group_ids.
         #   Required, but can be empty. An empty array means the role is not assigned to any individual users
         # @param display_name [String] A string naming the role.
-        # @param description [String, nil] A string describing the role's purpose.
+        # @param description [String] A string describing the role's purpose.
         #
         # @return [Hash]
         def create(permissions:, group_ids:, user_ids:, display_name:, description: nil)

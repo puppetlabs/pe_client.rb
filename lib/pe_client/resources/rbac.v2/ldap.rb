@@ -28,7 +28,7 @@ module PEClient
 
         # Get details of configured LDAP connections.
         #
-        # @param uuid [String, nil] LDAP connection ID.
+        # @param uuid [String] LDAP connection ID.
         #
         # @return [Array<Hash>, Hash]
         def get(uuid: nil)

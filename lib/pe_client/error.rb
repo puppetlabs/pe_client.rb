@@ -25,7 +25,7 @@ module PEClient
     attr_reader :response
 
     # @param response [Faraday::Response] The HTTP response that caused the error.
-    # @param message [String, nil] An optional custom error message.
+    # @param message [String] An optional custom error message.
     def initialize(response, message = nil)
       @response = response
       super(message || "HTTP #{@response.status} Error: #{@response.body}")

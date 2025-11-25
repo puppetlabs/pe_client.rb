@@ -28,7 +28,7 @@ module PEClient
 
         # Translate a node group rule condition into PuppetDB query syntax.
         #
-        # @param format [String, nil] Optional format parameter to change the response format.
+        # @param format [String] Optional format parameter to change the response format.
         #   The default value is "nodes".
         #   If you specify format: "inventory", the response returns classifier rules in a compatible dot notation format, instead of the PuppetDB AST format.
         #

@@ -29,7 +29,7 @@ module PEClient
         # Trigger the node classifier to retrieve updated class and environment definitions from the primary server.
         # The classifier service also uses this endpoint when you refresh classes in the console.
         #
-        # @param environment [String, nil]
+        # @param environment [String]
         #
         # @return [Hash] If the request is successful, the response body is empty.
         def update(environment: nil)
