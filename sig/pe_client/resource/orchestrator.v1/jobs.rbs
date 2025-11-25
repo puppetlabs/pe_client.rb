@@ -1,0 +1,15 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class Jobs < Base
+        BASE_PATH: String
+
+        def get: (?job_id: String?) -> Hash[String, untyped]
+               | (?limit: Integer?, ?offset: Integer?, ?order_by: String?, ?order: String?, ?type: String?, ?task: String?, ?min_finish_timestamp: String?, ?max_finish_timestamp: String?) -> Hash[String, untyped]
+        def nodes: (String, ?limit: Integer?, ?offset: Integer?, ?order_by: String?, ?order: String?, ?state: String?) -> Hash[String, untyped]
+        def report: (String) -> Hash[String, untyped]
+        def events: (String, ?start: Integer?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

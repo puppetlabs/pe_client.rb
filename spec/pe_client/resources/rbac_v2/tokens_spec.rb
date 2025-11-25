@@ -91,7 +91,7 @@ RSpec.describe PEClient::Resource::RBACV2::Tokens do
           body: '{"token":"test-token","update_last_activity?":true}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.authenticate("test-token", update_last_activity: true)
       expect(response).to eq({})

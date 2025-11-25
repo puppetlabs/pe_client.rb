@@ -1,0 +1,27 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class Command < Base
+        BASE_PATH: String
+
+        def deploy: (environment: String, ?scope: Hash[Symbol | String, untyped]?, ?concurrency: Integer?, ?debug: bool?,
+            ?description: String?, ?enforce_environment: bool?, ?evaltrace: bool?, ?filetimeout: Integer?,
+            ?http_connect_timeout: Integer?, ?http_keepalive_timeout: Integer?, ?http_read_timeout: Integer?,
+            ?noop: bool?, ?no_noop: bool?, ?ordering: String?, ?skip_tags: String?, ?tags: String?,
+            ?timeout: Integer?, ?trace: bool?, ?use_cached_catalog: bool?, ?usecacheonfailure: bool?,
+            ?userdata: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+        def stop: (job: String, ?force: bool?) -> Hash[String, untyped]
+        def stop_plan: (plan_job: String) -> Hash[String, untyped]
+        def task: (environment: String, scope: Hash[Symbol | String, untyped], params: Hash[Symbol | String, untyped],
+            targets: Array[Hash[Symbol | String, untyped]], task: String, ?timeout: Integer?, ?description: String?,
+            ?noop: bool?, ?userdata: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+        def task_target: (display_name: String, ?tasks: Array[String]?, ?all_tasks: bool?, ?nodes: Array[String],
+            ?node_groups: Array[String], ?pql_query: String?) -> Hash[String, untyped]
+        def plan_run: (plan_name: String, ?params: Hash[Symbol | String, untyped]?, ?environment: String?, ?description: String?,
+            ?timeout: Integer?, ?userdata: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+        def environment_plan_run: (plan_name: String, params: Hash[Symbol | String, untyped], ?environment: String?, ?description: String?,
+            ?timeout: Integer?, ?userdata: Hash[Symbol | String, untyped]?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

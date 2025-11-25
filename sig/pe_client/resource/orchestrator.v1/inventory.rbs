@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class Inventory < Base
+        BASE_PATH: String
+
+        def get: (?String?) -> Hash[String, untyped]
+        def get_multiple: (Array[String]) -> Hash[String, untyped]
+      end
+    end
+  end
+end

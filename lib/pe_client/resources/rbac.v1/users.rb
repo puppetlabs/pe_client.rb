@@ -63,7 +63,7 @@ module PEClient
         #
         # @return [Hash]
         def tokens(sid, limit: nil, offset: nil, order_by: nil, order: nil)
-          @client.get "#{BASE_PATH}/#{sid}/tokens"
+          @client.get "#{BASE_PATH}/#{sid}/tokens", params: {limit:, offset:, order_by:, order:}.compact
         end
 
         # Create a local user

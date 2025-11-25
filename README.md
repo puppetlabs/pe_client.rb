@@ -57,7 +57,7 @@ rescue PEClient::Error => e
 end
 ```
 
-See [Puppet Enterprise API documentation](https://help.puppet.com/pe/2025.6/topics/api_index.html) for details on available endpoints and data models.
+See [Puppet Enterprise API documentation](https://help.puppet.com/pe/2025.6/topics/api_index.htm) for details on available endpoints and data models.
 
 ## Development
 

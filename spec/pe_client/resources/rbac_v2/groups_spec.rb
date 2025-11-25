@@ -32,7 +32,7 @@ RSpec.describe PEClient::Resource::RBACV2::Groups do
           body: '{"login":"ldap-group","role_ids":[],"display_name":"Test Group","identity_provider_id":"uuid-123","validate":false}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.create(
         login: "ldap-group",

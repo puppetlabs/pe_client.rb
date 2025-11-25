@@ -32,7 +32,7 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Classification do
           body: '{"fact":{"os":"linux"},"trusted":{"certname":"node1.example.com"}}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.get("node1.example.com", fact: {"os" => "linux"}, trusted: {"certname" => "node1.example.com"})
       expect(response).to eq({})

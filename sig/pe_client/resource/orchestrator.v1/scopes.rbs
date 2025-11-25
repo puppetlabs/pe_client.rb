@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class Scopes < Base
+        BASE_PATH: String
+
+        def get: (?task_target_id: String?) -> Hash[String, untyped]
+      end
+    end
+  end
+end

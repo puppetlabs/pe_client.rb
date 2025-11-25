@@ -32,7 +32,7 @@ RSpec.describe PEClient::Resource::RBACV1::Passwords do
           body: '{"token":"reset-token-123","password":"newpassword"}',
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.reset("reset-token-123", "newpassword")
       expect(response).to eq({})

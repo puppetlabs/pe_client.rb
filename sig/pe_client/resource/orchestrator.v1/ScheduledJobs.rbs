@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class OrchestratorV1
+      class ScheduledJobs < Base
+        BASE_PATH: String
+
+        def get: (?job_id: String?) -> Hash[String, untyped]
+               | (?limit: Integer?, ?offset: Integer?, ?order_by: String?, ?order: String?, ?type: String?) -> Hash[String, untyped]
+        def create: (type: String, input: Hash[Symbol | String, untyped], environment: String, schedule: Hash[Symbol | String, untyped], ?description: String?, ?userdata: Hash[Symbol | String, untyped]) -> Hash[String, untyped]
+      end
+    end
+  end
+end

@@ -33,7 +33,7 @@ RSpec.describe PEClient::Resource::RBACV1::Permissions do
         )
         .to_return(
           status: 200,
-          body: '[true]',
+          body: "[true]",
           headers: {"Content-Type" => "application/json"}
         )
 

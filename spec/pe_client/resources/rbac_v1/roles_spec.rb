@@ -66,7 +66,7 @@ RSpec.describe PEClient::Resource::RBACV1::Roles do
           body: hash_including("description" => "Test role", "permissions" => ["aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"]),
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.create(
         permissions: ["aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee"],
@@ -88,7 +88,7 @@ RSpec.describe PEClient::Resource::RBACV1::Roles do
           body: attributes.to_json,
           headers: {"X-Authentication" => api_key}
         )
-        .to_return(status: 200, body: '{}', headers: {"Content-Type" => "application/json"})
+        .to_return(status: 200, body: "{}", headers: {"Content-Type" => "application/json"})
 
       response = resource.edit(role_id, attributes)
       expect(response).to eq({})
