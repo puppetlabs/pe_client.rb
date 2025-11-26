@@ -4,15 +4,19 @@
 require "bundler/setup"
 require "pe_client"
 
-# You can add fixtures and/or initialization code here to make experimenting
-# with your gem easier. You can also use a different console, if you like.
-
 if ENV["PE_CLIENT_BASE_URL"]
   @client = PEClient::Client.new(
     base_url: ENV["PE_CLIENT_BASE_URL"],
     api_key: ENV["PE_CLIENT_API_KEY"],
     ca_file: ENV["PE_CLIENT_CA_FILE"],
-  )
+  ) do |conn|
+    # Disable SSL verification if no CA file is provided
+    # NOT RECOMMENDED FOR PRODUCTION USE
+    conn.ssl[:verify] = !ENV["PE_CLIENT_CA_FILE"].nil?
+  end
+
+  puts "PEClient defined as `@client`."
+  puts "\e[33mWarning: SSL verification is disabled.\e[0m" if ENV["PE_CLIENT_CA_FILE"].nil?
 end
 
 require "irb"

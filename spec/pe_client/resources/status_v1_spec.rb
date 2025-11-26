@@ -234,12 +234,12 @@ RSpec.describe PEClient::Resource::StatusV1 do
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
-            body: '{"status": "running"}',
+            body: '"running"',
             headers: {"Content-Type" => "application/json"}
           )
 
         result = resource.console_simple
-        expect(result).to eq({"status" => "running"})
+        expect(result).to eq("running")
       end
     end
 
@@ -266,12 +266,12 @@ RSpec.describe PEClient::Resource::StatusV1 do
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
-            body: '{"status": "running"}',
+            body: '"running"',
             headers: {"Content-Type" => "application/json"}
           )
 
         result = resource.puppet_server_simple
-        expect(result).to eq({"status" => "running"})
+        expect(result).to eq("running")
       end
     end
 
@@ -298,12 +298,12 @@ RSpec.describe PEClient::Resource::StatusV1 do
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
-            body: '{"status": "running"}',
+            body: '"running"',
             headers: {"Content-Type" => "application/json"}
           )
 
         result = resource.orchestrator_simple
-        expect(result).to eq({"status" => "running"})
+        expect(result).to eq("running")
       end
     end
 
@@ -330,12 +330,12 @@ RSpec.describe PEClient::Resource::StatusV1 do
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
-            body: '{"status": "running"}',
+            body: '"running"',
             headers: {"Content-Type" => "application/json"}
           )
 
         result = resource.puppetdb_simple
-        expect(result).to eq({"status" => "running"})
+        expect(result).to eq("running")
       end
     end
 

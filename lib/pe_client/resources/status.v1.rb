@@ -95,7 +95,7 @@ module PEClient
       #   The status service plaintext endpoints are intended for load balancers that don't support JSON parsing or parameter setting.
       #   These endpoints return simple string bodies (either the service's state or a simple error message) and a relevant status code.
       #
-      #   @return [Hash]
+      #   @return [String]
 
       # @macro simple_endpoint
       #
@@ -111,10 +111,10 @@ module PEClient
       # @macro simple_endpoint
       #
       # @param service_name [String] The name of the service to retrieve information for.
-      #  Available services include:
-      #    - "broker-service" (compilers only)
-      #    - "code-manager-service"
-      #    - "server" (Puppet Server)
+      #   Available services include:
+      #     - "broker-service" (compilers only)
+      #     - "code-manager-service"
+      #     - "server" (Puppet Server)
       def puppet_server_simple(service_name: nil)
         simple :puppet_server, service_name:
       end
@@ -189,7 +189,7 @@ module PEClient
       # @param category [Symbol] The type of service.
       # @param service_name [String]
       #
-      # @return [Hash]
+      # @return [String]
       def simple(category, service_name: nil)
         if service_name
           client(category).get "#{BASE_PATH}/simple/#{service_name}"

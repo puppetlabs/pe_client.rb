@@ -7,10 +7,10 @@ module PEClient
     @provisioning_block: (^(Faraday::Connection) -> void)?
     def initialize: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> void
     def deep_dup: () -> Client
-    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, untyped], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
-    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
-    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
-    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?headers: Hash[String | Symbol, untyped]) -> (Hash[String, untyped] | Array[untyped])
+    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, untyped], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
+    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
+    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
+    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?headers: Hash[String | Symbol, untyped]) -> (Hash[String, untyped] | Array[untyped] | String)
 
     # Resources
     @node_inventory_v1: Resource::NodeInventoryV1
@@ -29,6 +29,6 @@ module PEClient
     def status_v1: -> Resource::StatusV1
 
     # Private methods
-    def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped])
+    def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped] | String)
   end
 end

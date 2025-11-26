@@ -11,17 +11,17 @@ module PEClient
       def puppet_server_services: (?service_name: String?, ?level: String?, ?timeout: Integer?) -> Hash[String, untyped]
       def orchestrator_services: (?service_name: String?, ?level: String?, ?timeout: Integer?) -> Hash[String, untyped]
       def puppetdb_services: (?service_name: String?, ?level: String?, ?timeout: Integer?) -> Hash[String, untyped]
-      def console_simple: (?service_name: String?) -> (Hash[String, untyped] | String)
-      def puppet_server_simple: (?service_name: String?) -> (Hash[String, untyped] | String)
-      def orchestrator_simple: (?service_name: String?) -> (Hash[String, untyped] | String)
-      def puppetdb_simple: (?service_name: String?) -> (Hash[String, untyped] | String)
+      def console_simple: (?service_name: String?) -> String
+      def puppet_server_simple: (?service_name: String?) -> String
+      def orchestrator_simple: (?service_name: String?) -> String
+      def puppetdb_simple: (?service_name: String?) -> String
       def pe_jruby_metrics: (?level: String?) -> Hash[String, untyped]
       def pe_master: (?level: String?) -> Hash[String, untyped]
       def pe_puppet_profiler: (?level: String?) -> Hash[String, untyped]
 
       # Private methods
       def services: (Symbol, ?service_name: String?, ?level: String?, ?timeout: Integer?) -> Hash[String, untyped]
-      def simple: (Symbol, ?service_name: String?) -> (Hash[String, untyped] | String)
+      def simple: (Symbol, ?service_name: String?) -> String
       @console_services_client: Client
       @puppet_server_client: Client
       @orchestrator_client: Client
