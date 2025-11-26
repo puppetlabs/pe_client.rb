@@ -35,4 +35,13 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "faraday", "~> 2.14"
+
+  spec.add_development_dependency "irb"
+  spec.add_development_dependency "rake", "~> 13.3"
+  spec.add_development_dependency "rbs", "~> 3.9"
+  spec.add_development_dependency "rspec", "~> 3.13"
+  spec.add_development_dependency "rspec-github", "~> 3.0"
+  spec.add_development_dependency "standard", "~> 1.52"
+  spec.add_development_dependency "webmock", "~> 3.26"
+  spec.add_development_dependency "yard-lint", "~> 1.2"
 end

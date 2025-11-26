@@ -27,18 +27,32 @@ jobs:
         with:
           ruby-version: ${{ matrix.ruby }}
           bundler-cache: true
-      - name: Run the default task
-        run: bundle exec rspec
+      - name: Run RSpec
+        run: bundle exec rspec --format RSpec::Github::Formatter
+  standardrb-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.4'
+          bundler-cache: true
+      - name: Run StandardRB
+        run: bundle exec standardrb
   yard-lint:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
+          persist-credentials: false
           fetch-depth: 0  # Need full history for --diff
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.4'
           bundler-cache: true
-      - name: Run YARD-Lint on changed files
+      - name: Run YARD-Lint
         run: bundle exec yard-lint lib/

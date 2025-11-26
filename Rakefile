@@ -7,4 +7,8 @@ RSpec::Core::RakeTask.new(:spec)
 
 require "standard/rake"
 
-task default: %i[spec standard]
+task :yard_lint do
+  sh "yard-lint ."
+end
+
+task default: %i[spec standard yard_lint]
