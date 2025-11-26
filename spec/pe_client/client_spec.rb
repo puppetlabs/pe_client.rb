@@ -306,5 +306,18 @@ RSpec.describe PEClient::Client do
         expect(resource1).to equal(resource2)
       end
     end
+
+    describe "#status_v1" do
+      it "returns a StatusV1 resource" do
+        resource = client.status_v1
+        expect(resource).to be_a(PEClient::Resource::StatusV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.status_v1
+        resource2 = client.status_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
   end
 end

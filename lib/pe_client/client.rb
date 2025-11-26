@@ -35,6 +35,7 @@ module PEClient
     def initialize(api_key:, base_url:, ca_file:, &block)
       @api_key = api_key
       @base_url = base_url.is_a?(URI) ? base_url : URI.parse(base_url)
+      @provisioning_block = block
 
       @connection = Faraday.new(url: base_url) do |conn|
         conn.request :json
@@ -47,6 +48,18 @@ module PEClient
 
         conn.adapter Faraday.default_adapter
       end
+    end
+
+    # Create a deep duplicate of the client
+    #
+    # @return [PEClient::Client]
+    def deep_dup
+      self.class.new(
+        api_key: @api_key.dup,
+        base_url: @base_url.dup,
+        ca_file: @connection.ssl[:ca_file].dup,
+        &@provisioning_block
+      )
     end
 
     # HTTP GET request
@@ -138,6 +151,12 @@ module PEClient
     def code_manager_v1
       require_relative "resources/code_manager.v1"
       @code_manager_v1 ||= Resource::CodeManagerV1.new(self)
+    end
+
+    # @return [Resource::StatusV1]
+    def status_v1
+      require_relative "resources/status.v1"
+      @status_v1 ||= Resource::StatusV1.new(self)
     end
 
     private

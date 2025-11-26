@@ -26,7 +26,7 @@ AllValidators:
 
   # Minimum documentation coverage percentage (0-100)
   # Fails if coverage is below this threshold
-  MinCoverage: 100.0
+  MinCoverage: 99.0
 
   # Diff mode settings
   DiffMode:

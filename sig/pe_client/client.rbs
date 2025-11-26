@@ -4,7 +4,9 @@ module PEClient
     attr_reader base_url: URI
     attr_reader connection: Faraday::Connection
 
+    @provisioning_block: (^(Faraday::Connection) -> void)?
     def initialize: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> void
+    def deep_dup: () -> Client
     def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, untyped], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
     def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
     def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped])
@@ -23,6 +25,8 @@ module PEClient
     def orchestrator_v1: -> Resource::OrchestratorV1
     @code_manager_v1: Resource::CodeManagerV1
     def code_manager_v1: -> Resource::CodeManagerV1
+    @status_v1: Resource::StatusV1
+    def status_v1: -> Resource::StatusV1
 
     # Private methods
     def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped])

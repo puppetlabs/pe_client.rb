@@ -23,14 +23,10 @@ module PEClient
       # @param client [PEClient::Client]
       # @param port [Integer] Port number for the service
       def initialize(client, port: self.class::PORT)
-        @client = client.dup
+        @client = client.deep_dup
 
-        base_url = @client.base_url.dup
-        base_url.port = port
-
-        @client.instance_variable_set(:@base_url, base_url)
-        @client.instance_variable_set(:@connection, client.connection.dup)
-        @client.connection.url_prefix = base_url
+        @client.base_url.port = port
+        @client.connection.url_prefix = @client.base_url
       end
     end
   end
