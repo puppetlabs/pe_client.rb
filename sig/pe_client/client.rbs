@@ -19,6 +19,8 @@ module PEClient
     def rbac_v2: () -> Resource::RBACV2
     @node_classifier_v1: Resource::NodeClassifierV1
     def node_classifier_v1: -> Resource::NodeClassifierV1
+    @orchestrator_v1: Resource::OrchestratorV1
+    def orchestrator_v1: -> Resource::OrchestratorV1
 
     # Private methods
     def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped])

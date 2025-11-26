@@ -13,6 +13,7 @@ Currently implemented endpoints:
 - Node Inventory v1
 - Node Classifier v1
 - RBAC v1 and v2
+- Orchestrator v1
 
 ## Installation
 Install the gem and add to the application's Gemfile by executing:

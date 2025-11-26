@@ -1,6 +1,6 @@
 module PEClient
   module Resource
-    class OrchestratorV1
+    class OrchestratorV1 < BaseWithPort
       BASE_PATH: String
       PORT: Integer
 

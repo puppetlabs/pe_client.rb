@@ -128,6 +128,12 @@ module PEClient
       @node_classifier_v1 ||= Resource::NodeClassifierV1.new(self)
     end
 
+    # @return [Resource::OrchestratorV1]
+    def orchestrator_v1
+      require_relative "resources/orchestrator.v1"
+      @orchestrator_v1 ||= Resource::OrchestratorV1.new(self)
+    end
+
     private
 
     # Handle HTTP response
