@@ -134,6 +134,12 @@ module PEClient
       @orchestrator_v1 ||= Resource::OrchestratorV1.new(self)
     end
 
+    # @return [Resource::CodeManagerV1]
+    def code_manager_v1
+      require_relative "resources/code_manager.v1"
+      @code_manager_v1 ||= Resource::CodeManagerV1.new(self)
+    end
+
     private
 
     # Handle HTTP response

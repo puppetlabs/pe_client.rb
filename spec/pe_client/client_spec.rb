@@ -122,6 +122,14 @@ RSpec.describe PEClient::Client do
 
       expect { client.get("/test/path") }.to raise_error(PEClient::HTTPError)
     end
+
+    it "handles 204 No Content" do
+      stub_request(:get, "#{base_url}/test/path")
+        .to_return(status: 204, body: "", headers: {})
+
+      response = client.get("/test/path")
+      expect(response).to eq({})
+    end
   end
 
   describe "#post" do
@@ -206,6 +214,18 @@ RSpec.describe PEClient::Client do
       response = client.delete("/test/path", headers: {"Custom-Header" => "value"})
       expect(response).to eq({"result" => "deleted"})
     end
+
+    it "makes a DELETE request with body" do
+      stub_request(:delete, "#{base_url}/test/path")
+        .with(
+          body: '{"key":"value"}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"result": "deleted"}', headers: {"Content-Type" => "application/json"})
+
+      response = client.delete("/test/path", body: {key: "value"})
+      expect(response).to eq({"result" => "deleted"})
+    end
   end
 
   describe "resource methods" do
@@ -215,7 +235,7 @@ RSpec.describe PEClient::Client do
         expect(resource).to be_a(PEClient::Resource::NodeInventoryV1)
       end
 
-      it "memoizes the resource" do
+      it "memorizes the resource" do
         resource1 = client.node_inventory_v1
         resource2 = client.node_inventory_v1
         expect(resource1).to equal(resource2)
@@ -228,7 +248,7 @@ RSpec.describe PEClient::Client do
         expect(resource).to be_a(PEClient::Resource::RBACV1)
       end
 
-      it "memoizes the resource" do
+      it "memorizes the resource" do
         resource1 = client.rbac_v1
         resource2 = client.rbac_v1
         expect(resource1).to equal(resource2)
@@ -241,7 +261,7 @@ RSpec.describe PEClient::Client do
         expect(resource).to be_a(PEClient::Resource::RBACV2)
       end
 
-      it "memoizes the resource" do
+      it "memorizes the resource" do
         resource1 = client.rbac_v2
         resource2 = client.rbac_v2
         expect(resource1).to equal(resource2)
@@ -254,9 +274,35 @@ RSpec.describe PEClient::Client do
         expect(resource).to be_a(PEClient::Resource::NodeClassifierV1)
       end
 
-      it "memoizes the resource" do
+      it "memorizes the resource" do
         resource1 = client.node_classifier_v1
         resource2 = client.node_classifier_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#orchestrator_v1" do
+      it "returns an OrchestratorV1 resource" do
+        resource = client.orchestrator_v1
+        expect(resource).to be_a(PEClient::Resource::OrchestratorV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.orchestrator_v1
+        resource2 = client.orchestrator_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#code_manager_v1" do
+      it "returns a CodeManagerV1 resource" do
+        resource = client.code_manager_v1
+        expect(resource).to be_a(PEClient::Resource::CodeManagerV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.code_manager_v1
+        resource2 = client.code_manager_v1
         expect(resource1).to equal(resource2)
       end
     end

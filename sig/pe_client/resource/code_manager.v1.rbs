@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class CodeManagerV1 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def deploys: (deploy_all: true, ?environments: nil, ?deploy_modules: bool?, ?modules: Array[String]?, ?wait: bool?, ?dry_run: bool?) -> Array[Hash[String, untyped]]
+                 | (?deploy_all: false?, environments: Array[String], ?deploy_modules: bool?, ?modules: Array[String]?, ?wait: bool?, ?dry_run: bool?) -> Array[Hash[String, untyped]]
+      def webhook: (type: String, ?prefix: String?, ?token: String?) -> Hash[String, untyped]
+      def status: (?id: Integer?) -> Hash[String, untyped]
+    end
+  end
+end
