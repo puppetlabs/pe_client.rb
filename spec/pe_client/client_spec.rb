@@ -38,6 +38,45 @@ RSpec.describe PEClient::Client do
     end
   end
 
+  describe "#deep_dup" do
+    it "creates a deep duplicate of the client" do
+      client = described_class.new(api_key: api_key, base_url: base_url, ca_file: "/path/to/ca.pem")
+
+      duplicate = client.deep_dup
+      expect(duplicate).to be_a(PEClient::Client)
+      expect(duplicate.object_id).not_to equal(client.object_id)
+      expect(duplicate.api_key.object_id).not_to eq(client.api_key.object_id)
+      expect(duplicate.base_url.object_id).not_to eq(client.base_url.object_id)
+      expect(duplicate.connection.ssl[:ca_file].object_id).not_to eq(client.connection.ssl[:ca_file].object_id)
+    end
+
+    # Some API endpoints don't require an api_key
+    it "handles nil api_key in deep_dup" do
+      client_with_nil_api_key = described_class.new(api_key: nil, base_url: base_url, ca_file: nil)
+      duplicate = client_with_nil_api_key.deep_dup
+      expect(duplicate.api_key).to eq(nil)
+    end
+
+    # While ca_file = nil is not recommended in production, we test it here to ensure
+    # that the deep_dup method handles nil values without raising errors.
+    it "handles nil ca_file in deep_dup" do
+      duplicate = client.deep_dup
+      expect(duplicate.connection.ssl[:ca_file]).to eq(nil)
+    end
+
+    it "preserves the provisioning block" do
+      block_called = false
+      provisioning_block = proc { |conn| block_called = true }
+
+      client = described_class.new(api_key: api_key, base_url: base_url, ca_file: nil, &provisioning_block)
+      expect(block_called).to be true
+      block_called = false
+
+      client.deep_dup
+      expect(block_called).to be true
+    end
+  end
+
   describe "#get" do
     it "makes a GET request" do
       stub_request(:get, "#{base_url}/test/path")
@@ -303,6 +342,19 @@ RSpec.describe PEClient::Client do
       it "memorizes the resource" do
         resource1 = client.code_manager_v1
         resource2 = client.code_manager_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#status_v1" do
+      it "returns a StatusV1 resource" do
+        resource = client.status_v1
+        expect(resource).to be_a(PEClient::Resource::StatusV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.status_v1
+        resource2 = client.status_v1
         expect(resource1).to equal(resource2)
       end
     end
