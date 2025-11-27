@@ -159,6 +159,18 @@ module PEClient
       @status_v1 ||= Resource::StatusV1.new(self)
     end
 
+    # @return [Resource::ActivityV1]
+    def activity_v1
+      require_relative "resources/activity.v1"
+      @activity_v1 ||= Resource::ActivityV1.new(self)
+    end
+
+    # @return [Resource::ActivityV2]
+    def activity_v2
+      require_relative "resources/activity.v2"
+      @activity_v2 ||= Resource::ActivityV2.new(self)
+    end
+
     private
 
     # Handle HTTP response
