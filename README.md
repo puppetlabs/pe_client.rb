@@ -17,6 +17,7 @@ Currently implemented endpoints:
 - Code Manager v1
 - Status v1
 - Activity v1 and v2
+- Metrics v1 and v2
 
 ## Installation
 Install the gem and add to the application's Gemfile by executing:
