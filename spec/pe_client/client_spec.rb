@@ -358,5 +358,31 @@ RSpec.describe PEClient::Client do
         expect(resource1).to equal(resource2)
       end
     end
+
+    describe "#activity_v1" do
+      it "returns an ActivityV1 resource" do
+        resource = client.activity_v1
+        expect(resource).to be_a(PEClient::Resource::ActivityV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.activity_v1
+        resource2 = client.activity_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#activity_v2" do
+      it "returns an ActivityV2 resource" do
+        resource = client.activity_v2
+        expect(resource).to be_a(PEClient::Resource::ActivityV2)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.activity_v2
+        resource2 = client.activity_v2
+        expect(resource1).to equal(resource2)
+      end
+    end
   end
 end

@@ -1,0 +1,10 @@
+module PEClient
+  module Resource
+    class ActivityV2 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def events: (?service_id: String?, ?offset: Integer?, ?order: String?, ?limit: Integer?, ?query: Array[Hash[Symbol | String, String]]?) -> Hash[String, untyped]
+    end
+  end
+end
