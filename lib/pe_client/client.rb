@@ -171,6 +171,18 @@ module PEClient
       @activity_v2 ||= Resource::ActivityV2.new(self)
     end
 
+    # @return [Resource::MetricsV1]
+    def metrics_v1
+      require_relative "resources/metrics.v1"
+      @metrics_v1 ||= Resource::MetricsV1.new(self)
+    end
+
+    # @return [Resource::MetricsV2]
+    def metrics_v2
+      require_relative "resources/metrics.v2"
+      @metrics_v2 ||= Resource::MetricsV2.new(self)
+    end
+
     private
 
     # Handle HTTP response

@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class MetricsV2 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def list: () -> Hash[String, untyped]
+      def read: (mbean_names: String, attributes: String, ?inner_path_filter: String?) -> Hash[String, untyped]
+      def complex_read: (Hash[Symbol | String, untyped] | Array[Hash[Symbol | String, untyped]]) -> Hash[String, untyped]
+    end
+  end
+end

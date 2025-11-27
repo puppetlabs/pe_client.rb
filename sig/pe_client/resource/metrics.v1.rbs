@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class MetricsV1 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def mbeans: () -> Hash[String, untyped]
+      def get: (String) -> Hash[String, untyped]
+             | (Array[String]) -> Array[Hash[String, untyped]]
+    end
+  end
+end

@@ -31,6 +31,10 @@ module PEClient
     def activity_v1: -> Resource::ActivityV1
     @activity_v2: Resource::ActivityV2
     def activity_v2: -> Resource::ActivityV2
+    @metrics_v1: Resource::MetricsV1
+    def metrics_v1: -> Resource::MetricsV1
+    @metrics_v2: Resource::MetricsV2
+    def metrics_v2: -> Resource::MetricsV2
 
     # Private methods
     def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped] | String)

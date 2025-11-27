@@ -384,5 +384,31 @@ RSpec.describe PEClient::Client do
         expect(resource1).to equal(resource2)
       end
     end
+
+    describe "#metrics_v1" do
+      it "returns a MetricsV1 resource" do
+        resource = client.metrics_v1
+        expect(resource).to be_a(PEClient::Resource::MetricsV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.metrics_v1
+        resource2 = client.metrics_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
+
+    describe "#metrics_v2" do
+      it "returns a MetricsV2 resource" do
+        resource = client.metrics_v2
+        expect(resource).to be_a(PEClient::Resource::MetricsV2)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.metrics_v2
+        resource2 = client.metrics_v2
+        expect(resource1).to equal(resource2)
+      end
+    end
   end
 end
