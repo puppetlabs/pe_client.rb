@@ -22,7 +22,7 @@ module PEClient
     #
     # @see https://help.puppet.com/pe/2025.6/topics/metrics-api-v2.htm
     class MetricsV2 < BaseWithPort
-      # The base path for Metrics API v1 endpoints.
+      # The base path for Metrics API v2 endpoints.
       BASE_PATH = "/metrics/v2"
 
       # Default Metrics v2 API Port

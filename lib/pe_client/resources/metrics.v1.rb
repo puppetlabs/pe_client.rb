@@ -32,7 +32,7 @@ module PEClient
 
       # Lists available MBeans.
       #
-      # return [Hash]
+      # @return [Hash]
       def mbeans
         @client.get "#{BASE_PATH}/mbeans"
       end
