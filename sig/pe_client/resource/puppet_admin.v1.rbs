@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class PuppetAdminV1 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def environment_cache: (?environment: String?) -> Hash[String, untyped]
+      def jruby_pool: () -> Hash[String, untyped]
+      def jruby_thread_dump: () -> Hash[String, untyped]
+    end
+  end
+end

@@ -103,17 +103,18 @@ module PEClient
     #
     # @param path [String] API endpoint path
     # @param body [Hash] Request body
+    # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
     # @return [Hash, Array] Parsed JSON response
-    def delete(path, body: nil, headers: {})
+    def delete(path, body: nil, params: {}, headers: {})
       if body
-        response = connection.delete(path, nil, headers) do |req|
+        response = connection.delete(path, params, headers) do |req|
           req.body = body
         end
         handle_response response
       else
-        handle_response connection.delete(path, nil, headers)
+        handle_response connection.delete(path, params, headers)
       end
     end
 
@@ -181,6 +182,12 @@ module PEClient
     def metrics_v2
       require_relative "resources/metrics.v2"
       @metrics_v2 ||= Resource::MetricsV2.new(self)
+    end
+
+    # @return [Resource::PuppetAdminV1]
+    def puppet_admin_v1
+      require_relative "resources/puppet_admin.v1"
+      @puppet_admin_v1 ||= Resource::PuppetAdminV1.new(self)
     end
 
     private
