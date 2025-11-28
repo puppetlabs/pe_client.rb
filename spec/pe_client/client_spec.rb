@@ -410,5 +410,18 @@ RSpec.describe PEClient::Client do
         expect(resource1).to equal(resource2)
       end
     end
+
+    describe "#puppet_admin_v1" do
+      it "returns a PuppetAdminV1 resource" do
+        resource = client.puppet_admin_v1
+        expect(resource).to be_a(PEClient::Resource::PuppetAdminV1)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.puppet_admin_v1
+        resource2 = client.puppet_admin_v1
+        expect(resource1).to equal(resource2)
+      end
+    end
   end
 end

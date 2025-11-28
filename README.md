@@ -18,6 +18,7 @@ Currently implemented endpoints:
 - Status v1
 - Activity v1 and v2
 - Metrics v1 and v2
+- Puppet Admin v1
 
 ## Installation
 Install the gem and add to the application's Gemfile by executing:
