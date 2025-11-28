@@ -8,9 +8,8 @@ on:
         default: "main"
 
 jobs:
-  jobs:
-    release:
-      uses: "puppetlabs/cat-github-actions/.github/workflows/gem_release.yml@main"
-      with:
-        target: "${{ github.event.inputs.target }}"
-      secrets: "inherit"
+  release:
+    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_release.yml@main"
+    with:
+      target: "${{ github.event.inputs.target }}"
+    secrets: "inherit"
