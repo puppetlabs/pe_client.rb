@@ -27,7 +27,7 @@ module PEClient
       # The base path for Puppet Admin API v1 endpoints.
       BASE_PATH = "/puppet-admin-api/v1"
 
-      # Default Activity API Port
+      # Default Puppet Admin API Port
       PORT = 8140
 
       # When using directory environments, Puppet Server caches the data it loads from disk for each environment.
