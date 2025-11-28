@@ -10,7 +10,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
 
   describe "#connections" do
     it "queries all connections with default parameters" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/query/connections")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/query/connections")
         .with(
           body: "{}",
           headers: {"X-Authentication" => api_key}
@@ -22,7 +22,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "includes certnames when provided" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/query/connections")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/query/connections")
         .with(
           body: '{"certnames":["node1.example.com","node2.example.com"]}',
           headers: {"X-Authentication" => api_key}
@@ -34,7 +34,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "includes sensitive parameter when true" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/query/connections")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/query/connections")
         .with(
           body: '{"sensitive":true}',
           headers: {"X-Authentication" => api_key}
@@ -46,7 +46,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "includes extract parameter when provided" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/query/connections")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/query/connections")
         .with(
           body: '{"extract":["type","parameters"]}',
           headers: {"X-Authentication" => api_key}
@@ -60,7 +60,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
 
   describe "#create_connections" do
     it "creates a new connection with required parameters" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/command/create-connection")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/command/create-connection")
         .with(
           body: '{"certnames":["node1.example.com"],"type":"ssh","parameters":{},"sensitive_parameters":{},"duplicates":"error"}',
           headers: {"X-Authentication" => api_key}
@@ -75,7 +75,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "includes parameters when provided" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/command/create-connection")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/command/create-connection")
         .with(
           body: hash_including("parameters" => {"port" => 22}),
           headers: {"X-Authentication" => api_key}
@@ -91,7 +91,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "includes sensitive_parameters when provided" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/command/create-connection")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/command/create-connection")
         .with(
           body: hash_including("sensitive_parameters" => {"password" => "secret"}),
           headers: {"X-Authentication" => api_key}
@@ -107,7 +107,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
     end
 
     it "accepts replace for duplicates parameter" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/command/create-connection")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/command/create-connection")
         .with(
           body: hash_including("duplicates" => "replace"),
           headers: {"X-Authentication" => api_key}
@@ -125,7 +125,7 @@ RSpec.describe PEClient::Resource::NodeInventoryV1 do
 
   describe "#delete_connections" do
     it "deletes connections for specified certnames" do
-      stub_request(:post, "https://puppet.example.com:8143/node-inventory/v1/command/delete-connection")
+      stub_request(:post, "https://puppet.example.com:8143/inventory/v1/command/delete-connection")
         .with(
           body: '{"certnames":["node1.example.com","node2.example.com"]}',
           headers: {"X-Authentication" => api_key}

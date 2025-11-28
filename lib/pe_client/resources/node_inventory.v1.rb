@@ -23,7 +23,7 @@ module PEClient
     # @see https://help.puppet.com/pe/2025.6/topics/node_inventory_api.htm
     class NodeInventoryV1 < BaseWithPort
       # Base path for the Node Inventory API v1
-      BASE_PATH = "/node-inventory/v1"
+      BASE_PATH = "/inventory/v1"
 
       # Default Node Inventory API Port
       PORT = 8143
