@@ -4,12 +4,12 @@ PEClient is a Ruby client library for interacting with Puppet Enterprise (PE) AP
 It provides convenient access to PE's HTTP APIs.
 
 > [!NOTE]
-> This gem is a work in progress and may not cover all PE API endpoints.
-> The specification for this gem focuses on PE 2025.6 and Puppet Core 8.16 APIs.
+> This gem may not cover all Puppet API endpoints.
+> The specification for this gem focuses on PE 2025.6, Puppet Core 8.16 and newer APIs.
 > If you use different versions of PE or Puppet Core, some endpoints may not be available or may behave differently.
 
 ## Features
-Currently implemented endpoints:
+Supported endpoints:
 - Node Inventory v1
 - Node Classifier v1
 - RBAC v1 and v2
@@ -24,14 +24,13 @@ Currently implemented endpoints:
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add pe_client --git https://github.com/puppetlabs/pe_client.rb
+bundle add pe_client
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install specific_install
-gem specific_install https://github.com/puppetlabs/pe_client.rb
+gem install pe_client
 ```
 
 ## Usage
