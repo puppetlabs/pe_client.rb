@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "../../../lib/pe_client/resources/puppet_server.v3"
+require_relative "../../../lib/pe_client/resources/puppet.v3.v3"
 
 RSpec.describe PEClient::Resource::PuppetServerV3 do
   let(:api_key) { "test_api_key" }

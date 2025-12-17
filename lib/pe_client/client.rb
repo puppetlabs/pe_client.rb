@@ -68,7 +68,7 @@ module PEClient
     # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
-    # @return [Hash, Array] Parsed JSON response
+    # @return Parsed JSON response
     def get(path, params: {}, headers: {})
       handle_response connection.get(path, params, headers)
     end
@@ -80,7 +80,7 @@ module PEClient
     # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
-    # @return [Hash, Array] Parsed JSON response
+    # @return Parsed JSON response
     def post(path, body: {}, params: {}, headers: {})
       path = "#{path}?#{URI.encode_www_form(params)}" unless params.empty?
       handle_response connection.post(path, body, headers)
@@ -93,7 +93,7 @@ module PEClient
     # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
-    # @return [Hash, Array] Parsed JSON response
+    # @return Parsed JSON response
     def put(path, body: {}, params: {}, headers: {})
       path = "#{path}?#{URI.encode_www_form(params)}" unless params.empty?
       handle_response connection.put(path, body, headers)
@@ -106,7 +106,7 @@ module PEClient
     # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
-    # @return [Hash, Array] Parsed JSON response
+    # @return Parsed JSON response
     def delete(path, body: nil, params: {}, headers: {})
       if body
         response = connection.delete(path, params, headers) do |req|
@@ -115,6 +115,25 @@ module PEClient
         handle_response response
       else
         handle_response connection.delete(path, params, headers)
+      end
+    end
+
+    # HTTP HEAD request
+    #
+    # @param path [String] API endpoint path
+    # @param body [Hash] Request body
+    # @param params [Hash] Query parameters
+    # @param headers [Hash]
+    #
+    # @return [Hash] HTTP Headers
+    def head(path, body: nil, params: {}, headers: {})
+      if body
+        response = connection.head(path, params, headers) do |req|
+          req.body = body
+        end
+        handle_response response, headers_only: true
+      else
+        handle_response connection.head(path, params, headers), headers_only: true
       end
     end
 
@@ -190,10 +209,10 @@ module PEClient
       @puppet_admin_v1 ||= Resource::PuppetAdminV1.new(self)
     end
 
-    # @return [Resource::PuppetServerV3]
-    def puppet_server_v3
-      require_relative "resources/puppet_server.v3"
-      @puppet_server_v3 ||= Resource::PuppetServerV3.new(self)
+    # @return [Resource::PuppetV3]
+    def puppet_v3
+      require_relative "resources/puppet.v3"
+      @puppet_v3 ||= Resource::PuppetV3.new(self)
     end
 
     private
@@ -201,17 +220,18 @@ module PEClient
     # Handle HTTP response
     #
     # @param response [Faraday::Response] HTTP response
+    # @param headers_only [Boolean] Whether to return only headers
     #
-    # @return [Hash, Array] Parsed JSON response
+    # @return Parsed JSON response, headers, or location
     #
     # @raise [PEClient::HTTPError] Raises specific errors based on status code
-    def handle_response(response)
+    def handle_response(response, headers_only: false)
       case response.status
       when 204 # No Content
-        {}
+        headers_only ? response.headers : {}
       when 200..299
-        response.body
-      when 303
+        headers_only ? response.headers : response.body
+      when 303 # See Other
         {"location" => response.headers["Location"]}
       when 400
         raise BadRequestError, response

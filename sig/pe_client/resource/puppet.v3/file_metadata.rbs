@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class PuppetV3
+      class FileMetadata < Base
+        BASE_PATH: String
+        SEARCH_BASE_PATH: String
+
+        def find: (mount: String, file_path: String, environment: String, ?links: String?, ?checksum_type: String?, ?source_permissions: String?) -> Hash[String, untyped]
+        def search: (file_path: String, environment: String, ?recurse: String?, ?ignore: Array[String]?, ?links: String?, ?checksum_type: String?, ?source_permissions: String?) -> Array[Hash[String, untyped]]
+      end
+    end
+  end
+end

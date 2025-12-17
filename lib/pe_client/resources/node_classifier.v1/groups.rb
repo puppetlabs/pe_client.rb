@@ -82,7 +82,7 @@ module PEClient
             variables:,
             classes:,
             config_data:
-          }.compact!
+          }.compact
 
           if id
             @client.put "#{BASE_PATH}/#{id}", body:
