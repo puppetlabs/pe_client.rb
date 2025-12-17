@@ -39,7 +39,7 @@ RSpec.describe PEClient::Resource::ActivityV1 do
       end
 
       it "includes subject_id parameter when subject_type is provided" do
-        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&subject_type=user&subject_id[]=user123&subject_id[]=user456")
+        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&subject_type=user&subject_id=user123&subject_id=user456")
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
@@ -67,7 +67,7 @@ RSpec.describe PEClient::Resource::ActivityV1 do
       end
 
       it "includes object_id parameter when object_type is provided" do
-        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&object_type=role&object_id[]=role1&object_id[]=role2")
+        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&object_type=role&object_id=role1&object_id=role2")
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
@@ -165,7 +165,7 @@ RSpec.describe PEClient::Resource::ActivityV1 do
 
     context "when combining multiple filters" do
       it "includes all filter parameters" do
-        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&subject_type=user&subject_id[]=user123&object_type=role&object_id[]=role1&offset=0&order=desc&limit=1000&after_service_commit_time=2025-11-01T00:00:00Z")
+        stub_request(:get, "https://puppet.example.com:4433/activity-api/v1/events?service_id=rbac&subject_type=user&subject_id=user123&object_type=role&object_id=role1&offset=0&order=desc&limit=1000&after_service_commit_time=2025-11-01T00:00:00Z")
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,

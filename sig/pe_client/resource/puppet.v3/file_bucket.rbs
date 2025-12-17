@@ -1,0 +1,16 @@
+module PEClient
+  module Resource
+    class PuppetV3
+      class FileBucket < Base
+        BASE_PATH: String
+        HEADERS: Hash[Symbol | String, String]
+
+        def get: (md5: String, environment: String, ?filename: String?) -> String
+        def head: (md5: String, environment: String, ?filename: String?) -> Hash[String, untyped]
+        def save: (md5: String, file: String, environment: String, ?filename: String?) -> String
+
+        def path: (String, ?String?) -> String
+      end
+    end
+  end
+end

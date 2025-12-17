@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "../../../lib/pe_client/resources/puppet_server.v3"
+require_relative "../../../lib/pe_client/resources/puppet.v3"
 
-RSpec.describe PEClient::Resource::PuppetServerV3 do
+RSpec.describe PEClient::Resource::PuppetV3 do
   let(:api_key) { "test_api_key" }
-  let(:base_url) { "https://puppet.example.com:8143" }
+  let(:base_url) { "https://puppet.example.com:8140" }
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
 
@@ -272,6 +272,175 @@ RSpec.describe PEClient::Resource::PuppetServerV3 do
       result = resource.static_file_content(file_path: "modules/apache/files/conf.d/ssl.conf")
       expect(result).to be_a(String)
       expect(result).to include("SSLEngine on")
+    end
+  end
+
+  describe "#catalog" do
+    it "retrieves catalog for a node" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/catalog/node1.example.com?environment=production")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '{"name":"node1.example.com","version":"1234567890","environment":"production","resources":[]}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.catalog(node_name: "node1.example.com", environment: "production")
+      expect(result).to be_a(Hash)
+      expect(result["name"]).to eq("node1.example.com")
+      expect(result["environment"]).to eq("production")
+      expect(result["resources"]).to be_an(Array)
+    end
+
+    it "retrieves catalog without environment parameter" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/catalog/node1.example.com")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '{"name":"node1.example.com","version":"1234567890","resources":[]}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.catalog(node_name: "node1.example.com")
+      expect(result).to be_a(Hash)
+      expect(result["name"]).to eq("node1.example.com")
+    end
+  end
+
+  describe "#node" do
+    it "retrieves node information" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/node/node1.example.com?environment=production")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '{"name":"node1.example.com","environment":"production","parameters":{"facts":{"os":"linux"}}}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.node(certname: "node1.example.com", environment: "production")
+      expect(result).to be_a(Hash)
+      expect(result["name"]).to eq("node1.example.com")
+      expect(result["environment"]).to eq("production")
+    end
+
+    it "includes transaction_uuid and configured_environment" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/node/node1.example.com?environment=production&transaction_uuid=abc-123&configured_environment=development")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '{"name":"node1.example.com","environment":"production"}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.node(
+        certname: "node1.example.com",
+        environment: "production",
+        transaction_uuid: "abc-123",
+        configured_environment: "development"
+      )
+      expect(result).to be_a(Hash)
+    end
+  end
+
+  describe "#facts" do
+    it "submits facts for a node" do
+      facts_data = {"os" => "linux", "memory" => "16GB"}
+
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/facts/node1.example.com?environment=production")
+        .with(
+          body: facts_data.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '{"name":"node1.example.com"}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.facts(node_name: "node1.example.com", facts: facts_data, environment: "production")
+      expect(result).to be_a(Hash)
+      expect(result["name"]).to eq("node1.example.com")
+    end
+  end
+
+  describe "#file_content" do
+    it "retrieves file content from modules mount point" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/modules/apache/httpd.conf?Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: "ServerRoot /etc/httpd\n",
+          headers: {"Content-Type" => "application/octet-stream"}
+        )
+
+      result = resource.file_content(mount_point: "modules/apache", name: "httpd.conf")
+      expect(result).to be_a(String)
+      expect(result).to include("ServerRoot")
+    end
+
+    it "retrieves file content from plugins mount point" do
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/plugins/mylib.rb?Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: "module MyLib\nend\n",
+          headers: {"Content-Type" => "application/octet-stream"}
+        )
+
+      result = resource.file_content(mount_point: "plugins", name: "mylib.rb")
+      expect(result).to be_a(String)
+      expect(result).to include("module MyLib")
+    end
+  end
+
+  describe "#report" do
+    it "submits a report for a node" do
+      report_data = {
+        "host" => "node1.example.com",
+        "time" => "2025-12-17T10:00:00Z",
+        "status" => "changed"
+      }
+
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/report/node1.example.com?environment=production")
+        .with(
+          body: report_data,
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '{"status":"received"}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      result = resource.report(node_name: "node1.example.com", environment: "production", report: report_data)
+      expect(result).to be_a(Hash)
+      expect(result["status"]).to eq("received")
+    end
+  end
+
+  describe "#file_bucket" do
+    it "returns a FileBucket resource" do
+      file_bucket = resource.file_bucket
+      expect(file_bucket).to be_a(PEClient::Resource::PuppetV3::FileBucket)
+    end
+
+    it "memorizes the resource" do
+      file_bucket1 = resource.file_bucket
+      file_bucket2 = resource.file_bucket
+      expect(file_bucket1).to equal(file_bucket2)
+    end
+  end
+
+  describe "#file_metadata" do
+    it "returns a FileMetadata resource" do
+      file_metadata = resource.file_metadata
+      expect(file_metadata).to be_a(PEClient::Resource::PuppetV3::FileMetadata)
+    end
+
+    it "memorizes the resource" do
+      file_metadata1 = resource.file_metadata
+      file_metadata2 = resource.file_metadata
+      expect(file_metadata1).to equal(file_metadata2)
     end
   end
 

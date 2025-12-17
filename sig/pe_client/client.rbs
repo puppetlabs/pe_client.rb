@@ -7,10 +7,11 @@ module PEClient
     @provisioning_block: (^(Faraday::Connection) -> void)?
     def initialize: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> void
     def deep_dup: () -> Client
-    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
-    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
-    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> (Hash[String, untyped] | Array[untyped] | String)
-    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, untyped]) -> (Hash[String, untyped] | Array[untyped] | String)
+    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def head: (String, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
 
     # Resources
     @node_inventory_v1: Resource::NodeInventoryV1
@@ -37,10 +38,10 @@ module PEClient
     def metrics_v2: -> Resource::MetricsV2
     @puppet_admin_v1: Resource::PuppetAdminV1
     def puppet_admin_v1: -> Resource::PuppetAdminV1
-    @puppet_server_v3: Resource::PuppetServerV3
-    def puppet_server_v3: -> Resource::PuppetServerV3
+    @puppet_v3: Resource::PuppetV3
+    def puppet_v3: -> Resource::PuppetV3
 
     # Private methods
-    def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped] | String)
+    def handle_response: (Faraday::Response, ?headers_only: bool) -> untyped
   end
 end

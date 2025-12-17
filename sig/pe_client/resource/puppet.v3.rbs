@@ -1,0 +1,23 @@
+module PEClient
+  module Resource
+    class PuppetV3 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def file_metadata: () -> PuppetV3::FileMetadata
+      def catalog: (node_name: String, ?environment: String?) -> Hash[String, untyped]
+      def node: (certname: String, ?environment: String?, ?transaction_uuid: String?, ?configured_environment: String?) -> Hash[String, untyped]
+      def facts: (node_name: String, facts: Hash[String, untyped], ?environment: String?) -> Hash[String, untyped]
+      def file_content: (mount_point: String, name: String) -> String
+      def report: (node_name: String, environment: String, report: Hash[String, untyped]) -> Hash[String, untyped]
+      def environment_classes: (environment: String) -> Hash[String, untyped]
+      def environment_modules: (?environment: nil) -> Array[Hash[String, untyped]]
+                             | (environment: String) -> Hash[String, untyped]
+      def static_file_content: (file_path: String) -> String
+
+      @file_bucket: PuppetV3::FileBucket
+      def file_bucket: () -> PuppetV3::FileBucket
+      @file_metadata: PuppetV3::FileMetadata
+    end
+  end
+end
