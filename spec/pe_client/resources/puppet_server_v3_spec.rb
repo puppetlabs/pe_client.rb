@@ -128,7 +128,7 @@ RSpec.describe PEClient::Resource::PuppetServerV3 do
           .with(headers: {"X-Authentication" => api_key})
           .to_return(
             status: 200,
-            body: '[]',
+            body: "[]",
             headers: {"Content-Type" => "application/json"}
           )
 
@@ -298,4 +298,3 @@ RSpec.describe PEClient::Resource::PuppetServerV3 do
     end
   end
 end
-
