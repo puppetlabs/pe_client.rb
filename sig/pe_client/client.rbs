@@ -37,6 +37,8 @@ module PEClient
     def metrics_v2: -> Resource::MetricsV2
     @puppet_admin_v1: Resource::PuppetAdminV1
     def puppet_admin_v1: -> Resource::PuppetAdminV1
+    @puppet_server_v3: Resource::PuppetServerV3
+    def puppet_server_v3: -> Resource::PuppetServerV3
 
     # Private methods
     def handle_response: (Faraday::Response) -> (Hash[String, untyped] | Array[untyped] | String)

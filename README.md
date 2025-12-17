@@ -19,6 +19,7 @@ Supported endpoints:
 - Activity v1 and v2
 - Metrics v1 and v2
 - Puppet Admin v1
+- Puppet Server v3
 
 ## Installation
 Install the gem and add to the application's Gemfile by executing:
