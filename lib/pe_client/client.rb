@@ -43,6 +43,7 @@ module PEClient
         conn.headers["User-Agent"] = "PEClient/#{PEClient::VERSION} Ruby/#{RUBY_VERSION}".freeze
         conn.headers["X-Authentication"] = @api_key
         conn.ssl[:ca_file] = ca_file
+        conn.options.params_encoder = Faraday::FlatParamsEncoder
 
         block&.call(conn)
 

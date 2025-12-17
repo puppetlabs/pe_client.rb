@@ -267,6 +267,58 @@ RSpec.describe PEClient::Client do
     end
   end
 
+  describe "#head" do
+    it "makes a HEAD request and returns headers" do
+      stub_request(:head, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, headers: {"Content-Type" => "application/json", "X-Custom" => "header-value"})
+
+      response = client.head("/test/path")
+      expect(response).to be_a(Hash)
+      expect(response["content-type"]).to eq("application/json")
+      expect(response["x-custom"]).to eq("header-value")
+    end
+
+    it "includes query parameters" do
+      stub_request(:head, "#{base_url}/test/path?foo=bar")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"})
+
+      response = client.head("/test/path", params: {foo: "bar"})
+      expect(response).to be_a(Hash)
+    end
+
+    it "includes custom headers" do
+      stub_request(:head, "#{base_url}/test/path")
+        .with(headers: {"X-Authentication" => api_key, "Custom-Header" => "value"})
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"})
+
+      response = client.head("/test/path", headers: {"Custom-Header" => "value"})
+      expect(response).to be_a(Hash)
+    end
+
+    it "makes a HEAD request with body" do
+      stub_request(:head, "#{base_url}/test/path")
+        .with(
+          body: '{"key":"value"}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, headers: {"Content-Type" => "application/json"})
+
+      response = client.head("/test/path", body: {key: "value"})
+      expect(response).to be_a(Hash)
+    end
+
+    it "handles 204 No Content and returns headers" do
+      stub_request(:head, "#{base_url}/test/path")
+        .to_return(status: 204, headers: {"X-Custom" => "value"})
+
+      response = client.head("/test/path")
+      expect(response).to be_a(Hash)
+      expect(response["x-custom"]).to eq("value")
+    end
+  end
+
   describe "resource methods" do
     describe "#node_inventory_v1" do
       it "returns a NodeInventoryV1 resource" do
@@ -424,15 +476,15 @@ RSpec.describe PEClient::Client do
       end
     end
 
-    describe "#puppet_server_v3" do
-      it "returns a PuppetServerV3 resource" do
-        resource = client.puppet_server_v3
-        expect(resource).to be_a(PEClient::Resource::PuppetServerV3)
+    describe "#puppet_v3" do
+      it "returns a PuppetV3 resource" do
+        resource = client.puppet_v3
+        expect(resource).to be_a(PEClient::Resource::PuppetV3)
       end
 
       it "memorizes the resource" do
-        resource1 = client.puppet_server_v3
-        resource2 = client.puppet_server_v3
+        resource1 = client.puppet_v3
+        resource2 = client.puppet_v3
         expect(resource1).to equal(resource2)
       end
     end
