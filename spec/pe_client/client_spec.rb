@@ -297,18 +297,6 @@ RSpec.describe PEClient::Client do
       expect(response).to be_a(Hash)
     end
 
-    it "makes a HEAD request with body" do
-      stub_request(:head, "#{base_url}/test/path")
-        .with(
-          body: '{"key":"value"}',
-          headers: {"X-Authentication" => api_key}
-        )
-        .to_return(status: 200, headers: {"Content-Type" => "application/json"})
-
-      response = client.head("/test/path", body: {key: "value"})
-      expect(response).to be_a(Hash)
-    end
-
     it "handles 204 No Content and returns headers" do
       stub_request(:head, "#{base_url}/test/path")
         .to_return(status: 204, headers: {"X-Custom" => "value"})

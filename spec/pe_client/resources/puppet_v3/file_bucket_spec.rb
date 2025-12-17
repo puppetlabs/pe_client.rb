@@ -5,7 +5,7 @@ require_relative "../../../../lib/pe_client/resources/puppet.v3/file_bucket"
 
 RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
   let(:api_key) { "test_api_key" }
-  let(:base_url) { "https://puppet.example.com:8143" }
+  let(:base_url) { "https://puppet.example.com:8140" }
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:puppet_v3) { PEClient::Resource::PuppetV3.new(client) }
   let(:resource) { puppet_v3.file_bucket }

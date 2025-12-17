@@ -7,10 +7,11 @@ module PEClient
     @provisioning_block: (^(Faraday::Connection) -> void)?
     def initialize: (api_key: String, base_url: String | URI, ca_file: String) ?{ (Faraday::Connection) -> void } -> void
     def deep_dup: () -> Client
-    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> untyped
-    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> untyped
-    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String]) -> untyped
-    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, untyped]) -> untyped
+    def get: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def post: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def head: (String, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
 
     # Resources
     @node_inventory_v1: Resource::NodeInventoryV1

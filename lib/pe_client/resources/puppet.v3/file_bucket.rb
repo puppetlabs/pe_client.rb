@@ -45,7 +45,7 @@ module PEClient
         end
 
         # Check if a file is present in the filebucket
-        # This behaves identically to {#find}, only returning headers.
+        # This behaves identically to {#get}, only returning headers.
         #
         # @param md5 [String] The MD5 checksum of the file.
         # @param environment [String] Required but ignored.

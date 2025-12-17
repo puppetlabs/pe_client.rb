@@ -122,20 +122,12 @@ module PEClient
     # HTTP HEAD request
     #
     # @param path [String] API endpoint path
-    # @param body [Hash] Request body
     # @param params [Hash] Query parameters
     # @param headers [Hash]
     #
     # @return [Hash] HTTP Headers
-    def head(path, body: nil, params: {}, headers: {})
-      if body
-        response = connection.head(path, params, headers) do |req|
-          req.body = body
-        end
-        handle_response response, headers_only: true
-      else
-        handle_response connection.head(path, params, headers), headers_only: true
-      end
+    def head(path, params: {}, headers: {})
+      handle_response connection.head(path, params, headers), headers_only: true
     end
 
     # @return [Resource::NodeInventoryV1]
