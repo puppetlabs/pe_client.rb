@@ -190,6 +190,12 @@ module PEClient
       @puppet_admin_v1 ||= Resource::PuppetAdminV1.new(self)
     end
 
+    # @return [Resource::PuppetServerV3]
+    def puppet_server_v3
+      require_relative "resources/puppet_server.v3"
+      @puppet_server_v3 ||= Resource::PuppetServerV3.new(self)
+    end
+
     private
 
     # Handle HTTP response

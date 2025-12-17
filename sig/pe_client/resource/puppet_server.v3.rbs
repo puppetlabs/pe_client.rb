@@ -1,0 +1,13 @@
+module PEClient
+  module Resource
+    class PuppetServerV3 < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      def environment_classes: (environment: String) -> Hash[String, untyped]
+      def environment_modules: (?environment: nil) -> Array[Hash[String, untyped]]
+                             | (environment: String) -> Hash[String, untyped]
+      def static_file_content: (file_path: String) -> String
+    end
+  end
+end

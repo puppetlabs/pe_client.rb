@@ -423,5 +423,18 @@ RSpec.describe PEClient::Client do
         expect(resource1).to equal(resource2)
       end
     end
+
+    describe "#puppet_server_v3" do
+      it "returns a PuppetServerV3 resource" do
+        resource = client.puppet_server_v3
+        expect(resource).to be_a(PEClient::Resource::PuppetServerV3)
+      end
+
+      it "memorizes the resource" do
+        resource1 = client.puppet_server_v3
+        resource2 = client.puppet_server_v3
+        expect(resource1).to equal(resource2)
+      end
+    end
   end
 end
