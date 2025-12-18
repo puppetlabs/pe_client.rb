@@ -36,6 +36,15 @@ RSpec.describe PEClient::Client do
       end
       expect(custom_client.connection.headers["Custom-Header"]).to eq("custom_value")
     end
+
+    it "allows configuring client certificate authentication" do
+      custom_client = described_class.new(api_key: api_key, base_url: base_url, ca_file: nil) do |conn|
+        conn.ssl[:client_cert] = "/path/to/client_cert.pem"
+        conn.ssl[:client_key] = "/path/to/client_key.pem"
+      end
+      expect(custom_client.connection.ssl[:client_cert]).to eq("/path/to/client_cert.pem")
+      expect(custom_client.connection.ssl[:client_key]).to eq("/path/to/client_key.pem")
+    end
   end
 
   describe "#deep_dup" do

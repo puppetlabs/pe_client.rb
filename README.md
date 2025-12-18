@@ -36,6 +36,8 @@ gem install pe_client
 
 ## Usage
 
+### Basic Usage with API Key
+
 ```ruby
 require "pe_client"
 
@@ -64,6 +66,22 @@ end
 ```
 
 See [Puppet Enterprise API documentation](https://help.puppet.com/pe/2025.6/topics/api_index.htm) for details on available endpoints and data models.
+
+### Client Certificate Authentication
+
+To use client certificate authentication with Faraday, pass a block to configure the SSL settings:
+
+```ruby
+require "pe_client"
+
+client = PEClient.new(
+  base_url: "https://your-pe-server.example.com",
+  ca_file: '/path/to/ca_crt.pem'
+) do |conn|
+  conn.ssl[:client_cert] = '/path/to/client_cert.pem'
+  conn.ssl[:client_key] = '/path/to/client_key.pem'
+end
+```
 
 ## Development
 
