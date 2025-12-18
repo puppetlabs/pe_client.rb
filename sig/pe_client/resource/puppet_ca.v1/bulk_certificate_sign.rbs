@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class PuppetCAV1
+      class BulkCertificateSign < Base
+        BASE_PATH: String
+
+        def sign: (Array[String]) -> Hash[String, untyped]
+        def sign_all: () -> Hash[String, untyped]
+      end
+    end
+  end
+end

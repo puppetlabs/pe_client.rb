@@ -1,0 +1,21 @@
+module PEClient
+  module Resource
+    class PuppetCAV1
+      BASE_PATH: String
+      PORT: Integer
+      HEADERS: Hash[Symbol, String]
+
+      def certificate: (String) -> String
+      def expirations: () -> String
+      def clean: (Array[String]) -> String
+      @certificate_request: PuppetCAV1::CertificateRequest
+      def certificate_request: () -> PuppetCAV1::CertificateRequest
+      @certificate_status: PuppetCAV1::CertificateStatus
+      def certificate_status: () -> PuppetCAV1::CertificateStatus
+      @certificate_revocation_list: PuppetCAV1::CertificateRevocationList
+      def certificate_revocation_list: () -> PuppetCAV1::CertificateRevocationList
+      @bulk_certificate_sign: PuppetCAV1::BulkCertificateSign
+      def bulk_certificate_sign: () -> PuppetCAV1::BulkCertificateSign
+    end
+  end
+end
