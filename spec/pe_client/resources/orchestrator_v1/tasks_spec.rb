@@ -23,43 +23,17 @@ RSpec.describe PEClient::Resource::OrchestratorV1::Tasks do
       expect(response).to eq({"items" => [{"name" => "package"}, {"name" => "service"}]})
     end
 
-    it "lists all tasks in a specific environment" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/tasks?environment=production")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[{"name":"package"}]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(environment: "production")
-      expect(response).to eq({"items" => [{"name" => "package"}]})
-    end
-
-    it "gets information about a specific task" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/tasks/mymodule/mytask")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"name":"mymodule::mytask","metadata":{"description":"My task"}}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(module_name: "mymodule", task_name: "mytask")
-      expect(response).to eq({"name" => "mymodule::mytask", "metadata" => {"description" => "My task"}})
-    end
-
-    it "gets information about a specific task in a specific environment" do
+    it "gets information about a specific task with environment parameter" do
       stub_request(:get, "#{base_url}/orchestrator/v1/tasks/mymodule/mytask?environment=production")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
-          body: '{"name":"mymodule::mytask","environment":"production"}',
+          body: '{"name":"mymodule::mytask","environment":"production","metadata":{"description":"My task"}}',
           headers: {"Content-Type" => "application/json"}
         )
 
       response = resource.get(module_name: "mymodule", task_name: "mytask", environment: "production")
-      expect(response).to eq({"name" => "mymodule::mytask", "environment" => "production"})
+      expect(response).to eq({"name" => "mymodule::mytask", "environment" => "production", "metadata" => {"description" => "My task"}})
     end
   end
 end

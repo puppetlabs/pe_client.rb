@@ -66,7 +66,6 @@ RSpec.shared_examples "a simple service status endpoint" do |service_type, base_
   end
 end
 
-
 RSpec.describe PEClient::Resource::StatusV1 do
   let(:api_key) { "test_api_key" }
   let(:base_url) { "https://puppet.example.com:8143" }

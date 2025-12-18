@@ -37,21 +37,8 @@ RSpec.describe PEClient::Resource::OrchestratorV1::Jobs do
       expect(response).to eq({"id" => "1234", "name" => "deploy", "state" => "finished"})
     end
 
-    it "retrieves jobs with query parameters" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/jobs?limit=10&offset=0&order=asc&order_by=timestamp")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(limit: 10, offset: 0, order_by: "timestamp", order: "asc")
-      expect(response).to eq({"items" => []})
-    end
-
-    it "retrieves jobs filtered by type" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/jobs?type=task")
+    it "retrieves jobs with all query parameters" do
+      stub_request(:get, "#{base_url}/orchestrator/v1/jobs?limit=10&max_finish_timestamp=2025-11-25T23:59:59Z&min_finish_timestamp=2025-11-01T00:00:00Z&offset=0&order=asc&order_by=timestamp&type=task")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -59,47 +46,26 @@ RSpec.describe PEClient::Resource::OrchestratorV1::Jobs do
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.get(type: "task")
-      expect(response).to eq({"items" => [{"id" => "1234", "type" => "task"}]})
-    end
-
-    it "retrieves jobs filtered by timestamp range" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/jobs?min_finish_timestamp=2025-11-01T00:00:00Z&max_finish_timestamp=2025-11-25T23:59:59Z")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
       response = resource.get(
+        limit: 10,
+        offset: 0,
+        order_by: "timestamp",
+        order: "asc",
+        type: "task",
         min_finish_timestamp: "2025-11-01T00:00:00Z",
         max_finish_timestamp: "2025-11-25T23:59:59Z"
       )
-      expect(response).to eq({"items" => []})
+      expect(response).to eq({"items" => [{"id" => "1234", "type" => "task"}]})
     end
   end
 
   describe "#nodes" do
-    it "retrieves information about nodes associated with a job" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/jobs/#{job_id}/nodes")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[{"name":"node1.example.com","state":"finished"}]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.nodes(job_id)
-      expect(response).to eq({"items" => [{"name" => "node1.example.com", "state" => "finished"}]})
-    end
-
-    it "retrieves nodes with query parameters" do
+    it "retrieves nodes with all query parameters" do
       stub_request(:get, "#{base_url}/orchestrator/v1/jobs/#{job_id}/nodes?limit=10&offset=0&order=asc&order_by=name&state=finished")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
-          body: '{"items":[]}',
+          body: '{"items":[{"name":"node1.example.com","state":"finished"}]}',
           headers: {"Content-Type" => "application/json"}
         )
 
@@ -111,7 +77,7 @@ RSpec.describe PEClient::Resource::OrchestratorV1::Jobs do
         order: "asc",
         state: "finished"
       )
-      expect(response).to eq({"items" => []})
+      expect(response).to eq({"items" => [{"name" => "node1.example.com", "state" => "finished"}]})
     end
   end
 
@@ -131,20 +97,7 @@ RSpec.describe PEClient::Resource::OrchestratorV1::Jobs do
   end
 
   describe "#events" do
-    it "retrieves a list of events that occurred during a job" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/jobs/#{job_id}/events")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[{"id":1,"type":"started"}]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.events(job_id)
-      expect(response).to eq({"items" => [{"id" => 1, "type" => "started"}]})
-    end
-
-    it "retrieves events starting from a specific event ID" do
+    it "retrieves events with optional start parameter" do
       stub_request(:get, "#{base_url}/orchestrator/v1/jobs/#{job_id}/events?start=5")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(

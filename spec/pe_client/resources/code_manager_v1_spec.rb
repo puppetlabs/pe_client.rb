@@ -106,7 +106,6 @@ RSpec.describe PEClient::Resource::CodeManagerV1 do
       expect(result).to eq({"status" => "ok"})
     end
 
-
     it "includes all optional parameters when provided" do
       stub_request(:post, "#{base_url}/code-manager/v1/webhook?type=bitbucket&prefix=custom&token=xyz789")
         .with(headers: {"X-Authentication" => api_key})

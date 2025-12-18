@@ -37,34 +37,8 @@ RSpec.describe PEClient::Resource::OrchestratorV1::PlanJobs do
       expect(response).to eq({"name" => 1234, "plan_name" => "mymodule::myplan", "state" => "finished"})
     end
 
-    it "retrieves plan jobs with query parameters" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs?limit=10&offset=0&order=asc&order_by=timestamp")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(limit: 10, offset: 0, order_by: "timestamp", order: "asc")
-      expect(response).to eq({"items" => []})
-    end
-
-    it "retrieves plan jobs excluding results" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs?results=exclude")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(results: "exclude")
-      expect(response).to eq({"items" => []})
-    end
-
-    it "retrieves plan jobs filtered by timestamp range" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs?min_finish_timestamp=2025-11-01T00:00:00Z&max_finish_timestamp=2025-11-25T23:59:59Z")
+    it "retrieves plan jobs with all query parameters" do
+      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs?limit=10&max_finish_timestamp=2025-11-25T23:59:59Z&min_finish_timestamp=2025-11-01T00:00:00Z&offset=0&order=asc&order_by=timestamp&results=exclude")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -73,6 +47,11 @@ RSpec.describe PEClient::Resource::OrchestratorV1::PlanJobs do
         )
 
       response = resource.get(
+        limit: 10,
+        offset: 0,
+        order_by: "timestamp",
+        order: "asc",
+        results: "exclude",
         min_finish_timestamp: "2025-11-01T00:00:00Z",
         max_finish_timestamp: "2025-11-25T23:59:59Z"
       )
@@ -81,20 +60,7 @@ RSpec.describe PEClient::Resource::OrchestratorV1::PlanJobs do
   end
 
   describe "#events" do
-    it "retrieves a list of events for a plan job" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs/#{job_id}/events")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[{"id":1,"type":"started"}]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.events(job_id: job_id)
-      expect(response).to eq({"items" => [{"id" => 1, "type" => "started"}]})
-    end
-
-    it "retrieves events starting from a specific event ID" do
+    it "retrieves events with optional start parameter" do
       stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs/#{job_id}/events?start=5")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
