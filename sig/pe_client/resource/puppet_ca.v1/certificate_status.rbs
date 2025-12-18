@@ -7,7 +7,7 @@ module PEClient
         def get: (String) -> Hash[String, untyped]
         def list: (?state: String?) -> Array[Hash[String, untyped]]
         def update: (String, String, ?cert_ttl: Integer | String?) -> Hash[String, untyped]
-        def delete: (String) -> Hash[String, untyped]
+        def delete: (String) -> String
       end
     end
   end

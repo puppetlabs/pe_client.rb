@@ -67,7 +67,7 @@ module PEClient
         #
         # @param hostname [String]
         #
-        # @return [Hash]
+        # @return [String]
         #
         # @note {PuppetCAV1#clean} can be used to accomplish both revoking and cleaning in one request.
         def delete(hostname)
