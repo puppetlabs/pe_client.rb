@@ -107,7 +107,7 @@ RSpec.describe PEClient::Resource::PuppetCAV1::CertificateStatus do
           }
         ]
 
-        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuss/any_key")
+        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuses/any_key")
           .to_return(
             status: 200,
             body: response_body.to_json,
@@ -147,7 +147,7 @@ RSpec.describe PEClient::Resource::PuppetCAV1::CertificateStatus do
           }
         ]
 
-        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuss/any_key?state=requested")
+        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuses/any_key?state=requested")
           .to_return(
             status: 200,
             body: response_body.to_json,
@@ -174,7 +174,7 @@ RSpec.describe PEClient::Resource::PuppetCAV1::CertificateStatus do
           }
         ]
 
-        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuss/any_key?state=signed")
+        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuses/any_key?state=signed")
           .to_return(
             status: 200,
             body: response_body.to_json,
@@ -200,7 +200,7 @@ RSpec.describe PEClient::Resource::PuppetCAV1::CertificateStatus do
           }
         ]
 
-        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuss/any_key?state=revoked")
+        stub_request(:get, "#{base_url}/puppet-ca/v1/certificate_statuses/any_key?state=revoked")
           .to_return(
             status: 200,
             body: response_body.to_json,

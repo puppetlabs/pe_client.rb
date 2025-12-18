@@ -32,7 +32,7 @@ module PEClient
       # Default Puppet CA API Port
       PORT = 8140
 
-      # Common Puppet CA API V1 Headerss
+      # Common Puppet CA API V1 Headers
       HEADERS = {Accept: "text/plain"}.freeze
 
       # Returns the certificate for the specified name, which might be either a standard certname or ca.
@@ -67,25 +67,25 @@ module PEClient
         @client.put "#{BASE_PATH}/clean", body: {certnames:}, headers: HEADERS
       end
 
-      # @return [PEClient::Response::PuppetCAV1::CertificateRequest]
+      # @return [PEClient::Resource::PuppetCAV1::CertificateRequest]
       def certificate_request
         require_relative "puppet_ca.v1/certificate_request"
         @certificate_request ||= PuppetCAV1::CertificateRequest.new(@client)
       end
 
-      # @return [PEClient::Response::PuppetCAV1::CertificateStatus]
+      # @return [PEClient::Resource::PuppetCAV1::CertificateStatus]
       def certificate_status
         require_relative "puppet_ca.v1/certificate_status"
         @certificate_status ||= PuppetCAV1::CertificateStatus.new(@client)
       end
 
-      # @return [PEClient::Response::PuppetCAV1::CertificateRevocationList]
+      # @return [PEClient::Resource::PuppetCAV1::CertificateRevocationList]
       def certificate_revocation_list
         require_relative "puppet_ca.v1/certificate_revocation_list"
         @certificate_revocation_list ||= PuppetCAV1::CertificateRevocationList.new(@client)
       end
 
-      # @return [PEClient::Response::PuppetCAV1::BulkCertificateSign]
+      # @return [PEClient::Resource::PuppetCAV1::BulkCertificateSign]
       def bulk_certificate_sign
         require_relative "puppet_ca.v1/bulk_certificate_sign"
         @bulk_certificate_sign ||= PuppetCAV1::BulkCertificateSign.new(@client)

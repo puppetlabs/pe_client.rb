@@ -42,7 +42,7 @@ module PEClient
         #
         # @return [Array<Hash>]
         def list(state: nil)
-          @client.get "#{BASE_PATH}s/any_key", params: {state:}.compact
+          @client.get "#{BASE_PATH}es/any_key", params: {state:}.compact
         end
 
         # Change the status of the specified certificate. The desired state is sent in the body of the PUT request as a one-item PSON hash; the two allowed complete hashes are:
