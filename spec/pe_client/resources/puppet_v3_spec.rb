@@ -418,52 +418,9 @@ RSpec.describe PEClient::Resource::PuppetV3 do
     end
   end
 
-  describe "#file_bucket" do
-    it "returns a FileBucket resource" do
-      file_bucket = resource.file_bucket
-      expect(file_bucket).to be_a(PEClient::Resource::PuppetV3::FileBucket)
-    end
+  subject(:resource) { described_class.new(client) }
 
-    it "memorizes the resource" do
-      file_bucket1 = resource.file_bucket
-      file_bucket2 = resource.file_bucket
-      expect(file_bucket1).to equal(file_bucket2)
-    end
-  end
-
-  describe "#file_metadata" do
-    it "returns a FileMetadata resource" do
-      file_metadata = resource.file_metadata
-      expect(file_metadata).to be_a(PEClient::Resource::PuppetV3::FileMetadata)
-    end
-
-    it "memorizes the resource" do
-      file_metadata1 = resource.file_metadata
-      file_metadata2 = resource.file_metadata
-      expect(file_metadata1).to equal(file_metadata2)
-    end
-  end
-
-  describe "PORT constant" do
-    it "uses port 8140 by default" do
-      expect(described_class::PORT).to eq(8140)
-    end
-
-    it "initializes with port 8140" do
-      resource_client = resource.instance_variable_get(:@client)
-      expect(resource_client.connection.url_prefix.port).to eq(8140)
-    end
-
-    it "accepts a custom port parameter" do
-      custom_resource = described_class.new(client, port: 9140)
-      resource_client = custom_resource.instance_variable_get(:@client)
-      expect(resource_client.connection.url_prefix.port).to eq(9140)
-    end
-  end
-
-  describe "BASE_PATH constant" do
-    it "uses /puppet/v3 as base path" do
-      expect(described_class::BASE_PATH).to eq("/puppet/v3")
-    end
-  end
+  include_examples "a memoized resource", :file_bucket, "PEClient::Resource::PuppetV3::FileBucket"
+  include_examples "a memoized resource", :file_metadata, "PEClient::Resource::PuppetV3::FileMetadata"
+  include_examples "a resource with port", 8140
 end

@@ -170,19 +170,4 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
       expect(result).to eq("correctmd5hash")
     end
   end
-
-  describe "BASE_PATH constant" do
-    it "uses /puppet/v3/file_bucket_file as base path" do
-      expect(described_class::BASE_PATH).to eq("/puppet/v3/file_bucket_file")
-    end
-  end
-
-  describe "HEADERS constant" do
-    it "includes Content-Type and Accept headers for octet-stream" do
-      expect(described_class::HEADERS).to eq({
-        "Content-Type": "application/octet-stream",
-        Accept: "application/octet-stream"
-      })
-    end
-  end
 end

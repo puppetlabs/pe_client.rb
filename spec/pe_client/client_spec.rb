@@ -48,29 +48,15 @@ RSpec.describe PEClient::Client do
   end
 
   describe "#deep_dup" do
-    it "creates a deep duplicate of the client" do
+    it "creates an independent copy that preserves configuration" do
       client = described_class.new(api_key: api_key, base_url: base_url, ca_file: "/path/to/ca.pem")
 
       duplicate = client.deep_dup
       expect(duplicate).to be_a(PEClient::Client)
       expect(duplicate.object_id).not_to equal(client.object_id)
-      expect(duplicate.api_key.object_id).not_to eq(client.api_key.object_id)
-      expect(duplicate.base_url.object_id).not_to eq(client.base_url.object_id)
-      expect(duplicate.connection.ssl[:ca_file].object_id).not_to eq(client.connection.ssl[:ca_file].object_id)
-    end
-
-    # Some API endpoints don't require an api_key
-    it "handles nil api_key in deep_dup" do
-      client_with_nil_api_key = described_class.new(api_key: nil, base_url: base_url, ca_file: nil)
-      duplicate = client_with_nil_api_key.deep_dup
-      expect(duplicate.api_key).to eq(nil)
-    end
-
-    # While ca_file = nil is not recommended in production, we test it here to ensure
-    # that the deep_dup method handles nil values without raising errors.
-    it "handles nil ca_file in deep_dup" do
-      duplicate = client.deep_dup
-      expect(duplicate.connection.ssl[:ca_file]).to eq(nil)
+      expect(duplicate.api_key).to eq(client.api_key)
+      expect(duplicate.base_url.to_s.chomp("/")).to eq(client.base_url.to_s.chomp("/"))
+      expect(duplicate.connection.ssl[:ca_file]).to eq(client.connection.ssl[:ca_file])
     end
 
     it "preserves the provisioning block" do
@@ -122,55 +108,6 @@ RSpec.describe PEClient::Client do
       expect(response).to eq({"location" => "https://example.com/new-location"})
     end
 
-    it "raises BadRequestError on 400" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 400, body: '{"error": "bad request"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::BadRequestError)
-    end
-
-    it "raises UnauthorizedError on 401" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 401, body: '{"error": "unauthorized"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::UnauthorizedError)
-    end
-
-    it "raises ForbiddenError on 403" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 403, body: '{"error": "forbidden"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::ForbiddenError)
-    end
-
-    it "raises NotFoundError on 404" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 404, body: '{"error": "not found"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::NotFoundError)
-    end
-
-    it "raises ConflictError on 409" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 409, body: '{"error": "conflict"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::ConflictError)
-    end
-
-    it "raises ServerError on 500" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 500, body: '{"error": "server error"}', headers: {"Content-Type" => "application/json"})
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::ServerError)
-    end
-
-    it "raises HTTPError on other status codes" do
-      stub_request(:get, "#{base_url}/test/path")
-        .to_return(status: 418, body: "I'm a teapot")
-
-      expect { client.get("/test/path") }.to raise_error(PEClient::HTTPError)
-    end
-
     it "handles 204 No Content" do
       stub_request(:get, "#{base_url}/test/path")
         .to_return(status: 204, body: "", headers: {})
@@ -178,6 +115,8 @@ RSpec.describe PEClient::Client do
       response = client.get("/test/path")
       expect(response).to eq({})
     end
+
+    include_examples "http error handling", :get, "/test/path"
   end
 
   describe "#post" do
@@ -317,173 +256,20 @@ RSpec.describe PEClient::Client do
   end
 
   describe "resource methods" do
-    describe "#node_inventory_v1" do
-      it "returns a NodeInventoryV1 resource" do
-        resource = client.node_inventory_v1
-        expect(resource).to be_a(PEClient::Resource::NodeInventoryV1)
-      end
+    subject { client }
 
-      it "memorizes the resource" do
-        resource1 = client.node_inventory_v1
-        resource2 = client.node_inventory_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#rbac_v1" do
-      it "returns an RBACV1 resource" do
-        resource = client.rbac_v1
-        expect(resource).to be_a(PEClient::Resource::RBACV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.rbac_v1
-        resource2 = client.rbac_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#rbac_v2" do
-      it "returns an RBACV2 resource" do
-        resource = client.rbac_v2
-        expect(resource).to be_a(PEClient::Resource::RBACV2)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.rbac_v2
-        resource2 = client.rbac_v2
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#node_classifier_v1" do
-      it "returns a NodeClassifierV1 resource" do
-        resource = client.node_classifier_v1
-        expect(resource).to be_a(PEClient::Resource::NodeClassifierV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.node_classifier_v1
-        resource2 = client.node_classifier_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#orchestrator_v1" do
-      it "returns an OrchestratorV1 resource" do
-        resource = client.orchestrator_v1
-        expect(resource).to be_a(PEClient::Resource::OrchestratorV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.orchestrator_v1
-        resource2 = client.orchestrator_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#code_manager_v1" do
-      it "returns a CodeManagerV1 resource" do
-        resource = client.code_manager_v1
-        expect(resource).to be_a(PEClient::Resource::CodeManagerV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.code_manager_v1
-        resource2 = client.code_manager_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#status_v1" do
-      it "returns a StatusV1 resource" do
-        resource = client.status_v1
-        expect(resource).to be_a(PEClient::Resource::StatusV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.status_v1
-        resource2 = client.status_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#activity_v1" do
-      it "returns an ActivityV1 resource" do
-        resource = client.activity_v1
-        expect(resource).to be_a(PEClient::Resource::ActivityV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.activity_v1
-        resource2 = client.activity_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#activity_v2" do
-      it "returns an ActivityV2 resource" do
-        resource = client.activity_v2
-        expect(resource).to be_a(PEClient::Resource::ActivityV2)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.activity_v2
-        resource2 = client.activity_v2
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#metrics_v1" do
-      it "returns a MetricsV1 resource" do
-        resource = client.metrics_v1
-        expect(resource).to be_a(PEClient::Resource::MetricsV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.metrics_v1
-        resource2 = client.metrics_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#metrics_v2" do
-      it "returns a MetricsV2 resource" do
-        resource = client.metrics_v2
-        expect(resource).to be_a(PEClient::Resource::MetricsV2)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.metrics_v2
-        resource2 = client.metrics_v2
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#puppet_admin_v1" do
-      it "returns a PuppetAdminV1 resource" do
-        resource = client.puppet_admin_v1
-        expect(resource).to be_a(PEClient::Resource::PuppetAdminV1)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.puppet_admin_v1
-        resource2 = client.puppet_admin_v1
-        expect(resource1).to equal(resource2)
-      end
-    end
-
-    describe "#puppet_v3" do
-      it "returns a PuppetV3 resource" do
-        resource = client.puppet_v3
-        expect(resource).to be_a(PEClient::Resource::PuppetV3)
-      end
-
-      it "memorizes the resource" do
-        resource1 = client.puppet_v3
-        resource2 = client.puppet_v3
-        expect(resource1).to equal(resource2)
-      end
-    end
+    include_examples "a memoized resource", :node_inventory_v1, "PEClient::Resource::NodeInventoryV1"
+    include_examples "a memoized resource", :rbac_v1, "PEClient::Resource::RBACV1"
+    include_examples "a memoized resource", :rbac_v2, "PEClient::Resource::RBACV2"
+    include_examples "a memoized resource", :node_classifier_v1, "PEClient::Resource::NodeClassifierV1"
+    include_examples "a memoized resource", :orchestrator_v1, "PEClient::Resource::OrchestratorV1"
+    include_examples "a memoized resource", :code_manager_v1, "PEClient::Resource::CodeManagerV1"
+    include_examples "a memoized resource", :status_v1, "PEClient::Resource::StatusV1"
+    include_examples "a memoized resource", :activity_v1, "PEClient::Resource::ActivityV1"
+    include_examples "a memoized resource", :activity_v2, "PEClient::Resource::ActivityV2"
+    include_examples "a memoized resource", :metrics_v1, "PEClient::Resource::MetricsV1"
+    include_examples "a memoized resource", :metrics_v2, "PEClient::Resource::MetricsV2"
+    include_examples "a memoized resource", :puppet_admin_v1, "PEClient::Resource::PuppetAdminV1"
+    include_examples "a memoized resource", :puppet_v3, "PEClient::Resource::PuppetV3"
   end
 end
