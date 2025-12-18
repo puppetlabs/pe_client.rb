@@ -86,7 +86,7 @@ module PEClient
       #
       # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_file_content.htm
       def file_content(mount_point:, name:)
-        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), params: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}.freeze
+        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), params: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
       end
 
       # This endpoint allows clients to send reports to the master.

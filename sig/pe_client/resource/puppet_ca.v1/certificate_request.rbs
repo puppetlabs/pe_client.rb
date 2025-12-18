@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class PuppetCAV1
+      class CertificateRequest < Base
+        BASE_PATH: String
+        HEADERS: Hash[Symbol, String]
+
+        def get: (String) -> String
+        def submit: (String, String) -> String
+        def delete: (String) -> String
+      end
+    end
+  end
+end

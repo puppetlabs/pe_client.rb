@@ -31,7 +31,7 @@ module PEClient
         BASE_PATH = "#{PuppetV3::BASE_PATH}/file_bucket_file".freeze
 
         # Common headers for file bucket requests
-        HEADERS = {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}.freeze
+        HEADERS = {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
 
         # Retrieve the contents of a file.
         #

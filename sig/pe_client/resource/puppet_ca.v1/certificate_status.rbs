@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class PuppetCAV1
+      class CertificateStatus < Base
+        BASE_PATH: String
+
+        def get: (String) -> Hash[String, untyped]
+        def list: (?state: String?) -> Array[Hash[String, untyped]]
+        def update: (String, String, ?cert_ttl: Integer | String?) -> Hash[String, untyped]
+        def delete: (String) -> String
+      end
+    end
+  end
+end
