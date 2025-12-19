@@ -106,32 +106,6 @@ RSpec.describe PEClient::Resource::CodeManagerV1 do
       expect(result).to eq({"status" => "ok"})
     end
 
-    it "includes optional prefix parameter" do
-      stub_request(:post, "#{base_url}/code-manager/v1/webhook?type=github&prefix=myprefix")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"status":"ok"}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      result = resource.webhook(type: "github", prefix: "myprefix")
-      expect(result).to be_a(Hash)
-    end
-
-    it "includes optional token parameter" do
-      stub_request(:post, "#{base_url}/code-manager/v1/webhook?type=gitlab&token=abc123")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"status":"ok"}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      result = resource.webhook(type: "gitlab", token: "abc123")
-      expect(result).to be_a(Hash)
-    end
-
     it "includes all optional parameters when provided" do
       stub_request(:post, "#{base_url}/code-manager/v1/webhook?type=bitbucket&prefix=custom&token=xyz789")
         .with(headers: {"X-Authentication" => api_key})

@@ -290,16 +290,4 @@ RSpec.describe PEClient::Resource::PuppetV3::FileMetadata do
       expect(result).to be_an(Array)
     end
   end
-
-  describe "BASE_PATH constant" do
-    it "uses /puppet/v3/file_metadata as base path" do
-      expect(described_class::BASE_PATH).to eq("/puppet/v3/file_metadata")
-    end
-  end
-
-  describe "SEARCH_BASE_PATH constant" do
-    it "uses /puppet/v3/file_metadatas as search base path" do
-      expect(described_class::SEARCH_BASE_PATH).to eq("/puppet/v3/file_metadatas")
-    end
-  end
 end

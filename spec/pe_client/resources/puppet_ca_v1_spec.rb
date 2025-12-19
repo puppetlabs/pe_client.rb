@@ -94,55 +94,10 @@ RSpec.describe PEClient::Resource::PuppetCAV1 do
     end
   end
 
-  describe "#certificate_request" do
-    it "returns a CertificateRequest resource" do
-      result = resource.certificate_request
-      expect(result).to be_a(PEClient::Resource::PuppetCAV1::CertificateRequest)
-    end
+  subject(:resource) { described_class.new(client) }
 
-    it "caches the CertificateRequest instance" do
-      result1 = resource.certificate_request
-      result2 = resource.certificate_request
-      expect(result1).to equal(result2)
-    end
-  end
-
-  describe "#certificate_status" do
-    it "returns a CertificateStatus resource" do
-      result = resource.certificate_status
-      expect(result).to be_a(PEClient::Resource::PuppetCAV1::CertificateStatus)
-    end
-
-    it "caches the CertificateStatus instance" do
-      result1 = resource.certificate_status
-      result2 = resource.certificate_status
-      expect(result1).to equal(result2)
-    end
-  end
-
-  describe "#certificate_revocation_list" do
-    it "returns a CertificateRevocationList resource" do
-      result = resource.certificate_revocation_list
-      expect(result).to be_a(PEClient::Resource::PuppetCAV1::CertificateRevocationList)
-    end
-
-    it "caches the CertificateRevocationList instance" do
-      result1 = resource.certificate_revocation_list
-      result2 = resource.certificate_revocation_list
-      expect(result1).to equal(result2)
-    end
-  end
-
-  describe "#bulk_certificate_sign" do
-    it "returns a BulkCertificateSign resource" do
-      result = resource.bulk_certificate_sign
-      expect(result).to be_a(PEClient::Resource::PuppetCAV1::BulkCertificateSign)
-    end
-
-    it "caches the BulkCertificateSign instance" do
-      result1 = resource.bulk_certificate_sign
-      result2 = resource.bulk_certificate_sign
-      expect(result1).to equal(result2)
-    end
-  end
+  include_examples "a memoized resource", :certificate_request, "PEClient::Resource::PuppetCAV1::CertificateRequest"
+  include_examples "a memoized resource", :certificate_status, "PEClient::Resource::PuppetCAV1::CertificateStatus"
+  include_examples "a memoized resource", :certificate_revocation_list, "PEClient::Resource::PuppetCAV1::CertificateRevocationList"
+  include_examples "a memoized resource", :bulk_certificate_sign, "PEClient::Resource::PuppetCAV1::BulkCertificateSign"
 end

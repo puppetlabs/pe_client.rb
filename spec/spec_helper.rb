@@ -7,6 +7,9 @@ ENV["RBS_TEST_TARGET"] ||= "PEClient::*"
 ENV["RBS_TEST_LOGLEVEL"] ||= "fatal"
 require "rbs/test/setup"
 
+# Load shared examples
+Dir[File.join(__dir__, "support", "shared_examples", "*.rb")].each { |f| require f }
+
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
   config.example_status_persistence_file_path = ".rspec_status"

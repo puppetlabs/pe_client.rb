@@ -37,21 +37,8 @@ RSpec.describe PEClient::Resource::OrchestratorV1::ScheduledJobs do
       expect(response).to eq({"id" => "sched-job-123", "type" => "deploy", "environment" => "production"})
     end
 
-    it "retrieves scheduled jobs with query parameters" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/scheduled_jobs/environment_jobs?limit=10&offset=0&order=asc&order_by=next_run_time")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"items":[]}',
-          headers: {"Content-Type" => "application/json"}
-        )
-
-      response = resource.get(limit: 10, offset: 0, order_by: "next_run_time", order: "asc")
-      expect(response).to eq({"items" => []})
-    end
-
-    it "retrieves scheduled jobs filtered by type" do
-      stub_request(:get, "#{base_url}/orchestrator/v1/scheduled_jobs/environment_jobs?type=task")
+    it "retrieves scheduled jobs with all query parameters" do
+      stub_request(:get, "#{base_url}/orchestrator/v1/scheduled_jobs/environment_jobs?limit=10&offset=0&order=asc&order_by=next_run_time&type=task")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -59,7 +46,7 @@ RSpec.describe PEClient::Resource::OrchestratorV1::ScheduledJobs do
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.get(type: "task")
+      response = resource.get(limit: 10, offset: 0, order_by: "next_run_time", order: "asc", type: "task")
       expect(response).to eq({"items" => [{"id" => "sched-job-456", "type" => "task"}]})
     end
   end
