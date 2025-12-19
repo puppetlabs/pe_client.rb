@@ -2,12 +2,12 @@
 
 require_relative "../../../lib/pe_client/resources/status.v1"
 
-RSpec.shared_examples "a service status endpoint" do |service_type, base_path, port|
+RSpec.shared_examples "a service status endpoint" do |service_type, service_names, port|
   let(:service_base_url) { "https://puppet.example.com:#{port}" }
 
   context "when retrieving all services" do
     it "gets all #{service_type} services with optional parameters" do
-      stub_request(:get, "#{service_base_url}#{base_path}/services?level=debug&timeout=60")
+      stub_request(:get, "#{service_base_url}/status/v1/services?level=debug&timeout=60")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -21,26 +21,28 @@ RSpec.shared_examples "a service status endpoint" do |service_type, base_path, p
   end
 
   context "when retrieving a specific service" do
-    it "gets a specific #{service_type} service" do
-      stub_request(:get, "#{service_base_url}#{base_path}/services/test-service")
-        .with(headers: {"X-Authentication" => api_key})
-        .to_return(
-          status: 200,
-          body: '{"state": "running"}',
-          headers: {"Content-Type" => "application/json"}
-        )
+    service_names.each do |service_name|
+      it "gets a #{service_type} #{service_name} service" do
+        stub_request(:get, "#{service_base_url}/status/v1/services/#{service_name}")
+          .with(headers: {"X-Authentication" => api_key})
+          .to_return(
+            status: 200,
+            body: '{"state": "running"}',
+            headers: {"Content-Type" => "application/json"}
+          )
 
-      result = resource.public_send("#{service_type}_services", service_name: "test-service")
-      expect(result).to eq({"state" => "running"})
+        result = resource.public_send("#{service_type}_services", service_name: service_name)
+        expect(result).to eq({"state" => "running"})
+      end
     end
   end
 end
 
-RSpec.shared_examples "a simple service status endpoint" do |service_type, base_path, port|
+RSpec.shared_examples "a simple service status endpoint" do |service_type, port|
   let(:service_base_url) { "https://puppet.example.com:#{port}" }
 
   it "gets simple status for all #{service_type} services" do
-    stub_request(:get, "#{service_base_url}#{base_path}/simple")
+    stub_request(:get, "#{service_base_url}/status/v1/simple")
       .with(headers: {"X-Authentication" => api_key})
       .to_return(
         status: 200,
@@ -53,7 +55,7 @@ RSpec.shared_examples "a simple service status endpoint" do |service_type, base_
   end
 
   it "gets simple status for a specific #{service_type} service" do
-    stub_request(:get, "#{service_base_url}#{base_path}/simple/test-service")
+    stub_request(:get, "#{service_base_url}/status/v1/simple/test-service")
       .with(headers: {"X-Authentication" => api_key})
       .to_return(
         status: 200,
@@ -73,35 +75,35 @@ RSpec.describe PEClient::Resource::StatusV1 do
   let(:resource) { described_class.new(client) }
 
   describe "#console_services" do
-    include_examples "a service status endpoint", :console, "/status/v1", 4433
+    include_examples "a service status endpoint", :console, ["activity-service", "classifier-service", "rbac-service"], 4433
   end
 
   describe "#console_simple" do
-    include_examples "a simple service status endpoint", :console, "/status/v1", 4433
+    include_examples "a simple service status endpoint", :console, 4433
   end
 
   describe "#puppet_server_services" do
-    include_examples "a service status endpoint", :puppet_server, "/status/v1", 8140
+    include_examples "a service status endpoint", :puppet_server, ["broker-service", "code-manager-service", "server"], 8140
   end
 
   describe "#puppet_server_simple" do
-    include_examples "a simple service status endpoint", :puppet_server, "/status/v1", 8140
+    include_examples "a simple service status endpoint", :puppet_server, 8140
   end
 
   describe "#orchestrator_services" do
-    include_examples "a service status endpoint", :orchestrator, "/status/v1", 8143
+    include_examples "a service status endpoint", :orchestrator, ["broker-service", "orchestrator-service"], 8143
   end
 
   describe "#orchestrator_simple" do
-    include_examples "a simple service status endpoint", :orchestrator, "/status/v1", 8143
+    include_examples "a simple service status endpoint", :orchestrator, 8143
   end
 
   describe "#puppetdb_services" do
-    include_examples "a service status endpoint", :puppetdb, "/status/v1", 8081
+    include_examples "a service status endpoint", :puppetdb, ["puppetdb-service"], 8081
   end
 
   describe "#puppetdb_simple" do
-    include_examples "a simple service status endpoint", :puppetdb, "/status/v1", 8081
+    include_examples "a simple service status endpoint", :puppetdb, 8081
   end
 
   describe "#pe_jruby_metrics" do

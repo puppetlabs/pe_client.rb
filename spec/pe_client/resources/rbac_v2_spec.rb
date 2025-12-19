@@ -8,8 +8,8 @@ RSpec.describe PEClient::Resource::RBACV2 do
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   subject(:resource) { described_class.new(client) }
 
-  it_behaves_like "a memoized resource", :users, "PEClient::Resource::RBACV2::Users"
-  it_behaves_like "a memoized resource", :groups, "PEClient::Resource::RBACV2::Groups"
-  it_behaves_like "a memoized resource", :tokens, "PEClient::Resource::RBACV2::Tokens"
-  it_behaves_like "a memoized resource", :ldap, "PEClient::Resource::RBACV2::LDAP"
+  include_examples "a memoized resource", :users, "PEClient::Resource::RBACV2::Users"
+  include_examples "a memoized resource", :groups, "PEClient::Resource::RBACV2::Groups"
+  include_examples "a memoized resource", :tokens, "PEClient::Resource::RBACV2::Tokens"
+  include_examples "a memoized resource", :ldap, "PEClient::Resource::RBACV2::LDAP"
 end

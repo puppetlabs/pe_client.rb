@@ -96,8 +96,8 @@ RSpec.describe PEClient::Resource::PuppetCAV1 do
 
   subject(:resource) { described_class.new(client) }
 
-  it_behaves_like "a memoized resource", :certificate_request, "PEClient::Resource::PuppetCAV1::CertificateRequest"
-  it_behaves_like "a memoized resource", :certificate_status, "PEClient::Resource::PuppetCAV1::CertificateStatus"
-  it_behaves_like "a memoized resource", :certificate_revocation_list, "PEClient::Resource::PuppetCAV1::CertificateRevocationList"
-  it_behaves_like "a memoized resource", :bulk_certificate_sign, "PEClient::Resource::PuppetCAV1::BulkCertificateSign"
+  include_examples "a memoized resource", :certificate_request, "PEClient::Resource::PuppetCAV1::CertificateRequest"
+  include_examples "a memoized resource", :certificate_status, "PEClient::Resource::PuppetCAV1::CertificateStatus"
+  include_examples "a memoized resource", :certificate_revocation_list, "PEClient::Resource::PuppetCAV1::CertificateRevocationList"
+  include_examples "a memoized resource", :bulk_certificate_sign, "PEClient::Resource::PuppetCAV1::BulkCertificateSign"
 end

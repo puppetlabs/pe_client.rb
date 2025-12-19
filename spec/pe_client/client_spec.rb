@@ -54,9 +54,9 @@ RSpec.describe PEClient::Client do
       duplicate = client.deep_dup
       expect(duplicate).to be_a(PEClient::Client)
       expect(duplicate.object_id).not_to equal(client.object_id)
-      expect(duplicate.api_key).to eq(client.api_key)
-      expect(duplicate.base_url.to_s.chomp("/")).to eq(client.base_url.to_s.chomp("/"))
-      expect(duplicate.connection.ssl[:ca_file]).to eq(client.connection.ssl[:ca_file])
+      expect(duplicate.api_key.object_id).not_to eq(client.api_key.object_id)
+      expect(duplicate.base_url.object_id).not_to eq(client.base_url.object_id)
+      expect(duplicate.connection.ssl[:ca_file].object_id).not_to eq(client.connection.ssl[:ca_file].object_id)
     end
 
     it "preserves the provisioning block" do
