@@ -19,19 +19,21 @@ Supported endpoints:
 - Activity v1 and v2
 - Metrics v1 and v2
 - Puppet Admin v1
-- Puppet Server v3
+- Puppet v3
+- Puppet CA v1
 
 ## Installation
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash
-bundle add pe_client
+bundle add pe_client --git https://github.com/puppetlabs/pe_client.rb
 ```
 
 If bundler is not being used to manage dependencies, install the gem by executing:
 
 ```bash
-gem install pe_client
+gem install specific_install
+gem specific_install https://github.com/puppetlabs/pe_client.rb
 ```
 
 ## Usage
@@ -42,9 +44,9 @@ gem install pe_client
 require "pe_client"
 
 client = PEClient.new(
-  api_key: "YOUR_API_KEY",
+  api_key:  "YOUR_API_KEY",
   base_url: "https://your-pe-server.example.com",
-  ca_file: '/path/to/ca_crt.pem' # Can be retrieved from the PE Server at: /etc/puppetlabs/puppetserver/ca/ca_crt.pem
+  ca_file:  "/path/to/ca_crt.pem" # Can be retrieved from the PE Server at: /etc/puppetlabs/puppetserver/ca/ca_crt.pem
 )
 
 # Access Node Classifier v1 resources
@@ -57,7 +59,7 @@ users = client.rbac_v1.users.list
 
 # Error handling
 begin
-  users = client.rbac_v1.users.list("invalid SID")
+  users = client.rbac_v1.users.list("Invalid SID")
 rescue PEClient::HTTPError => e
   puts "HTTP #{e.response.code} error: #{e.response.body}"
 rescue PEClient::Error => e
@@ -76,10 +78,10 @@ require "pe_client"
 
 client = PEClient.new(
   base_url: "https://your-pe-server.example.com",
-  ca_file: '/path/to/ca_crt.pem'
+  ca_file:  "/path/to/ca_crt.pem"
 ) do |conn|
-  conn.ssl[:client_cert] = '/path/to/client_cert.pem'
-  conn.ssl[:client_key] = '/path/to/client_key.pem'
+  conn.ssl[:client_cert] = "/path/to/client_cert.pem"
+  conn.ssl[:client_key]  = "/path/to/client_key.pem"
 end
 ```
 
@@ -109,15 +111,11 @@ To install this gem onto your local machine:
 bundle exec rake install
 ```
 
-To release a new version:
-- Update the version number in `lib/pe_client/version.rb`
-- Run:
+## Support
 
-```bash
-bundle exec rake release
-```
-
-This will create a git tag, push commits and the tag, and publish the gem to [rubygems.org](https://rubygems.org).
+This gem is not covered by Puppet Support.
+It is provided as-is for interacting with Puppet APIs.
+While bug reports and contributions are welcome, please use this library at your own risk and adapt it as needed for your environment.
 
 ## Contributing
 
