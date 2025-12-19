@@ -208,6 +208,12 @@ module PEClient
       @puppet_v3 ||= Resource::PuppetV3.new(self)
     end
 
+    # @return [Resource::PuppetCAV1]
+    def puppet_ca_v1
+      require_relative "resources/puppet_ca.v1"
+      @puppet_ca_v1 ||= Resource::PuppetCAV1.new(self)
+    end
+
     private
 
     # Handle HTTP response
