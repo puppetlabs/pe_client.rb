@@ -14,6 +14,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Client library for PE API endpoints
 module PEClient
   # Base error class
   class Error < StandardError; end

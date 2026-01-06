@@ -45,7 +45,7 @@ module PEClient
       #   If set to "exclude", the response only contains node counts (total nodes and the number of nodes with and without agents).
       #   Specifically, the response omits the number of corrective changes, the number of intentional changes, the number of task runs, and the number of plan runs.
       #
-      # @return [hash]
+      # @return [Hash]
       #
       # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_usage_endpoint.htm
       def usage(start_date: nil, end_date: nil, events: nil)
