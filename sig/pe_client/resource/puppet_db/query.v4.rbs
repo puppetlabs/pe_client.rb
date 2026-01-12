@@ -1,0 +1,39 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class QueryV4 < Base
+        BASE_PATH: String
+
+        def root: (query: Array[untyped], ?timeout: Integer?, ?ast_only: bool?, ?origin: String?, ?explain: bool?, **untyped) -> Array[Hash[String, untyped]]
+        def environments: (?environment: String?, ?type: String?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def producers: (?producer: nil, ?type: nil, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+                     | (producer: String, ?type: nil, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Hash[String, untyped]
+                     | (producer: String, type: String, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def facts: (?fact_name: String?, ?value: String?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def fact_names: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[String]
+        def fact_paths: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[String]
+        def fact_contents: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def inventory: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def resources: (?type: String?, ?title: String?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def edges: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def events: (?distinct_resources: nil, ?distinct_start_time: nil, ?distinct_end_time: nil, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+                  | (distinct_resources: bool, ?distinct_start_time: String, ?distinct_end_time: String, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def event_counts: (summarize_by: String, ?count_by: String?, ?counts_filter: Array[untyped]?, ?distinct_resources: bool?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def aggregate_event_counts: (summarize_by: String, ?count_by: String?, ?counts_filter: Array[untyped]?, ?distinct_resources: bool?, ?query: Array[untyped]?) -> Array[Hash[String, untyped]]
+        def packages: (?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+        def package_inventory: (?certname: String?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
+
+        @nodes: QueryV4::Nodes
+        def nodes: () -> QueryV4::Nodes
+        @factsets: QueryV4::Factsets
+        def factsets: () -> QueryV4::Factsets
+        @catalogs: QueryV4::Catalogs
+        def catalogs: () -> QueryV4::Catalogs
+        @reports: QueryV4::Reports
+        def reports: () -> QueryV4::Reports
+
+        def query_paging: (**Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+      end
+    end
+  end
+end
