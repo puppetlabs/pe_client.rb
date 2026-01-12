@@ -1,0 +1,16 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class QueryV4
+        class Reports < Base
+          BASE_PATH: String
+
+          def get: (?query: Array[untyped]?, **untyped) -> Array[Hash[String, untyped]]
+          def events: (hash: String, ?query: Array[untyped]?, **untyped) -> Array[Hash[String, untyped]]
+          def metrics: (hash: String) -> Array[Hash[String, untyped]]
+          def logs: (hash: String) -> Array[Hash[String, untyped]]
+        end
+      end
+    end
+  end
+end

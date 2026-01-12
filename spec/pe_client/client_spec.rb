@@ -272,5 +272,6 @@ RSpec.describe PEClient::Client do
     include_examples "a memoized resource", :puppet_admin_v1, "PEClient::Resource::PuppetAdminV1"
     include_examples "a memoized resource", :puppet_v3, "PEClient::Resource::PuppetV3"
     include_examples "a memoized resource", :puppet_ca_v1, "PEClient::Resource::PuppetCAV1"
+    include_examples "a memoized resource", :puppet_db, "PEClient::Resource::PuppetDB"
   end
 end

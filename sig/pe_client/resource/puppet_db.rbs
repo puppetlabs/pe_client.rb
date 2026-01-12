@@ -1,0 +1,11 @@
+module PEClient
+  module Resource
+    class PuppetDB < BaseWithPort
+      BASE_PATH: String
+      PORT: Integer
+
+      @query_v4: PuppetDB::QueryV4
+      def query_v4: () -> PuppetDB::QueryV4
+    end
+  end
+end

@@ -214,6 +214,12 @@ module PEClient
       @puppet_ca_v1 ||= Resource::PuppetCAV1.new(self)
     end
 
+    # @return [Resource::PuppetDB]
+    def puppet_db
+      require_relative "resources/puppet_db"
+      @puppet_db ||= Resource::PuppetDB.new(self)
+    end
+
     private
 
     # Handle HTTP response
