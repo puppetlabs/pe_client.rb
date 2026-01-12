@@ -5,7 +5,8 @@ module PEClient
         class Catalogs < Base
           BASE_PATH: String
 
-          def get: (?node: String?, ?query: Array[untyped]?, **untyped) -> (Array[Hash[String, untyped]] | Hash[String, untyped])
+          def get: (?node: nil, ?query: Array[untyped]?, **untyped) -> Array[Hash[String, untyped]]
+                 | (node: String, ?query: Array[untyped]?, **untyped) -> Hash[String, untyped]
           def edges: (node: String, **untyped) -> Array[Hash[String, untyped]]
           def resources: (node: String, **untyped) -> Array[Hash[String, untyped]]
         end

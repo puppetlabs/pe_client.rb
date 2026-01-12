@@ -42,6 +42,8 @@ module PEClient
     def puppet_v3: -> Resource::PuppetV3
     @puppet_ca_v1: Resource::PuppetCAV1
     def puppet_ca_v1: -> Resource::PuppetCAV1
+    @puppet_db: Resource::PuppetDB
+    def puppet_db: -> Resource::PuppetDB
 
     # Private methods
     def handle_response: (Faraday::Response, ?headers_only: bool) -> untyped

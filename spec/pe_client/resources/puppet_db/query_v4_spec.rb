@@ -75,20 +75,29 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"name" => "production"}, {"name" => "development"}])
     end
 
-    it "retrieves environments with all optional parameters" do
-      query_array = ["=", "name", "production"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments")
-        .with(
-          query: hash_including("query" => query_array.to_json),
-          headers: {"X-Authentication" => api_key}
-        )
+    it "retrieves environments with environment parameter" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments/production")
+        .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
           body: '[{"name":"production"}]',
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.environments(query: query_array)
+      response = resource.environments(environment: "production")
+      expect(response).to eq([{"name" => "production"}])
+    end
+
+    it "retrieves environments with environment and type parameters" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments/production/events")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '[{"name":"production"}]',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.environments(environment: "production", type: "events")
       expect(response).to eq([{"name" => "production"}])
     end
   end
@@ -107,8 +116,21 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"name" => "puppet-server1"}, {"name" => "puppet-server2"}])
     end
 
-    it "retrieves producers with all optional parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers")
+    it "retrieves producers with producer parameter" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers/puppet-server1")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '{"name":"puppet-server1"}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.producers(producer: "puppet-server1")
+      expect(response).to eq({"name" => "puppet-server1"})
+    end
+
+    it "retrieves producers with producer and type parameters" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers/puppet-server1/catalogs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -116,7 +138,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.producers
+      response = resource.producers(producer: "puppet-server1", type: "catalogs")
       expect(response).to eq([{"name" => "puppet-server1"}])
     end
   end
@@ -135,20 +157,29 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"certname" => "node1", "name" => "operatingsystem", "value" => "RedHat"}])
     end
 
-    it "retrieves facts with all optional parameters" do
-      query_array = ["=", "name", "operatingsystem"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts")
-        .with(
-          query: hash_including("query" => query_array.to_json),
-          headers: {"X-Authentication" => api_key}
-        )
+    it "retrieves facts with fact_name parameter" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts/operatingsystem")
+        .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
           body: '[{"certname":"node1","name":"operatingsystem","value":"RedHat"}]',
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.facts(query: query_array)
+      response = resource.facts(fact_name: "operatingsystem")
+      expect(response).to eq([{"certname" => "node1", "name" => "operatingsystem", "value" => "RedHat"}])
+    end
+
+    it "retrieves facts with fact_name and value parameters" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts/operatingsystem/RedHat")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '[{"certname":"node1","name":"operatingsystem","value":"RedHat"}]',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.facts(fact_name: "operatingsystem", value: "RedHat")
       expect(response).to eq([{"certname" => "node1", "name" => "operatingsystem", "value" => "RedHat"}])
     end
   end
@@ -295,20 +326,29 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"certname" => "node1", "type" => "File", "title" => "/etc/hosts"}])
     end
 
-    it "retrieves resources with all optional parameters" do
-      query_array = ["=", "type", "File"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources")
-        .with(
-          query: hash_including("query" => query_array.to_json),
-          headers: {"X-Authentication" => api_key}
-        )
+    it "retrieves resources with type parameter" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources/File")
+        .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
           body: '[{"certname":"node1","type":"File","title":"/etc/hosts"}]',
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.resources(query: query_array)
+      response = resource.resources(type: "File")
+      expect(response).to eq([{"certname" => "node1", "type" => "File", "title" => "/etc/hosts"}])
+    end
+
+    it "retrieves resources with type and title parameters" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources/File/%2Fetc%2Fhosts")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(
+          status: 200,
+          body: '[{"certname":"node1","type":"File","title":"/etc/hosts"}]',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.resources(type: "File", title: "/etc/hosts")
       expect(response).to eq([{"certname" => "node1", "type" => "File", "title" => "/etc/hosts"}])
     end
   end
@@ -523,20 +563,16 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"certname" => "node1", "package_name" => "httpd", "version" => "2.4.6"}])
     end
 
-    it "retrieves package inventory with all optional parameters" do
-      query_array = ["=", "certname", "node1"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/package-inventory")
-        .with(
-          query: hash_including("query" => query_array.to_json),
-          headers: {"X-Authentication" => api_key}
-        )
+    it "retrieves package inventory with certname parameter" do
+      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/package-inventory/node1")
+        .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
           body: '[{"certname":"node1","package_name":"httpd","version":"2.4.6"}]',
           headers: {"Content-Type" => "application/json"}
         )
 
-      response = resource.package_inventory(query: query_array)
+      response = resource.package_inventory(certname: "node1")
       expect(response).to eq([{"certname" => "node1", "package_name" => "httpd", "version" => "2.4.6"}])
     end
   end

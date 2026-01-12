@@ -20,7 +20,7 @@ module PEClient
   module Resource
     class PuppetDB
       class QueryV4
-        # Nodes can be queried by making through these endpoints.
+        # Nodes can be queried by making requests through these endpoints.
         #
         # @see https://help.puppet.com/pdb/current/topics/nodes.htm
         class Nodes < Base

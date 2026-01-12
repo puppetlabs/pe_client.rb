@@ -185,6 +185,8 @@ module PEClient
         # @macro query_paging
         #
         # @return [Array<Hash>]
+        #
+        # @see https://help.puppet.com/pdb/current/topics/inventory.htm
         def inventory(query: nil, **kwargs)
           @client.get "#{BASE_PATH}/inventory", params: {query: query&.to_json}.merge!(QueryV4.query_paging(**kwargs)).compact
         end
@@ -202,7 +204,7 @@ module PEClient
         def resources(type: nil, title: nil, query: nil, **kwargs)
           uri = "#{BASE_PATH}/resources"
           uri += "/#{type}" if type
-          uri += "/#{title}" if type && title
+          uri += "/#{URI.encode_www_form_component(title)}" if type && title
           @client.get uri, params: {query: query&.to_json}.merge!(QueryV4.query_paging(**kwargs)).compact
         end
 
