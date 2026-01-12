@@ -23,7 +23,7 @@ module PEClient
       # This is more efficient than assigning roles to each user individually.
       # Use the groups endpoints to get lists of groups and add, delete, and change groups.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_user_group.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_user_group.htm
       class Groups < Base
         # The base path for RBAC API v1 Groups endpoints.
         BASE_PATH = "#{RBACV1::BASE_PATH}/groups".freeze
@@ -63,7 +63,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_user_group_keys.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_user_group_keys.htm
         def edit(sid, attributes)
           @client.put "#{BASE_PATH}/#{sid}", body: attributes
         end

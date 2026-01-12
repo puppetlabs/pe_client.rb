@@ -21,7 +21,7 @@ module PEClient
     # You can use the status API to check the health of Puppet Enterprise (PE) components and services.
     # It is useful for automatically monitoring your infrastructure, removing unhealthy service instances from a load-balanced pool, checking configuration values, or troubleshooting issues in PE.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/status_api.htm
+    # @see https://help.puppet.com/pe/current/topics/status_api.htm
     class StatusV1 < Base
       # The base path for Status API v1 endpoints.
       BASE_PATH = "/status/v1"

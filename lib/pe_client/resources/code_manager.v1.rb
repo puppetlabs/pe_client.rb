@@ -20,7 +20,7 @@ module PEClient
   module Resource
     # You can use the Code Manager API to deploy code and check the status of deployments on your primary server and compilers without direct shell access.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/code_manager_api.htm
+    # @see https://help.puppet.com/pe/current/topics/code_manager_api.htm
     class CodeManagerV1 < BaseWithPort
       # The base path for Code Manager API v1 endpoints.
       BASE_PATH = "/code-manager/v1"
@@ -46,8 +46,8 @@ module PEClient
       #
       # @return [Array]
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/control_repo_add_env.htm For information about how Code Manager detects environments.
-      # @see https://help.puppet.com/pe/2025.6/topics/control_repo_concept.htm For more information about having multiple remotes
+      # @see https://help.puppet.com/pe/current/topics/control_repo_add_env.htm For information about how Code Manager detects environments.
+      # @see https://help.puppet.com/pe/current/topics/control_repo_concept.htm For more information about having multiple remotes
       def deploys(deploy_all: nil, environments: nil, deploy_modules: nil, modules: nil, wait: nil, dry_run: nil)
         @client.post "#{BASE_PATH}/deploys", body: {
           environments:, modules:, wait:,
@@ -66,7 +66,7 @@ module PEClient
       #
       # @return [Hash]
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/code_mgr_webhook_query_params.htm Code Manager webhook query parameters.
+      # @see https://help.puppet.com/pe/current/topics/code_mgr_webhook_query_params.htm Code Manager webhook query parameters.
       def webhook(type:, prefix: nil, token: nil)
         @client.post "#{BASE_PATH}/webhook", params: {type:, prefix:, token:}.compact
       end

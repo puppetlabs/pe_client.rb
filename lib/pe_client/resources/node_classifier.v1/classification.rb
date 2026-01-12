@@ -22,7 +22,7 @@ module PEClient
       # The classification endpoints accepts a node name and a set of facts, and then return information about how the specified node is classified.
       # The output can help you test your node group classification rules.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/classification_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/classification_endpoint.htm
       class Classification < Base
         # The base path for Node Classifier API v1 groups endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/classified/nodes".freeze

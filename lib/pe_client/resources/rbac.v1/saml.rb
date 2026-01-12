@@ -21,7 +21,7 @@ module PEClient
     class RBACV1
       # Use the saml endpoints to configure SAML, retrieve SAML configuration details, and get the public certificate and URLs needed for configuration.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac-api-v1-saml.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac-api-v1-saml.htm
       class SAML < Base
         # The base path for RBAC API v1 SAML endpoints.
         BASE_PATH = "#{RBACV1::BASE_PATH}/saml".freeze
@@ -32,7 +32,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac-saml-config-reference.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac-saml-config-reference.htm
         def configure(attributes)
           @client.put "#{BASE_PATH}/configure", body: attributes
         end

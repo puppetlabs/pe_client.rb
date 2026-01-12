@@ -20,7 +20,7 @@ module PEClient
   module Resource
     # The Metrics v2 endpoints use the Jolokia library for Java Management Extension (JMX) metrics to query Orchestrator service metrics.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/metrics-api-v2.htm
+    # @see https://help.puppet.com/pe/current/topics/metrics-api-v2.htm
     class MetricsV2 < BaseWithPort
       # The base path for Metrics API v2 endpoints.
       BASE_PATH = "/metrics/v2"

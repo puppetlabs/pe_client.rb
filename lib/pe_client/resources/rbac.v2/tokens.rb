@@ -22,7 +22,7 @@ module PEClient
       # Authentication tokens control access to PE services.
       # Use the v2 tokens endpoints to revoke and validate tokens.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v2_tokens_endpoints.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v2_tokens_endpoints.htm
       class Tokens < Base
         # The base path for RBAC API v2 Tokens endpoints.
         BASE_PATH = "#{RBACV2::BASE_PATH}/tokens".freeze
@@ -36,7 +36,7 @@ module PEClient
         # @param revoke_tokens_by_usernames [Array<String>] Supply a list of user names identifying users whose tokens you want to revoke.
         #   To revoke tokens by user name, the user making the request must have the Users Revoke permission for the specified users.
         # @param revoke_tokens_by_labels [Array<String>] Supply a list of labels identifying tokens to revoke.
-        #   To be revoked in this manner, the tokens must belong to the requesting user and have been assigned a [token-spcific label](https://help.puppet.com/pe/2025.6/topics/rbac_token_auth_token_label.htm).
+        #   To be revoked in this manner, the tokens must belong to the requesting user and have been assigned a [token-spcific label](https://help.puppet.com/pe/current/topics/rbac_token_auth_token_label.htm).
         # @param revoke_tokens_by_ids [Array<String>] Supply a list of UUIDs for users whose tokens you want to revoke.
         #   To revoke tokens by user name, the user making the request must have the Users Revoke permission for the specified users.
         #

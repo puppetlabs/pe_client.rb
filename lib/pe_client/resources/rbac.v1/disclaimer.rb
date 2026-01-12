@@ -21,7 +21,7 @@ module PEClient
     class RBACV1
       # Use these endpoints to modify the disclaimer text that appears on the Puppet Enterprise (PE) console login page.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac-api-v1-disclaimer.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac-api-v1-disclaimer.htm
       class Disclaimer < Base
         # The base path for RBAC API v1 Disclaimer endpoints.
         BASE_PATH = "#{RBACV1::BASE_PATH}/config/disclaimer".freeze

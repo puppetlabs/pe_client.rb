@@ -23,7 +23,7 @@ module PEClient
       # When you assign a user (or a user group) to a role, you can assign the entire set of permissions at once.
       # This is more organized and easier to manage than assigning individual permissions to individual users.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_user_role.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_user_role.htm
       class Roles < Base
         # The base path for RBAC API v1 Roles endpoints.
         BASE_PATH = "#{RBACV1::BASE_PATH}/roles".freeze
@@ -67,7 +67,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_user_role_post_roles.htm#Requestformat
+        # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_user_role_post_roles.htm#Requestformat
         def edit(rid, attributes)
           @client.put "#{BASE_PATH}/#{rid}", body: attributes
         end

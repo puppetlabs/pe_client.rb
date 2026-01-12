@@ -20,7 +20,7 @@ module PEClient
   module Resource
     # You can use the orchestrator API to run jobs and plans on demand; schedule tasks and plans; get information about jobs, plans, and events; track node usage; and more.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_v1_endpoints.htm
+    # @see https://help.puppet.com/pe/current/topics/orchestrator_api_v1_endpoints.htm
     class OrchestratorV1 < BaseWithPort
       # The base path for Orchestrator API v1 endpoints.
       BASE_PATH = "/orchestrator/v1"
@@ -47,7 +47,7 @@ module PEClient
       #
       # @return [Hash]
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_usage_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_usage_endpoint.htm
       def usage(start_date: nil, end_date: nil, events: nil)
         @client.get "#{BASE_PATH}/usage", params: {start_date:, end_date:, events:}.compact
       end

@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the last-class-update endpoint to retrieve the time that classes were last updated from the primary server.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/last_class_update_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/last_class_update_endpoint.htm
       class LastClassUpdate < Base
         # The base path for Node Classifier API v1 last class update endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/last-class-update".freeze

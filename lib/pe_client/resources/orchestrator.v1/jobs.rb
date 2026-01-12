@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the jobs endpoints to examine jobs and their details.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_jobs_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_jobs_endpoint.htm
       class Jobs < Base
         # The base path for OrchestratorV1 API v1 Jobs endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/jobs".freeze

@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the tasks endpoints to get information about tasks you've installed and tasks included with Puppet Enterprise (PE).
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_tasks_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_tasks_endpoint.htm
       class Tasks < Base
         # The base path for OrchestratorV1 API v1 Tasks endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/tasks".freeze

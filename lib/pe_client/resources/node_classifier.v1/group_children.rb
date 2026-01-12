@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the group-children endpoint to retrieve a list of node groups descending from a specific node group.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/group_children_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/group_children_endpoint.htm
       class GroupChildren < Base
         # The base path for Node Classifier API v1 group children endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/group-children".freeze

@@ -21,7 +21,7 @@ module PEClient
     # The role-based access control (RBAC) API v2 service enables you to fetch information about users, create groups, revoke tokens, validate tokens, and get information about your LDAP directory service.
     # The v2 endpoints either extend or replace some RBAC API v1 endpoints.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v2_endpoints.htm
+    # @see https://help.puppet.com/pe/current/topics/rbac_api_v2_endpoints.htm
     class RBACV2 < BaseWithPort
       # The base path for RBAC API v2 endpoints.
       BASE_PATH = "/rbac-api/v2"

@@ -20,7 +20,7 @@ module PEClient
   module Resource
     # Puppet Enterprise Node inventory API v1
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/node_inventory_api.htm
+    # @see https://help.puppet.com/pe/current/topics/node_inventory_api.htm
     class NodeInventoryV1 < BaseWithPort
       # Base path for the Node Inventory API v1
       BASE_PATH = "/inventory/v1"
@@ -40,7 +40,7 @@ module PEClient
       #
       # @return [Hash]
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/inventory_api_get_query_connections.htm
+      # @see https://help.puppet.com/pe/current/topics/inventory_api_get_query_connections.htm
       def connections(certnames: [], sensitive: false, extract: [])
         body = {}
         body[:certnames] = certnames unless certnames.empty?
@@ -64,7 +64,7 @@ module PEClient
       #
       # @return [Hash]
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/inventory_api_post_command_create-connection.htm
+      # @see https://help.puppet.com/pe/current/topics/inventory_api_post_command_create-connection.htm
       def create_connections(certnames:, type:, parameters: {}, sensitive_parameters: {}, duplicates: "error")
         @client.post "#{BASE_PATH}/command/create-connection", body: {certnames:, type:, parameters:, sensitive_parameters:, duplicates:}
       end

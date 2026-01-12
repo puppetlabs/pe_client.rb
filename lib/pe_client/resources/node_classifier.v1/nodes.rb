@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the nodes endpoints to retrieve records about nodes that have checked into the node classifier.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/nodes_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/nodes_endpoint.htm
       class Nodes < Base
         # The base path for Node Classifier API v1 nodes endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/nodes".freeze

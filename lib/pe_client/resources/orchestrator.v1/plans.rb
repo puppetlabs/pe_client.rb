@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the plans endpoints to get information about plans.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_plans_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_plans_endpoint.htm
       class Plans < Base
         # The base path for OrchestratorV1 API v1 Plans endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/plans".freeze

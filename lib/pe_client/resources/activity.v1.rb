@@ -21,7 +21,7 @@ module PEClient
     # The activity service records changes to role-based access control (RBAC) entities, such as users, directory groups, and user roles.
     # Use the activity service API to query event data.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/activity_api.htm
+    # @see https://help.puppet.com/pe/current/topics/activity_api.htm
     class ActivityV1 < BaseWithPort
       # The base path for Activity API v1 endpoints.
       BASE_PATH = "/activity-api/v1"

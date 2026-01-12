@@ -23,7 +23,7 @@ module PEClient
       # This is more efficient than assigning roles to each user individually.
       # The v2 {#create} has additional optional parameters you can use when creating groups.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac-api-v2-user-group.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac-api-v2-user-group.htm
       class Groups < Base
         # The base path for RBAC API v2 Groups endpoints.
         BASE_PATH = "#{RBACV2::BASE_PATH}/groups".freeze

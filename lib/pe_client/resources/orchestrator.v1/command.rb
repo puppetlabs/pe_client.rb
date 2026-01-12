@@ -22,7 +22,7 @@ module PEClient
       # Use the command endpoints to run Puppet, jobs, and plans on demand or stop in-progress jobs.
       # You can also create task-targets, which provide privilege escalation for users who would otherwise not be able to run certain tasks or run tasks on certain nodes or node groups.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_commands_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_commands_endpoint.htm
       class Command < Base
         # The base path for OrchestratorV1 API v1 Command endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/command".freeze
@@ -38,7 +38,7 @@ module PEClient
         #   Required if environment is an empty string.
         # @param concurrency [Integer] The maximum number of nodes to run at one time.
         #   The default is a range between 1 and the value of the global_concurrent_compiles parameter.
-        #   For information about global_concurrent_compiles, refer to (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/2025.6/topics/config_orchestration_services.htm].
+        #   For information about global_concurrent_compiles, refer to (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/current/topics/config_orchestration_services.htm].
         # @param debug [Boolean] Whether to use the --debug flag on Puppet agent runs.
         # @param description [String] A description of the job.
         # @param enforce_environment [Boolean] Whether to force agents to run in the specified environment.
@@ -59,7 +59,7 @@ module PEClient
         # @param tags [String] Sets the --tags flag on Puppet agent runs.
         # @param timeout [Integer] The maximum number of seconds a deploy job can take to execute on any individual node.
         #   Job execution on a node is forcibly ended if the timeout limit is reached.
-        #   If unspecified, this key takes the value of default-deploy-node-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/2025.6/topics/config_orchestration_services.htm].
+        #   If unspecified, this key takes the value of default-deploy-node-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/current/topics/config_orchestration_services.htm].
         # @param trace [Boolean] Whether to use the --trace flag on Puppet agent runs.
         # @param use_cached_catalog [Boolean] Whether to use the --use_cached_catalog flag on Puppet agent runs.
         # @param usecacheonfailure [Boolean] Whether to use the --usecacheonfailure flag on Puppet agent runs.
@@ -117,7 +117,7 @@ module PEClient
         #   Use the {Tasks#get} to get task names.
         # @param timeout [Integer] The maximum number of seconds a task can take to execute on any individual node.
         #   Task execution on a node is forcibly ended if the timeout limit is reached.
-        #   If unspecified, this key takes the value of default-task-node-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/2025.6/topics/config_orchestration_services.htm].
+        #   If unspecified, this key takes the value of default-task-node-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/current/topics/config_orchestration_services.htm].
         # @param description [String] A description of the job.
         # @param noop [Boolean] Whether to run the job in no-op mode.
         #   The default is false.
@@ -125,7 +125,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_post_command_task.htm
+        # @see https://help.puppet.com/pe/current/topics/orchestrator_api_post_command_task.htm
         def task(environment:, scope:, params:, targets:, task:, timeout: nil, description: nil, noop: nil, userdata: nil)
           @client.post("#{BASE_PATH}/task", body: {
             environment:, scope:, params:, targets:, task:, timeout:, description:, noop:, userdata:
@@ -181,7 +181,7 @@ module PEClient
         #   The default is production.
         # @param description [String] A description of the plan job.
         # @param timeout [Integer] The maximum number of seconds allowed for the plan to run. Reaching the timeout limit cancels queued plan actions and attempts to interrupt in-progress actions.
-        #   If unspecified, this key takes the value of default-plan-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/2025.6/topics/config_orchestration_services.htm].
+        #   If unspecified, this key takes the value of default-plan-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/current/topics/config_orchestration_services.htm].
         # @param userdata [Hash{Symbol, String => Any}] Arbitrary key/value data supplied to the job.
         #
         # @return [Hash]
@@ -200,7 +200,7 @@ module PEClient
         #   The default is production.
         # @param description [String] A description of the plan job.
         # @param timeout [Integer] The maximum number of seconds allowed for the plan to run. Reaching the timeout limit cancels queued plan actions and attempts to interrupt in-progress actions.
-        #   If unspecified, this key takes the value of default-plan-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/2025.6/topics/config_orchestration_services.htm].
+        #   If unspecified, this key takes the value of default-plan-timeout, which is one of the (Orchestrator and pe-orchestration-services parameters)[https://help.puppet.com/pe/current/topics/config_orchestration_services.htm].
         # @param userdata [Hash{Symbol, String => Any}] Arbitrary key/value data supplied to the job.
         #
         # @return [Hash]

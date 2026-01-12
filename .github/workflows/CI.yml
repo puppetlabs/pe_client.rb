@@ -39,7 +39,7 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4'
+          ruby-version: '4,0'
           bundler-cache: true
       - name: Run StandardRB
         run: bundle exec standardrb
@@ -53,7 +53,9 @@ jobs:
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.4'
+          ruby-version: '4.0'
           bundler-cache: true
       - name: Run YARD-Lint
         run: bundle exec yard-lint lib/
+      - name: Validate @see URLs
+        run: bundle exec rake validate_urls

@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the commands endpoint to unpin specified nodes from all node groups they’re pinned to.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/commands_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/commands_endpoint.htm
       class Commands < Base
         # The base path for Node Classifier API v1 commands endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/commands".freeze

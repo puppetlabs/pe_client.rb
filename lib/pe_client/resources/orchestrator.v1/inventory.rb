@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the inventory endpoints to check whether the orchestrator can reach a node.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_inventory.endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_inventory.endpoint.htm
       class Inventory < Base
         # The base path for OrchestratorV1 API v1 Inventory endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/inventory".freeze

@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the rules endpoint to translate a node group rule condition into PuppetDB query syntax.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rules_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/rules_endpoint.htm
       class Rules < Base
         # The base path for Node Classifier API v1 rules endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/rules".freeze

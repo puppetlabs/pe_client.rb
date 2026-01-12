@@ -21,7 +21,7 @@ module PEClient
     class RBACV1
       # Use the v1 LDAP endpoints to test and configure LDAP directory service connections.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_directory.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_directory.htm
       class LDAP < Base
         # The base path for RBAC API v1 LDAP endpoints.
         # @deprecated Use {COMMAND_BASE_PATH} methods instead.
@@ -60,7 +60,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_ldap_ext_directory_settings.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def create(attributes)
           @client.post("#{COMMAND_BASE_PATH}/create", body: attributes)
         end
@@ -71,7 +71,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_ldap_ext_directory_settings.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def update(attributes)
           @client.put "#{COMMAND_BASE_PATH}/update", body: attributes
         end
@@ -91,7 +91,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_ldap_ext_directory_settings.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def test(attributes)
           @client.post "#{COMMAND_BASE_PATH}/test", body: attributes
         end
@@ -104,7 +104,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_ldap_ext_directory_settings.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def ds_test(attributes = nil)
           PEClient.deprecated "ds_test", "test"
           if attributes.nil?
@@ -123,7 +123,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/rbac_ldap_ext_directory_settings.htm
+        # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def ds(attributes)
           PEClient.deprecated "ds", "create, update, or delete"
           @client.put("#{BASE_PATH}/ds", body: attributes)

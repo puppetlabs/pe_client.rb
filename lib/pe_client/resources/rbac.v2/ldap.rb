@@ -21,7 +21,7 @@ module PEClient
     class RBACV2
       # Use the v2 ldap endpoints to get information about your LDAP directory service connections.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac-api-v2-directory.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac-api-v2-directory.htm
       class LDAP < Base
         # The base path for RBAC API v2 LDAP endpoints.
         BASE_PATH = "#{RBACV2::BASE_PATH}/ldap".freeze

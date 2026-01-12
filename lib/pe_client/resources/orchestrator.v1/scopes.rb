@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the scopes endpoints to retrieve information about task-targets.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_scopes_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_scopes_endpoint.htm
       class Scopes < Base
         # The base path for OrchestratorV1 API v1 Scopes endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/scopes/task_targets".freeze

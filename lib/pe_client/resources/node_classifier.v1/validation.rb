@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the validation endpoint to validate groups in the node classifier.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/validation_endpoints.htm
+      # @see https://help.puppet.com/pe/current/topics/validation_endpoints.htm
       class Validation < Base
         # The base path for Node Classifier API v1 validation endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/validate".freeze
@@ -34,7 +34,7 @@ module PEClient
         # @param environment_trumps [Boolean] When a node belongs to two or more groups, this Boolean indicates whether this node group's environment overrides environments defined by other node groups.
         # @param parent [String] The ID of the node group's parent.
         # @param rule [String] The condition that must be satisfied for a node to be classified into this node group.
-        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/2025.6/topics/forming_node_classifier_requests.htm].
+        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/current/topics/forming_node_classifier_requests.htm].
         # @param description [String] A string describing the node group.
         # @param variables [Hash{Symbol, String => Any}] An object that defines the names and values of any top-level variables set by the node group.
         #   Supply key-value pairs of variable names and corresponding variable values.

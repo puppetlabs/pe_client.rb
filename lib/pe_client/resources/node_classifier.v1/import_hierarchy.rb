@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the import hierarchy endpoint to delete all existing node groups from the node classifier service and replace them with the node groups defined in the body of the request.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/import_hierarchy_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/import_hierarchy_endpoint.htm
       class ImportHierarchy < Base
         # The base path for Node Classifier API v1 import hierarchy endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/import-hierarchy".freeze
@@ -33,7 +33,7 @@ module PEClient
         # @param environment_trumps [Boolean] When a node belongs to two or more groups, this Boolean indicates whether this node group's environment overrides environments defined by other node groups.
         # @param parent [String] The ID of the node group's parent.
         # @param rule [String] The condition that must be satisfied for a node to be classified into this node group.
-        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/2025.6/topics/forming_node_classifier_requests.htm].
+        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/current/topics/forming_node_classifier_requests.htm].
         # @param config_data [Hash{Symbol, String => Any}] An object that defines the class parameters to be used by nodes in the group. Its structure is the same as the classes object.
         #   No configuration data is stored if you supply a config_data object that only contains a class name, such as config_data: {"qux" => {}}.
         # @param description [String] A string describing the node group.

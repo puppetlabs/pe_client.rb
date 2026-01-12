@@ -21,7 +21,7 @@ module PEClient
     class RBACV1
       # Authentication tokens control access to PE services. Use the auth/token and tokens endpoints to create tokens.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_token.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_token.htm
       class Tokens < Base
         # Generate an authorization token for a user identified by login and password.
         # This token can be used to authenticate requests to Puppet Enterprise (PE) services, such as by using an X-Authentication header or a token query parameter in an API request.

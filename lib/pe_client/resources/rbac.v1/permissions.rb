@@ -22,7 +22,7 @@ module PEClient
       # You add permissions to roles to control what users can access and do in PE.
       # Use the permissions endpoints to get information about objects you can create permissions for, what types of permissions you can create, and whether specific users can perform certain actions.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_permissions.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_permissions.htm
       class Permissions < Base
         # The base path for RBAC API v1 Permissions endpoints.
         BASE_PATH = "#{RBACV1::BASE_PATH}/permitted".freeze
@@ -40,7 +40,7 @@ module PEClient
         # @param token [String] The UUID of a user or user group.
         # @param permissions [Array<Hash>] An array of JSON objects representing permissions.
         #   Each permissions object includes the object_type, action, and instance keys.
-        #   For more information about these keys and how to populate them, see [Permissions](https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_permissions_keys.htm).
+        #   For more information about these keys and how to populate them, see [Permissions](https://help.puppet.com/pe/current/topics/rbac_api_v1_permissions_keys.htm).
         #
         # @return [Array<Boolean>] The response array has the same length as the request's permissions array.
         #   Each returned Boolean value corresponds to the submitted permission query at the same index.

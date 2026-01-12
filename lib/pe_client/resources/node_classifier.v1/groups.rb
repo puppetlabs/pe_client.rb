@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # The groups endpoints create, read, update, and delete groups.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/groups_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/groups_endpoint.htm
       class Groups < Base
         # The base path for Node Classifier API v1 groups endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/groups".freeze
@@ -54,7 +54,7 @@ module PEClient
         #   This is optional.
         #   If omitted, the node group has no description.
         # @param rule [String] The condition that must be satisfied for a node to be classified into this node group.
-        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/2025.6/topics/forming_node_classifier_requests.htm].
+        #   For rule formatting assistance, refer to (Forming node classifier API requests)[https://help.puppet.com/pe/current/topics/forming_node_classifier_requests.htm].
         # @param variables [Hash{Symbol, String => String}] An optional object that defines the names and values of any top-level variables set by the node group.
         #   Supply key-value pairs of variable names and corresponding variable values.
         #   Variable values can be any type of JSON value.
@@ -98,7 +98,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pe/2025.6/topics/post_v1_groups.htm
+        # @see https://help.puppet.com/pe/current/topics/post_v1_groups.htm
         def update(id, attributes)
           @client.post "#{BASE_PATH}/#{id}", body: attributes
         end

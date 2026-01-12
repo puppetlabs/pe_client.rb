@@ -22,7 +22,7 @@ module PEClient
       # Use the environments endpoints to retrieve the node classifier's environment data.
       # The responses tell you which environments are available, whether a named environment exists, and which classes exist in a certain environment.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/environments_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/environments_endpoint.htm
       class Environments < Base
         # The base path for Node Classifier API v1 environments endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/environments".freeze

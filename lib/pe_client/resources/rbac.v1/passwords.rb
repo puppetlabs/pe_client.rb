@@ -22,7 +22,7 @@ module PEClient
       # When local users forget their Puppet Enterprise (PE) passwords or lock themselves out of PE by attempting to log in with incorrect credentials too many times, you must generate a password reset token for them.
       # Use the password endpoints to generate password reset tokens, use tokens to reset passwords, change the authenticated user's password, and validate potential user names and passwords.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_password.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_password.htm
       class Passwords < Base
         # Generate a single-use, limited-lifetime password reset token for a specific local user.
         #

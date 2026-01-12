@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
   spec.description = <<-DESC
     Client library for interacting with Puppet Enterprise and Puppet Core API endpoints.
 
-    See https://help.puppet.com/pe/2025.6/topics/api_index.html for more information about the API.
+    See https://help.puppet.com/pe/current/topics/api_index.html for more information about the API.
   DESC
   spec.homepage = "https://puppet.com"
   spec.required_ruby_version = ">= 3.2"

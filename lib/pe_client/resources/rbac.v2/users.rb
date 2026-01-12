@@ -22,7 +22,7 @@ module PEClient
       # With role-based access control (RBAC), you can manage local users and remote users (created on a directory service).
       # Use the users endpoints to get lists of users, create local users, and delete, revoke, and reinstate users in PE.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1_user.htm
+      # @see https://help.puppet.com/pe/current/topics/rbac_api_v1_user.htm
       class Users < Base
         # The base path for RBAC API v2 Users endpoints.
         BASE_PATH = "#{RBACV2::BASE_PATH}/users".freeze

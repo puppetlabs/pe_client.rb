@@ -22,7 +22,7 @@ module PEClient
     #
     # @deprecated Use {MetricsV2} instead.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/metrics-api-v1.htm
+    # @see https://help.puppet.com/pe/current/topics/metrics-api-v1.htm
     class MetricsV1 < BaseWithPort
       # The base path for Metrics API v1 endpoints.
       BASE_PATH = "/metrics/v1"

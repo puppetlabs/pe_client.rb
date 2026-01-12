@@ -21,7 +21,7 @@ module PEClient
     class OrchestratorV1
       # Use the scheduled_jobs endpoints to query, edit, and delete scheduled orchestrator jobs.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/orchestrator_api_scheduled_jobs_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/orchestrator_api_scheduled_jobs_endpoint.htm
       class ScheduledJobs < Base
         # The base path for OrchestratorV1 API v1 Scheduled Jobs endpoints.
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/scheduled_jobs".freeze

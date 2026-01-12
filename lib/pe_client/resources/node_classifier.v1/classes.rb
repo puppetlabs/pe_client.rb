@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the classes endpoint to retrieve a list of all classes.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/classes_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/classes_endpoint.htm
       class Classes < Base
         # The base path for Node Classifier API v1 classes endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/classes".freeze

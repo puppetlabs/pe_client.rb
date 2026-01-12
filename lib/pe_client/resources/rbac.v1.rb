@@ -20,7 +20,7 @@ module PEClient
   module Resource
     # Role-based access control (RBAC) API v1 endpoints to manage users, directory service groups, roles, permissions, tokens, passwords, and LDAP and SAML connection settings.
     #
-    # @see https://help.puppet.com/pe/2025.6/topics/rbac_api_v1.htm
+    # @see https://help.puppet.com/pe/current/topics/rbac_api_v1.htm
     class RBACV1 < BaseWithPort
       # The base path for RBAC API v1 endpoints.
       BASE_PATH = "/rbac-api/v1"

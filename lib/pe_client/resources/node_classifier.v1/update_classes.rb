@@ -21,7 +21,7 @@ module PEClient
     class NodeClassifierV1
       # Use the update-classes endpoint to trigger the node classifier to get updated class and environment definitions from the primary server.
       #
-      # @see https://help.puppet.com/pe/2025.6/topics/update_classes_endpoint.htm
+      # @see https://help.puppet.com/pe/current/topics/update_classes_endpoint.htm
       class UpdateClasses < Base
         # The base path for Node Classifier API v1 update classes endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/update-classes".freeze
