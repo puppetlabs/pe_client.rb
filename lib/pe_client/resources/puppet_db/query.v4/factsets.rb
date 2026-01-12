@@ -36,7 +36,7 @@ module PEClient
           #
           # @return [Array<Hash>, Hash]
           #
-          # @see {QueryV4.query_paging} for paging options
+          # @see {QueryV4#query_paging} for paging options
           # @see https://help.puppet.com/pdb/current/topics/factsets.htm#pdbqueryv4factsets
           # @see https://help.puppet.com/pdb/current/topics/factsets.htm#pdbqueryv4factsetsnode
           def get(node: nil, query: nil, **kwargs)
@@ -45,15 +45,15 @@ module PEClient
           end
 
           # This will return all facts for a particular factset, designated by a node certname.
-          # This is a shortcut to the {QueryV4.facts} endpoint.
-          # It behaves the same as a call to {QueryV4.facts} with a query string of ["=", "certname", "<NODE>"], except results are returned even if the node is deactivated or expired.
+          # This is a shortcut to the {QueryV4#facts} endpoint.
+          # It behaves the same as a call to {QueryV4#facts} with a query string of ["=", "certname", "<NODE>"], except results are returned even if the node is deactivated or expired.
           #
           # @param node [String]
           # @macro query_paging
           #
           # @return [Array<Hash>]
           #
-          # @see {#QueryV4.facts} for more details
+          # @see {QueryV4#facts} for more details
           # @see https://help.puppet.com/pdb/current/topics/factsets.htm#pdbqueryv4factsetsnodefacts
           def facts(node:, **kwargs)
             @client.get "#{BASE_PATH}/#{node}/facts", params: QueryV4.query_paging(**kwargs).compact

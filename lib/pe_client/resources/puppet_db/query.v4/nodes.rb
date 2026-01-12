@@ -45,8 +45,8 @@ module PEClient
           end
 
           # This will return the facts for the given node. Facts from deactivated and expired nodes aren't included in the response.
-          # This is a shortcut to the {QueryV4.facts} endpoint.
-          # It behaves the same as a call to {QueryV4.facts} with a query string of ["=", "certname", "<NODE>"].
+          # This is a shortcut to the {QueryV4#facts} endpoint.
+          # It behaves the same as a call to {QueryV4#facts} with a query string of ["=", "certname", "<NODE>"].
           # Facts from deactivated and expired nodes aren't included in the response.
           #
           # @param node [String]
@@ -69,8 +69,8 @@ module PEClient
 
           # This will return the resources for the given node.
           # Resources from deactivated and expired nodes aren't included in the response.
-          # This is a shortcut to the {QueryV4.resources} endpoint.
-          # It behaves the same as a call to {QueryV4.resources} with a query string of ["=", "certname", "<NODE>"].
+          # This is a shortcut to the {QueryV4#resources} endpoint.
+          # It behaves the same as a call to {QueryV4#resources} with a query string of ["=", "certname", "<NODE>"].
           #
           # @param node [String]
           # @param type [String] This will return the resources of the indicated type for the given node.

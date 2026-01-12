@@ -122,7 +122,7 @@ module PEClient
           @client.get uri, params: {query: query&.to_json}.merge!(QueryV4.query_paging(**kwargs)).compact
         end
 
-        # The facts endpoint provides access to a represntation of node factsets where a result is returned for each top-level key in the node's structured factset.
+        # The facts endpoint provides access to a representation of node factsets where a result is returned for each top-level key in the node's structured factset.
         # Note that the {#inventory} endpoint will often provide more flexible and efficient access to the same information.
         #
         # @param fact_name [String] This will return all facts with the given fact name, for all nodes.

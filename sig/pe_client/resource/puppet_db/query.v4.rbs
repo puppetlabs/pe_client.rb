@@ -4,7 +4,7 @@ module PEClient
       class QueryV4 < Base
         BASE_PATH: String
 
-        def root: (query: Array[untyped], ?timeout: Integer?, ?ast_only: bool?, ?origin: String?, ?explain: bool?, **untyped) -> Array[Hash[String, untyped]]
+        def root: (query: Array[untyped], ?timeout: Integer?, ?ast_only: bool?, ?origin: String?, ?explain: String?, **untyped) -> Array[Hash[String, untyped]]
         def environments: (?environment: String?, ?type: String?, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
         def producers: (?producer: nil, ?type: nil, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Array[Hash[String, untyped]]
                      | (producer: String, ?type: nil, ?query: Array[untyped]?, **Hash[Symbol, untyped]) -> Hash[String, untyped]
@@ -32,7 +32,7 @@ module PEClient
         @reports: QueryV4::Reports
         def reports: () -> QueryV4::Reports
 
-        def query_paging: (**Hash[Symbol, untyped]) -> Hash[Symbol, untyped]
+        def self.query_paging: (**untyped) -> Hash[Symbol, untyped]
       end
     end
   end
