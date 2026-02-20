@@ -14,7 +14,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
 
   describe "#get" do
     it "retrieves all factsets" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -31,7 +31,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
     end
 
     it "retrieves factset for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets/node1.example.com")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets/node1.example.com")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -49,7 +49,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["=", "certname", "node1.example.com"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -65,7 +65,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "10", "offset" => "5"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -82,7 +82,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
 
   describe "#facts" do
     it "retrieves facts for a specific factset" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets/node1.example.com/facts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets/node1.example.com/facts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -99,7 +99,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "5"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets/node1.example.com/facts?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets/node1.example.com/facts?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -114,7 +114,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Factsets do
     end
 
     it "returns facts even for deactivated nodes" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/factsets/deactivated.node.com/facts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/factsets/deactivated.node.com/facts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,

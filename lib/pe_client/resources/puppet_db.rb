@@ -26,7 +26,7 @@ module PEClient
       BASE_PATH = "/pdb"
 
       # Default PuppetDB API Port
-      PORT = 8080
+      PORT = 8081
 
       # @return [PuppetDB::QueryV4]
       def query_v4

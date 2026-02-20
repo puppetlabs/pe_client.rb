@@ -8,7 +8,7 @@ RSpec.describe PEClient::Resource::PuppetDB do
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   subject(:resource) { described_class.new(client) }
 
-  include_examples "a resource with port", 8080
+  include_examples "a resource with port", 8081
 
   include_examples "a memoized resource", :query_v4, "PEClient::Resource::PuppetDB::QueryV4"
 end

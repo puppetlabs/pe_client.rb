@@ -14,7 +14,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
   describe "#get" do
     it "retrieves all catalogs" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -31,7 +31,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
     end
 
     it "retrieves catalog for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/node1.example.com")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/node1.example.com")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -51,7 +51,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["=", "certname", "node1.example.com"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -67,7 +67,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "10", "offset" => "0"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -84,7 +84,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
   describe "#edges" do
     it "retrieves edges for a specific catalog" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/node1.example.com/edges")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/node1.example.com/edges")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -105,7 +105,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "10"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/node1.example.com/edges?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/node1.example.com/edges?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -120,7 +120,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
     end
 
     it "returns edges even for deactivated nodes" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/deactivated.node.com/edges")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/deactivated.node.com/edges")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -135,7 +135,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
   describe "#resources" do
     it "retrieves resources for a specific catalog" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/node1.example.com/resources")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/node1.example.com/resources")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -154,7 +154,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "20"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/node1.example.com/resources?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/node1.example.com/resources?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -169,7 +169,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Catalogs do
     end
 
     it "returns resources even for deactivated nodes" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/catalogs/deactivated.node.com/resources")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/catalogs/deactivated.node.com/resources")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,

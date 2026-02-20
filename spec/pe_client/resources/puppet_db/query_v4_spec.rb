@@ -14,7 +14,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
   describe "#root" do
     it "performs an AST query with required parameters" do
       query_array = ["from", "nodes", ["=", "certname", "node1.example.com"]]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4")
         .with(
           query: hash_including(
             "query" => query_array.to_json
@@ -33,7 +33,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "performs an AST query with all optional parameters" do
       query_array = ["from", "nodes", ["=", "certname", "node1.example.com"]]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4")
         .with(
           query: hash_including(
             "query" => query_array.to_json,
@@ -63,7 +63,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#environments" do
     it "retrieves environments with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/environments")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -76,7 +76,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves environments with environment parameter" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments/production")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/environments/production")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -89,7 +89,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves environments with environment and type parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/environments/production/events")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/environments/production/events")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -104,7 +104,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#producers" do
     it "retrieves producers with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/producers")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -117,7 +117,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves producers with producer parameter" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers/puppet-server1")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/producers/puppet-server1")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -130,7 +130,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves producers with producer and type parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/producers/puppet-server1/catalogs")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/producers/puppet-server1/catalogs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -145,7 +145,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#facts" do
     it "retrieves facts with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/facts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -158,7 +158,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves facts with fact_name parameter" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts/operatingsystem")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/facts/operatingsystem")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -171,7 +171,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves facts with fact_name and value parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/facts/operatingsystem/RedHat")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/facts/operatingsystem/RedHat")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -186,7 +186,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#fact_names" do
     it "retrieves fact names with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-names")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-names")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -200,7 +200,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves fact names with all optional parameters" do
       query_array = ["~", "name", "operating.*"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-names")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-names")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -218,7 +218,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#fact_paths" do
     it "retrieves fact paths with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-paths")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-paths")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -232,7 +232,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves fact paths with all optional parameters" do
       query_array = ["~", "path", "networking.*"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-paths")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-paths")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -250,7 +250,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#fact_contents" do
     it "retrieves fact contents with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-contents")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-contents")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -264,7 +264,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves fact contents with all optional parameters" do
       query_array = ["=", "path", "operatingsystem"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/fact-contents")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/fact-contents")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -282,7 +282,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#inventory" do
     it "retrieves inventory data with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/inventory")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/inventory")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -296,7 +296,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves inventory data with all optional parameters" do
       query_array = ["=", "certname", "node1"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/inventory")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/inventory")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -314,7 +314,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#resources" do
     it "retrieves resources with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/resources")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -327,7 +327,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves resources with type parameter" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources/File")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/resources/File")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -340,7 +340,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves resources with type and title parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/resources/File/%2Fetc%2Fhosts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/resources/File/%2Fetc%2Fhosts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -355,7 +355,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#edges" do
     it "retrieves edges with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/edges")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/edges")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -369,7 +369,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves edges with all optional parameters" do
       query_array = ["=", "certname", "node1"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/edges")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/edges")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -387,7 +387,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#events" do
     it "retrieves events with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/events")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/events")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -401,7 +401,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves events with all optional parameters" do
       query_array = ["=", "status", "success"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/events")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/events")
         .with(
           query: hash_including(
             "query" => query_array.to_json,
@@ -429,7 +429,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#event_counts" do
     it "retrieves event counts with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/event-counts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/event-counts")
         .with(
           query: hash_including("summarize_by" => "certname"),
           headers: {"X-Authentication" => api_key}
@@ -446,7 +446,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves event counts with all optional parameters" do
       counts_filter_array = ["=", "status", "success"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/event-counts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/event-counts")
         .with(
           query: hash_including(
             "summarize_by" => "certname",
@@ -474,7 +474,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#aggregate_event_counts" do
     it "retrieves aggregate event counts with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/aggregate-event-counts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/aggregate-event-counts")
         .with(
           query: hash_including("summarize_by" => "certname"),
           headers: {"X-Authentication" => api_key}
@@ -491,7 +491,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves aggregate event counts with all optional parameters" do
       counts_filter_array = ["=", "status", "success"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/aggregate-event-counts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/aggregate-event-counts")
         .with(
           query: hash_including(
             "summarize_by" => "certname",
@@ -519,7 +519,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#packages" do
     it "retrieves packages with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/packages")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/packages")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -533,7 +533,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
     it "retrieves packages with all optional parameters" do
       query_array = ["=", "package_name", "httpd"]
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/packages")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/packages")
         .with(
           query: hash_including("query" => query_array.to_json),
           headers: {"X-Authentication" => api_key}
@@ -551,7 +551,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
 
   describe "#package_inventory" do
     it "retrieves package inventory with required parameters" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/package-inventory")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/package-inventory")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -564,7 +564,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
     end
 
     it "retrieves package inventory with certname parameter" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/package-inventory/node1")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/package-inventory/node1")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,

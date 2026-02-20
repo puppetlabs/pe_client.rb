@@ -14,7 +14,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
   describe "#get" do
     it "retrieves all nodes" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -30,7 +30,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
     end
 
     it "retrieves a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -48,7 +48,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["~", "certname", "node.*"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -64,7 +64,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "10", "offset" => "0"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -81,7 +81,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
   describe "#facts" do
     it "retrieves facts for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/facts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/facts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -94,7 +94,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
     end
 
     it "retrieves facts by name for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/facts/operatingsystem")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/facts/operatingsystem")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -107,7 +107,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
     end
 
     it "retrieves facts by name and value for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/facts/operatingsystem/RedHat")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/facts/operatingsystem/RedHat")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -121,7 +121,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["~", "name", "operating.*"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/facts?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/facts?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -137,7 +137,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "5"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/facts?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/facts?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -154,7 +154,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
   describe "#resources" do
     it "retrieves resources for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/resources")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/resources")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -167,7 +167,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
     end
 
     it "retrieves resources by type for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/resources/File")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/resources/File")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -180,7 +180,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
     end
 
     it "retrieves resources by type and title for a specific node" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/resources/File//etc/hosts")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/resources/File//etc/hosts")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -194,7 +194,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["=", "type", "File"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/resources?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/resources?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -210,7 +210,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Nodes do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "20"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/nodes/node1.example.com/resources?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/nodes/node1.example.com/resources?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )

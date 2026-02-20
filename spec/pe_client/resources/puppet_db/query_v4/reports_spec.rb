@@ -15,7 +15,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
   describe "#get" do
     it "retrieves all reports" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -34,7 +34,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["=", "certname", "node1.example.com"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -50,7 +50,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "10", "offset" => "5"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -66,7 +66,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "filters reports by status" do
       query_param = URI.encode_www_form({"query" => ["=", "status", "success"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -83,7 +83,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
   describe "#events" do
     it "retrieves events for a specific report" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/events")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/events")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -103,7 +103,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "supports query parameter" do
       query_param = URI.encode_www_form({"query" => ["=", "status", "success"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -119,7 +119,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "supports paging parameters" do
       query_param = URI.encode_www_form({"limit" => "50"})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -135,7 +135,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
     it "filters events by resource type" do
       query_param = URI.encode_www_form({"query" => ["=", "resource_type", "File"].to_json})
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/events?#{query_param}")
         .with(
           headers: {"X-Authentication" => api_key}
         )
@@ -152,7 +152,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
   describe "#metrics" do
     it "retrieves metrics for a specific report" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/metrics")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/metrics")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -168,7 +168,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
     end
 
     it "returns empty array when no metrics are available" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/metrics")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/metrics")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -181,7 +181,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
     end
 
     it "returns metrics with various categories" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/metrics")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/metrics")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -200,7 +200,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
 
   describe "#logs" do
     it "retrieves logs for a specific report" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/logs")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/logs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -218,7 +218,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
     end
 
     it "returns empty array when no logs are available" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/logs")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/logs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
@@ -231,7 +231,7 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4::Reports do
     end
 
     it "returns logs with various levels" do
-      stub_request(:get, "https://puppet.example.com:8080/pdb/query/v4/reports/#{report_hash}/logs")
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4/reports/#{report_hash}/logs")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,
