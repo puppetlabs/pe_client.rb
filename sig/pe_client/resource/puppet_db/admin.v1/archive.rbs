@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class AdminV1
+        class Archive < Base
+          BASE_PATH: String
+
+          def import: (archive: String) -> Hash[String, untyped]
+          def export: (path: String, ?anonymization_profile: String?) -> String
+        end
+      end
+    end
+  end
+end

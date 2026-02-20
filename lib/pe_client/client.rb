@@ -15,6 +15,7 @@
 # limitations under the License.
 
 require "faraday"
+require "faraday/multipart"
 require "uri"
 
 module PEClient
@@ -39,6 +40,7 @@ module PEClient
 
       @connection = Faraday.new(url: base_url) do |conn|
         conn.request :json
+        conn.request :multipart, content_type: "multipart/mixed"
         conn.response :json, content_type: /\bjson$/
         conn.headers["User-Agent"] = "PEClient/#{PEClient::VERSION} Ruby/#{RUBY_VERSION}".freeze
         conn.headers["X-Authentication"] = @api_key

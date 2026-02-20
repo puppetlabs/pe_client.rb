@@ -1,0 +1,15 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class AdminV1 < Base
+        BASE_PATH: String
+
+        def cmd: (command: String, version: Integer, payload: untyped) -> Hash[String, untyped]
+        def summary_stats: () -> Hash[String, untyped]
+
+        @archive: AdminV1::Archive
+        def archive: () -> AdminV1::Archive
+      end
+    end
+  end
+end

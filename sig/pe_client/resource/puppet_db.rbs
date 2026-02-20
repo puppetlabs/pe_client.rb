@@ -6,6 +6,10 @@ module PEClient
 
       @query_v4: PuppetDB::QueryV4
       def query_v4: () -> PuppetDB::QueryV4
+      @admin_v1: PuppetDB::AdminV1
+      def admin_v1: () -> PuppetDB::AdminV1
+      @metadata_v1: PuppetDB::MetadataV1
+      def metadata_v1: () -> PuppetDB::MetadataV1
     end
   end
 end
