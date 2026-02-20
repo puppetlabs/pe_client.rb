@@ -43,5 +43,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency "rspec-github", "~> 3.0"
   spec.add_development_dependency "standard", "~> 1.52"
   spec.add_development_dependency "webmock", "~> 3.26"
-  spec.add_development_dependency "yard-lint", "~> 1.2"
+  spec.add_development_dependency "yard-lint", "~> 1.4"
 end

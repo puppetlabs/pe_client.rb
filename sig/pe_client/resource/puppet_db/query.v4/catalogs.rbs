@@ -1,0 +1,16 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class QueryV4
+        class Catalogs < Base
+          BASE_PATH: String
+
+          def get: (?node: nil, ?query: Array[untyped]?, **untyped) -> Array[Hash[String, untyped]]
+                 | (node: String, ?query: Array[untyped]?, **untyped) -> Hash[String, untyped]
+          def edges: (node: String, **untyped) -> Array[Hash[String, untyped]]
+          def resources: (node: String, **untyped) -> Array[Hash[String, untyped]]
+        end
+      end
+    end
+  end
+end

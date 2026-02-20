@@ -1,0 +1,14 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class QueryV4
+        class Factsets < Base
+          BASE_PATH: String
+
+          def get: (?node: String?, ?query: Array[untyped]?, **untyped) -> (Array[Hash[String, untyped]] | Hash[String, untyped])
+          def facts: (node: String, **untyped) -> Array[Hash[String, untyped]]
+        end
+      end
+    end
+  end
+end
