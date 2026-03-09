@@ -1,0 +1,24 @@
+current directory: /home/runner/work/pe_client.rb/pe_client.rb/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext/date
+/opt/hostedtoolcache/Ruby/3.2.10/x64/bin/ruby extconf.rb
+checking for rb_category_warn()... yes
+checking for timezone in time.h with  -Werror... yes
+checking for altzone in time.h with  -Werror... no
+creating Makefile
+
+current directory: /home/runner/work/pe_client.rb/pe_client.rb/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20260309-2438-8wadpm sitelibdir\=./.gem.20260309-2438-8wadpm clean
+
+current directory: /home/runner/work/pe_client.rb/pe_client.rb/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20260309-2438-8wadpm sitelibdir\=./.gem.20260309-2438-8wadpm
+compiling date_core.c
+compiling date_parse.c
+compiling date_strftime.c
+compiling date_strptime.c
+linking shared-object date_core.so
+
+current directory: /home/runner/work/pe_client.rb/pe_client.rb/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20260309-2438-8wadpm sitelibdir\=./.gem.20260309-2438-8wadpm install
+/usr/bin/install -c -m 0755 date_core.so ./.gem.20260309-2438-8wadpm
+
+current directory: /home/runner/work/pe_client.rb/pe_client.rb/vendor/bundle/ruby/3.2.0/gems/date-3.5.1/ext/date
+make DESTDIR\= sitearchdir\=./.gem.20260309-2438-8wadpm sitelibdir\=./.gem.20260309-2438-8wadpm clean
