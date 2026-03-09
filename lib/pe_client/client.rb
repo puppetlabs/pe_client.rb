@@ -43,7 +43,7 @@ module PEClient
         conn.request :multipart, content_type: "multipart/mixed"
         conn.response :json, content_type: /\bjson$/
         conn.headers["User-Agent"] = "PEClient/#{PEClient::VERSION} Ruby/#{RUBY_VERSION}".freeze
-        conn.headers["X-Authentication"] = @api_key
+        conn.headers["X-Authentication"] = @api_key unless @api_key.nil?
         conn.ssl[:ca_file] = ca_file
         conn.options.params_encoder = Faraday::FlatParamsEncoder
 

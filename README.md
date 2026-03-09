@@ -30,17 +30,43 @@ Supported endpoints:
 
 ## Installation
 
-Install the gem and add to the application's Gemfile by executing:
+Use the latest released gem from GitHub Packages:
 
 ```bash
-bundle add pe_client --git https://github.com/puppetlabs/pe_client.rb
+bundle config https://rubygems.pkg.github.com/puppetlabs <USERNAME>:<TOKEN>
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+Then add the released gem to your application's Gemfile:
+
+```ruby
+source "https://rubygems.pkg.github.com/puppetlabs" do
+  gem "pe_client"
+end
+```
+
+If bundler is not being used to manage dependencies, install a released version directly:
+
+```bash
+gem install pe_client --version "<VERSION>" --source "https://<USERNAME>:<TOKEN>@rubygems.pkg.github.com/puppetlabs/"
+```
+
+You can also download the `.gem` artifact from a GitHub Release and install it locally:
+
+```bash
+gem install ./pe_client-<VERSION>.gem
+```
+
+To install a specific tagged version from GitHub instead of a packaged release, add the gem to the application's Gemfile by executing:
+
+```bash
+bundle add pe_client --git https://github.com/puppetlabs/pe_client.rb --tag v<VERSION>
+```
+
+If bundler is not being used to manage dependencies and you want a specific tag from GitHub, install the gem by executing:
 
 ```bash
 gem install specific_install
-gem specific_install https://github.com/puppetlabs/pe_client.rb
+gem specific_install -l https://github.com/puppetlabs/pe_client.rb -t v<VERSION>
 ```
 
 ## Usage
@@ -62,11 +88,11 @@ groups = client.node_classifier_v1.groups.get
 
 # Access RBAC v1 resources
 ## List all users
-users = client.rbac_v1.users.list
+users = client.rbac_v1.users.get
 
 # Error handling
 begin
-  users = client.rbac_v1.users.list("Invalid SID")
+  users = client.rbac_v1.users.get("Invalid SID")
 rescue PEClient::HTTPError => e
   puts "HTTP #{e.response.code} error: #{e.response.body}"
 rescue PEClient::Error => e
@@ -84,6 +110,7 @@ To use client certificate authentication with Faraday, pass a block to configure
 require "pe_client"
 
 client = PEClient.new(
+  api_key: nil,
   base_url: "https://your-pe-server.example.com",
   ca_file:  "/path/to/ca_crt.pem"
 ) do |conn|
