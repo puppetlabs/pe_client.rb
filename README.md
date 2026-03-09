@@ -9,7 +9,9 @@ It provides convenient access to PE's HTTP APIs.
 > If you use different versions of PE or Puppet Core, some endpoints may not be available or may behave differently.
 
 ## Features
+
 Supported endpoints:
+
 - Node Inventory v1
 - Node Classifier v1
 - RBAC v1 and v2
@@ -21,8 +23,13 @@ Supported endpoints:
 - Puppet Admin v1
 - Puppet v3
 - Puppet CA v1
+- PuppetDB
+  - Admin v1
+  - Metadata v1
+  - Query v4
 
 ## Installation
+
 Install the gem and add to the application's Gemfile by executing:
 
 ```bash

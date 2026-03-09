@@ -4,8 +4,15 @@ module PEClient
       BASE_PATH: String
       PORT: Integer
 
+      def state_overview: (unresponsive_threshold: Integer) -> Hash[String, untyped]
+      def status: () -> Hash[String, untyped]
+
       @query_v4: PuppetDB::QueryV4
       def query_v4: () -> PuppetDB::QueryV4
+      @admin_v1: PuppetDB::AdminV1
+      def admin_v1: () -> PuppetDB::AdminV1
+      @metadata_v1: PuppetDB::MetadataV1
+      def metadata_v1: () -> PuppetDB::MetadataV1
     end
   end
 end

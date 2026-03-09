@@ -1,0 +1,12 @@
+module PEClient
+  module Resource
+    class PuppetDB
+      class MetadataV1 < Base
+        BASE_PATH: String
+
+        def version: (?latest: bool) -> Hash[String, untyped]
+        def server_time: () -> Hash[String, untyped]
+      end
+    end
+  end
+end

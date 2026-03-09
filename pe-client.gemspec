@@ -35,6 +35,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "faraday", "~> 2.14"
+  spec.add_dependency "faraday-multipart", "~> 1.2"
 
   spec.add_development_dependency "irb"
   spec.add_development_dependency "rake", "~> 13.3"

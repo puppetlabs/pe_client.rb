@@ -28,10 +28,42 @@ module PEClient
       # Default PuppetDB API Port
       PORT = 8081
 
+      # The state-overview endpoint provides a convenient mechanism for getting counts of nodes based on the status of their last report, or alternatively whether the node is unresponsive or has not reported.
+      #
+      # @param unresponsive_threshold [Integer] The time (in seconds) since the last report after which a node is considered "unresponsive".
+      #
+      # @return [Hash]
+      #
+      # @see https://help.puppet.com/pdb/current/topics/state-overview.htm
+      def state_overview(unresponsive_threshold:)
+        @client.get "#{BASE_PATH}/ext/v1/state-overview", params: {unresponsive_threshold:}
+      end
+
+      # The status endpoint implements the Puppet Status API for coordinated monitoring of Puppet services.
+      #
+      # @return [Hash]
+      #
+      # @see https://help.puppet.com/pdb/current/topics/status.htm
+      def status
+        @client.get "/status/v1/services/puppetdb-status"
+      end
+
       # @return [PuppetDB::QueryV4]
       def query_v4
         require_relative "puppet_db/query.v4"
         @query_v4 ||= PuppetDB::QueryV4.new(@client)
+      end
+
+      # @return [PuppetDB::AdminV1]
+      def admin_v1
+        require_relative "puppet_db/admin.v1"
+        @admin_v1 ||= PuppetDB::AdminV1.new(@client)
+      end
+
+      # @return [PuppetDB::MetadataV1]
+      def metadata_v1
+        require_relative "puppet_db/metadata.v1"
+        @metadata_v1 ||= PuppetDB::MetadataV1.new(@client)
       end
     end
   end

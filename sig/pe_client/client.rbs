@@ -12,6 +12,7 @@ module PEClient
     def put: (String, ?body: Hash[String | Symbol, untyped], ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
     def delete: (String, ?body: Hash[String | Symbol, untyped]?, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
     def head: (String, ?params: Hash[String | Symbol, String | Integer], ?headers: Hash[String | Symbol, String | Integer]) -> untyped
+    def handle_response: (Faraday::Response, ?headers_only: bool) -> untyped
 
     # Resources
     @node_inventory_v1: Resource::NodeInventoryV1
@@ -44,8 +45,5 @@ module PEClient
     def puppet_ca_v1: -> Resource::PuppetCAV1
     @puppet_db: Resource::PuppetDB
     def puppet_db: -> Resource::PuppetDB
-
-    # Private methods
-    def handle_response: (Faraday::Response, ?headers_only: bool) -> untyped
   end
 end
