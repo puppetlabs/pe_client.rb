@@ -1,15 +1,79 @@
+# Modified from puppetlabs/cat-github-actions/.github/workflows/gem_release.yml@main to exclude pushing to RubyGems.
+# This workflow publishes from main, either manually or automatically after the release-prep PR is merged.
+
 name: "release"
 on:
   workflow_dispatch:
-    inputs:
-      target:
-        description: "The target for the release. This can be a commit sha or a branch."
-        required: false
-        default: "main"
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+permissions:
+  contents: write
+  packages: write
 
 jobs:
   release:
-    uses: "puppetlabs/cat-github-actions/.github/workflows/gem_release.yml@main"
-    with:
-      target: "${{ github.event.inputs.target }}"
-    secrets: "inherit"
+    name: "Release"
+    runs-on: "ubuntu-latest"
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event.pull_request.merged == true &&
+        github.event.pull_request.base.ref == 'main' &&
+        github.event.pull_request.head.ref == 'release-prep'
+      )
+
+    steps:
+      - name: "Checkout"
+        uses: "actions/checkout@v4"
+        with:
+          ref: ${{ github.event.pull_request.merge_commit_sha || 'main' }}
+          clean: true
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: "Setup ruby"
+        uses: "ruby/setup-ruby@v1"
+        with:
+          ruby-version: "4.0"
+          bundler-cache: true
+
+      - name: "Get version"
+        id: "get_version"
+        run: |
+          echo "version=$(ruby -e "require 'rubygems'; puts Gem::Specification::load(Dir.glob('*.gemspec').first).version.to_s")" >> $GITHUB_OUTPUT
+
+      - name: "Build"
+        run: |
+          bundle exec rake build
+
+      - name: "Generate release notes"
+        run: |
+          export GH_HOST=github.com
+          gh extension install chelnak/gh-changelog
+          gh changelog get --latest > OUTPUT.md
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Create GitHub release"
+        run: |
+          gh release create v${{ steps.get_version.outputs.version }} ./pkg/*.gem --title v${{ steps.get_version.outputs.version }} -F OUTPUT.md --target ${{ github.event.pull_request.merge_commit_sha || 'main' }}
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: "Publish to GitHub Package"
+        run: |
+          echo "Setting up access to RubyGems"
+          mkdir -p ~/.gem
+          touch ~/.gem/credentials
+          chmod 600 ~/.gem/credentials
+
+          echo "Logging in to GitHub Package Registry"
+          echo "---" > ~/.gem/credentials
+          echo ":github: Bearer ${{ secrets.GITHUB_TOKEN }}" >> ~/.gem/credentials
+
+          echo "Pushing gem to GitHub Package Registry"
+          gem push --key "github" --host "https://rubygems.pkg.github.com/${{github.repository_owner}}" ./pkg/*.gem
