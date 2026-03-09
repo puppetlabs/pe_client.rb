@@ -41,7 +41,7 @@ module PEClient
         #
         # @return [Hash]
         #
-        # @see https://help.puppet.com/pdb/current/topics/server_time.htm
+        # @see https://help.puppet.com/pdb/current/topics/server-time.htm
         def server_time
           @client.get "#{BASE_PATH}/server-time"
         end
