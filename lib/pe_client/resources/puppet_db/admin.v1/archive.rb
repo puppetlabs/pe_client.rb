@@ -50,14 +50,16 @@ module PEClient
           #
           # @see https://help.puppet.com/pdb/current/topics/archive.htm#get-pdbadminv1archive
           def export(path:, anonymization_profile: nil)
+            response = nil
             File.open(path, "wb") do |file|
               # Using the Connection object directly to stream the response to a file.
-              @client.connection.get BASE_PATH, {anonymization_profile:}.compact, {Accepts: "application/octet-stream"} do |req|
+              response = @client.connection.get BASE_PATH, {anonymization_profile:}.compact, {Accept: "application/octet-stream"} do |req|
                 req.options.on_data = proc do |chunk, _overall_received_bytes|
                   file.write(chunk)
                 end
               end
             end
+            @client.handle_response response, headers_only: true
 
             path
           end

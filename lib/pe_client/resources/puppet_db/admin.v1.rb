@@ -29,7 +29,7 @@ module PEClient
         BASE_PATH = "#{PuppetDB::BASE_PATH}/admin/v1".freeze
 
         # The cmd endpoint can be used to trigger PuppetDB maintenance operations or to directly delete a node.
-        # Admin commands are processed synchronously seperate from other PuppetDB commands.
+        # Admin commands are processed synchronously separate from other PuppetDB commands.
         #
         # @param command [String] Identifying the command.
         # @param version [Integer] Describing what version of the given command you're attempting to invoke.

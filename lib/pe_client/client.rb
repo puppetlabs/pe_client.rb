@@ -222,8 +222,6 @@ module PEClient
       @puppet_db ||= Resource::PuppetDB.new(self)
     end
 
-    private
-
     # Handle HTTP response
     #
     # @param response [Faraday::Response] HTTP response

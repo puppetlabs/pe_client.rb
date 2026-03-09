@@ -60,7 +60,7 @@ RSpec.describe PEClient::Resource::PuppetDB::AdminV1::Archive do
         .with(
           headers: {
             "X-Authentication" => api_key,
-            "Accepts" => "application/octet-stream"
+            "Accept" => "application/octet-stream"
           }
         )
         .to_return(
@@ -84,7 +84,7 @@ RSpec.describe PEClient::Resource::PuppetDB::AdminV1::Archive do
           query: {"anonymization_profile" => "moderate"},
           headers: {
             "X-Authentication" => api_key,
-            "Accepts" => "application/octet-stream"
+            "Accept" => "application/octet-stream"
           }
         )
         .to_return(
@@ -108,7 +108,7 @@ RSpec.describe PEClient::Resource::PuppetDB::AdminV1::Archive do
         .with(
           headers: {
             "X-Authentication" => api_key,
-            "Accepts" => "application/octet-stream"
+            "Accept" => "application/octet-stream"
           }
         )
         .to_return(
