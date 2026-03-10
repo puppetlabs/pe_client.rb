@@ -379,8 +379,14 @@ RSpec.describe PEClient::Resource::PuppetV3 do
 
   describe "#file_content" do
     it "retrieves file content from modules mount point" do
-      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/modules/apache/httpd.conf?Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/modules/apache/httpd.conf")
+        .with(
+          headers: {
+            "X-Authentication" => api_key,
+            "Accept" => "application/octet-stream",
+            "Content-Type" => "application/octet-stream"
+          }
+        )
         .to_return(
           status: 200,
           body: "ServerRoot /etc/httpd\n",
@@ -393,8 +399,14 @@ RSpec.describe PEClient::Resource::PuppetV3 do
     end
 
     it "retrieves file content from plugins mount point" do
-      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/plugins/mylib.rb?Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/plugins/mylib.rb")
+        .with(
+          headers: {
+            "X-Authentication" => api_key,
+            "Accept" => "application/octet-stream",
+            "Content-Type" => "application/octet-stream"
+          }
+        )
         .to_return(
           status: 200,
           body: "module MyLib\nend\n",

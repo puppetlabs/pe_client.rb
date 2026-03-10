@@ -9,11 +9,18 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:puppet_v3) { PEClient::Resource::PuppetV3.new(client) }
   let(:resource) { puppet_v3.file_bucket }
+  let(:binary_headers) do
+    {
+      "X-Authentication" => api_key,
+      "Accept" => "application/octet-stream",
+      "Content-Type" => "application/octet-stream"
+    }
+  end
 
   describe "#get" do
     it "retrieves a file from the file bucket by md5" do
-      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production")
+        .with(headers: binary_headers)
         .to_return(
           status: 200,
           body: "file content here\n",
@@ -26,8 +33,8 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     end
 
     it "retrieves a file with filename parameter" do
-      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production")
+        .with(headers: binary_headers)
         .to_return(
           status: 200,
           body: "file content here\n",
@@ -42,8 +49,8 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     it "retrieves binary file content" do
       binary_content = "\x89PNG\r\n\x1A\n\x00\x00\x00\rIHDR"
 
-      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/def789abc123?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/def789abc123?environment=production")
+        .with(headers: binary_headers)
         .to_return(
           status: 200,
           body: binary_content,
@@ -57,8 +64,8 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
 
   describe "#head" do
     it "checks if a file exists in the file bucket" do
-      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production")
+        .with(headers: binary_headers)
         .to_return(
           status: 200,
           headers: {"Content-Type" => "application/octet-stream", "Content-Length" => "1024"}
@@ -71,8 +78,8 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     end
 
     it "checks if a file exists with filename parameter" do
-      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production")
+        .with(headers: binary_headers)
         .to_return(
           status: 200,
           headers: {"Content-Type" => "application/octet-stream"}
@@ -83,8 +90,8 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     end
 
     it "handles 404 for missing file" do
-      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/missing123?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:head, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/missing123?environment=production")
+        .with(headers: binary_headers)
         .to_return(status: 404)
 
       expect { resource.head(md5: "missing123", environment: "production") }
@@ -96,10 +103,10 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     it "saves a file to the file bucket" do
       file_content = "This is the file content\n"
 
-      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456?environment=production")
         .with(
           body: file_content,
-          headers: {"X-Authentication" => api_key}
+          headers: binary_headers
         )
         .to_return(
           status: 200,
@@ -114,10 +121,10 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     it "saves a file with filename parameter" do
       file_content = "This is the file content\n"
 
-      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/abc123def456//etc/puppet/test.conf?environment=production")
         .with(
           body: file_content,
-          headers: {"X-Authentication" => api_key}
+          headers: binary_headers
         )
         .to_return(
           status: 200,
@@ -137,10 +144,10 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     it "saves binary file content" do
       binary_content = "\x89PNG\r\n\x1A\n\x00\x00\x00\rIHDR"
 
-      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/def789abc123?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/def789abc123?environment=production")
         .with(
           body: binary_content,
-          headers: {"X-Authentication" => api_key}
+          headers: binary_headers
         )
         .to_return(
           status: 200,
@@ -155,10 +162,10 @@ RSpec.describe PEClient::Resource::PuppetV3::FileBucket do
     it "returns corrected md5 if provided md5 is incorrect" do
       file_content = "This is the file content\n"
 
-      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/wrongmd5?environment=production&Content-Type=application%2Foctet-stream&Accept=application%2Foctet-stream")
+      stub_request(:put, "https://puppet.example.com:8140/puppet/v3/file_bucket_file/wrongmd5?environment=production")
         .with(
           body: file_content,
-          headers: {"X-Authentication" => api_key}
+          headers: binary_headers
         )
         .to_return(
           status: 200,
