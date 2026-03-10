@@ -103,4 +103,27 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
       expect(response).to eq({})
     end
   end
+
+  describe "#create_deprecated" do
+    it "warns about deprecation and creates a remote directory user group" do
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups")
+        .with(
+          body: '{"login":"ldap-group","role_ids":["role1"]}',
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '{"id": "new-group-id"}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = nil
+
+      expect {
+        response = resource.create_deprecated("ldap-group", ["role1"])
+      }.to output(/\[DEPRECATION\] `create_deprecated` is deprecated. Please use `create` instead./).to_stderr
+
+      expect(response).to eq({"id" => "new-group-id"})
+    end
+  end
 end
