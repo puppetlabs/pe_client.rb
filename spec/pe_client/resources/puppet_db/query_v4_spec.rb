@@ -31,6 +31,25 @@ RSpec.describe PEClient::Resource::PuppetDB::QueryV4 do
       expect(response).to eq([{"certname" => "node1.example.com"}])
     end
 
+    it "performs an PQL query with required parameters" do
+      query_pql = "nodes { certname = 'node1.example.com' }"
+      stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4")
+        .with(
+          query: hash_including(
+            "query" => query_pql
+          ),
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '[{"certname":"node1.example.com"}]',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.root(query: query_pql)
+      expect(response).to eq([{"certname" => "node1.example.com"}])
+    end
+
     it "performs an AST query with all optional parameters" do
       query_array = ["from", "nodes", ["=", "certname", "node1.example.com"]]
       stub_request(:get, "https://puppet.example.com:8081/pdb/query/v4")

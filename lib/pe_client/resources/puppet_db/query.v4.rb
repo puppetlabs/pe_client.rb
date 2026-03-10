@@ -78,7 +78,8 @@ module PEClient
         #
         # @see https://help.puppet.com/pdb/current/topics/root_endpoint.htm
         def root(query:, timeout: nil, ast_only: nil, origin: nil, explain: nil, **kwargs)
-          @client.get BASE_PATH, params: {query: query.to_json, timeout:, ast_only:, origin:, explain:}.merge!(QueryV4.query_paging(**kwargs)).compact
+          query = query.to_json if query.is_a?(Array)
+          @client.get BASE_PATH, params: {query: query, timeout:, ast_only:, origin:, explain:}.merge!(QueryV4.query_paging(**kwargs)).compact
         end
 
         # Environments are semi-isolated groups of nodes managed by Puppet.
