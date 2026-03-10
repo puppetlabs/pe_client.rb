@@ -39,7 +39,11 @@ jobs:
         uses: "ruby/setup-ruby@v1"
         with:
           ruby-version: "4.0"
-          bundler-cache: true
+
+      - name: "Install dependencies"
+        run: |
+          bundle config set --local frozen false
+          bundle install
 
       - name: "Get version"
         id: "get_version"
