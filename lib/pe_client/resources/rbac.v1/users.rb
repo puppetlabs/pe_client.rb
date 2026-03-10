@@ -114,7 +114,7 @@ module PEClient
         #
         # @return [Hash] If role assignment is successful, the endpoint returns an empty body.
         def add_roles(user_id, role_ids)
-          @client.post "#{COMMAND_BASE_PATH}/command/users/add-roles", body: {user_id:, role_ids:}
+          @client.post "#{COMMAND_BASE_PATH}/add-roles", body: {user_id:, role_ids:}
         end
 
         # Remove roles from a user.
@@ -124,7 +124,7 @@ module PEClient
         #
         # @return [Hash] If role removal is successful, the endpoint returns an empty body.
         def remove_roles(user_id, role_ids)
-          @client.post "#{COMMAND_BASE_PATH}/command/users/remove-roles", body: {user_id:, role_ids:}
+          @client.post "#{COMMAND_BASE_PATH}/remove-roles", body: {user_id:, role_ids:}
         end
 
         # Revoke a user's PE access.
@@ -133,7 +133,7 @@ module PEClient
         #
         # @return [Hash] If revocation is successful, the endpoint returns an empty body
         def revoke(user_id)
-          @client.post "#{COMMAND_BASE_PATH}/command/users/revoke", body: {user_id:}
+          @client.post "#{COMMAND_BASE_PATH}/revoke", body: {user_id:}
         end
 
         # Reinstate a revoked user.
@@ -142,7 +142,7 @@ module PEClient
         #
         # @return [Hash] If reinstatement is successful, the endpoint returns an empty body.
         def reinstate(user_id)
-          @client.post "#{COMMAND_BASE_PATH}/command/users/reinstate", body: {user_id:}
+          @client.post "#{COMMAND_BASE_PATH}/reinstate", body: {user_id:}
         end
       end
     end

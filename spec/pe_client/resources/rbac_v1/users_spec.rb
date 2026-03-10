@@ -141,7 +141,7 @@ RSpec.describe PEClient::Resource::RBACV1::Users do
 
   describe "#add_roles" do
     it "adds roles to a user" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/command/users/add-roles")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/add-roles")
         .with(
           body: '{"user_id":"user123","role_ids":["role1","role2"]}',
           headers: {"X-Authentication" => api_key}
@@ -155,7 +155,7 @@ RSpec.describe PEClient::Resource::RBACV1::Users do
 
   describe "#remove_roles" do
     it "removes roles from a user" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/command/users/remove-roles")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/remove-roles")
         .with(
           body: '{"user_id":"user123","role_ids":["role1"]}',
           headers: {"X-Authentication" => api_key}
@@ -169,7 +169,7 @@ RSpec.describe PEClient::Resource::RBACV1::Users do
 
   describe "#revoke" do
     it "revokes a user's access" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/command/users/revoke")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/revoke")
         .with(
           body: '{"user_id":"user123"}',
           headers: {"X-Authentication" => api_key}
@@ -183,7 +183,7 @@ RSpec.describe PEClient::Resource::RBACV1::Users do
 
   describe "#reinstate" do
     it "reinstates a revoked user" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/command/users/reinstate")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/users/reinstate")
         .with(
           body: '{"user_id":"user123"}',
           headers: {"X-Authentication" => api_key}

@@ -31,7 +31,7 @@ module PEClient
         BASE_PATH = "#{PuppetV3::BASE_PATH}/file_bucket_file".freeze
 
         # Common headers for file bucket requests
-        HEADERS = {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
+        HEADERS = {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}.freeze
 
         # Retrieve the contents of a file.
         #
@@ -41,7 +41,7 @@ module PEClient
         #
         # @return [String]
         def get(md5:, environment:, filename: nil)
-          @client.get path(md5, filename), params: {environment:}.merge(HEADERS)
+          @client.get path(md5, filename), params: {environment:}, headers: HEADERS
         end
 
         # Check if a file is present in the filebucket
@@ -53,7 +53,7 @@ module PEClient
         #
         # @return [Hash]
         def head(md5:, environment:, filename: nil)
-          @client.head path(md5, filename), params: {environment:}.merge(HEADERS)
+          @client.head path(md5, filename), params: {environment:}, headers: HEADERS
         end
 
         # Save a file to the filebucket
@@ -68,7 +68,7 @@ module PEClient
         #
         # @return [String]
         def save(md5:, file:, environment:, filename: nil)
-          @client.put path(md5, filename), body: file, params: {environment:}.merge(HEADERS)
+          @client.put path(md5, filename), body: file, params: {environment:}, headers: HEADERS
         end
 
         private

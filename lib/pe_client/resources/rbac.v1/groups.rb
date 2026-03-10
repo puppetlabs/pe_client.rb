@@ -89,7 +89,7 @@ module PEClient
         # @return [Hash]
         def create_deprecated(login, role_ids)
           PEClient.deprecated "create_deprecated", "create"
-          @client.post COMMAND_BASE_PATH, {login:, role_ids:}
+          @client.post COMMAND_BASE_PATH, body: {login:, role_ids:}
         end
       end
     end

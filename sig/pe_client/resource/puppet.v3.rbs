@@ -7,7 +7,7 @@ module PEClient
       def file_metadata: () -> PuppetV3::FileMetadata
       def catalog: (node_name: String, ?environment: String?) -> Hash[String, untyped]
       def node: (certname: String, ?environment: String?, ?transaction_uuid: String?, ?configured_environment: String?) -> Hash[String, untyped]
-      def facts: (node_name: String, facts: Hash[String, untyped], ?environment: String?) -> Hash[String, untyped]
+      def facts: (node_name: String, values: Hash[String, untyped], timestamp: String, expiration: String, ?environment: String?) -> Hash[String, untyped]
       def file_content: (mount_point: String, name: String) -> String
       def report: (node_name: String, environment: String, report: Hash[String, untyped]) -> Hash[String, untyped]
       def environment_classes: (environment: String) -> Hash[String, untyped]
