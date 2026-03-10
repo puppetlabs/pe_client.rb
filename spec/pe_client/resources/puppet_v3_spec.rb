@@ -345,10 +345,18 @@ RSpec.describe PEClient::Resource::PuppetV3 do
   describe "#facts" do
     it "submits facts for a node" do
       facts_data = {"os" => "linux", "memory" => "16GB"}
+      timestamp = "2013-09-09 15:49:27 -0700"
+      expiration = "2013-09-10 15:49:27 -0700"
+      request_body = {
+        name: "node1.example.com",
+        values: facts_data,
+        timestamp: timestamp,
+        expiration: expiration
+      }
 
       stub_request(:put, "https://puppet.example.com:8140/puppet/v3/facts/node1.example.com?environment=production")
         .with(
-          body: facts_data.to_json,
+          body: request_body.to_json,
           headers: {"X-Authentication" => api_key}
         )
         .to_return(
@@ -357,7 +365,13 @@ RSpec.describe PEClient::Resource::PuppetV3 do
           headers: {"Content-Type" => "application/json"}
         )
 
-      result = resource.facts(node_name: "node1.example.com", facts: facts_data, environment: "production")
+      result = resource.facts(
+        node_name: "node1.example.com",
+        values: facts_data,
+        timestamp: timestamp,
+        expiration: expiration,
+        environment: "production"
+      )
       expect(result).to be_a(Hash)
       expect(result["name"]).to eq("node1.example.com")
     end

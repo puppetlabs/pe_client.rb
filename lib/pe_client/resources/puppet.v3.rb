@@ -58,14 +58,16 @@ module PEClient
       # Allows setting the facts for the specified node name.
       #
       # @param node_name [String] The name of the node to set the facts for.
-      # @param facts [Hash] The facts to set for the node.
+      # @param values [Hash] The facts for the specified node.
+      # @param timestamp [String] When the facts were gathered.
+      # @param expiration [String] When the facts will expire.
       # @param environment [String] The environment to use when setting the facts.
       #
       # @return [Hash]
       #
       # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_facts.htm
-      def facts(node_name:, facts:, environment: nil)
-        @client.put File.join("#{BASE_PATH}/facts", node_name), body: facts.to_json, params: {environment:}.compact
+      def facts(node_name:, values:, timestamp:, expiration:, environment: nil)
+        @client.put File.join("#{BASE_PATH}/facts", node_name), body: {name: node_name, values:, timestamp:, expiration:}, params: {environment:}.compact
       end
 
       # Returns the contents of the specified file.
@@ -86,7 +88,7 @@ module PEClient
       #
       # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_file_content.htm
       def file_content(mount_point:, name:)
-        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), params: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
+        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), headers: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
       end
 
       # This endpoint allows clients to send reports to the master.
