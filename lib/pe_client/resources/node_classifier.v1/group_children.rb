@@ -26,7 +26,7 @@ module PEClient
         # The base path for Node Classifier API v1 group children endpoints.
         BASE_PATH = "#{NodeClassifierV1::BASE_PATH}/group-children".freeze
 
-        # Retrieve a list of node groups descending from a specific node group,
+        # Retrieve a list of node groups descending from a specific node group.
         #
         # @param id [String]
         # @param depth [Integer] optional depth parameter to limit how many levels of descendants are returned.

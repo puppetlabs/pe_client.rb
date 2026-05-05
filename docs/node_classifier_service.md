@@ -726,7 +726,7 @@ Use the rules endpoint to translate a node group rule condition into PuppetDB qu
 Translate a node group rule condition into PuppetDB query syntax.
 
 ```ruby
-client.node_classifier_v1.rules.translate(rule: ["fact", "is_spaceship", "true"])
+client.node_classifier_v1.rules.translate(rule: ["=", ["fact", "is_spaceship"], "true"])
 # => "nodes { fact.is_spaceship = 'true' }"
 ```
 

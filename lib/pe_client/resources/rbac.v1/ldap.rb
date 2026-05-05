@@ -34,7 +34,7 @@ module PEClient
         #
         # @param attributes [Hash] The attributes for the new LDAP connection.
         # @option attributes [String] :display_name Directory name.
-        # @option attributes [String] :"help-link" Login help.
+        # @option attributes [String] :help_link Login help.
         # @option attributes [String] :hostname Hostname.
         # @option attributes [Integer] :port Port.
         # @option attributes [String] :login Lookup user.

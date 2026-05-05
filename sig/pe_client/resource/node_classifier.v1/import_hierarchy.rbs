@@ -4,7 +4,7 @@ module PEClient
       class ImportHierarchy < Base
         BASE_PATH: String
 
-        def replace: (name: String, environment: String, environment_trumps: bool, parent: String, rule: String, config_data: Hash[Symbol | String, untyped], ?description: String, ?variables: Hash[Symbol | String, untyped], ?classes: Hash[Symbol | String, untyped]) -> Hash[String, untyped]
+        def replace: (Array[Hash[Symbol | String, untyped]]) -> Hash[String, untyped]
       end
     end
   end

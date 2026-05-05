@@ -9,6 +9,21 @@ RSpec.describe PEClient::Resource::OrchestratorV1::ScheduledJobs do
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
   let(:job_id) { "sched-job-123" }
+  let(:plan_input) do
+    {
+      name: "sensitive_params::scheduled_jobs_storage",
+      parameters: {
+        primary: {value: "example.delivery.puppetlabs.net"},
+        param_one: {value: "first_value"}
+      }
+    }
+  end
+  let(:one_time_schedule) do
+    {
+      start_time: "2022-01-28T09:35:56-08:00",
+      interval: nil
+    }
+  end
 
   describe "#get" do
     it "retrieves information about all scheduled environment jobs" do
@@ -131,6 +146,76 @@ RSpec.describe PEClient::Resource::OrchestratorV1::ScheduledJobs do
         userdata: {ticket: "TICKET-123"}
       )
       expect(response).to eq({"id" => "new-sched-job-789"})
+    end
+  end
+
+  describe "#update" do
+    it "edits a scheduled environment job" do
+      stub_request(:put, "#{base_url}/orchestrator/v1/scheduled_jobs/environment_jobs/#{job_id}")
+        .with(
+          body: hash_including(
+            "description" => "run facts plan once on node1 in my_environment",
+            "input" => {
+              "name" => "sensitive_params::scheduled_jobs_storage",
+              "parameters" => {
+                "primary" => {"value" => "example.delivery.puppetlabs.net"},
+                "param_one" => {"value" => "first_value"}
+              }
+            },
+            "environment" => "my_environment",
+            "schedule" => {
+              "start_time" => "2022-01-28T09:35:56-08:00",
+              "interval" => nil
+            },
+            "userdata" => {"snow_ticket" => "INC0011211"},
+            "enabled" => true
+          ),
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '{"scheduled_job":{"id":"https://orchestrator.example.com:8143/orchestrator/v1/scheduled_jobs/environment_jobs/2","name":"2"}}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.update(
+        job_id: job_id,
+        description: "run facts plan once on node1 in my_environment",
+        input: plan_input,
+        environment: "my_environment",
+        schedule: one_time_schedule,
+        userdata: {snow_ticket: "INC0011211"},
+        enabled: true
+      )
+
+      expect(response).to eq({
+        "scheduled_job" => {
+          "id" => "https://orchestrator.example.com:8143/orchestrator/v1/scheduled_jobs/environment_jobs/2",
+          "name" => "2"
+        }
+      })
+    end
+
+    it "disables a scheduled environment job" do
+      stub_request(:put, "#{base_url}/orchestrator/v1/scheduled_jobs/environment_jobs/#{job_id}")
+        .with(
+          body: {enabled: false}.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(
+          status: 200,
+          body: '{"scheduled_job":{"id":"https://orchestrator.example.com:8143/orchestrator/v1/scheduled_jobs/environment_jobs/2","name":"2"}}',
+          headers: {"Content-Type" => "application/json"}
+        )
+
+      response = resource.update(job_id: job_id, enabled: false)
+
+      expect(response).to eq({
+        "scheduled_job" => {
+          "id" => "https://orchestrator.example.com:8143/orchestrator/v1/scheduled_jobs/environment_jobs/2",
+          "name" => "2"
+        }
+      })
     end
   end
 end

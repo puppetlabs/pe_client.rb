@@ -122,10 +122,10 @@ module PEClient
           @client.post "#{BASE_PATH}/#{id}/pin", body: {nodes:}
         end
 
-        # Unpin specific nodes to a node group.
+        # Unpin specific nodes from a node group.
         #
         # @param id [String]
-        # @param nodes [Array<String>] Names of the nodes you want to unpin to the group
+        # @param nodes [Array<String>] Names of the nodes you want to unpin from the group
         #
         # @return [Hash] If the request is successful, the response body is empty.
         def unpin(id, nodes)
@@ -142,7 +142,7 @@ module PEClient
         end
 
         # Resolve all the nodes associated with a node group.
-        #   This endpoint combines all the rules for the group and queries PuppetDB for the result.
+        # This endpoint combines all the rules for the group and queries PuppetDB for the result.
         #
         # @param id [String]
         #

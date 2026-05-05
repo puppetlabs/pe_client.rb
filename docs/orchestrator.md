@@ -843,7 +843,7 @@ client.orchestrator_v1.scheduled_jobs.create(
     environment: "my_environment",
     schedule: {
     start_time: "2022-01-28T09:35:56-08:00",
-    interval: null
+    interval: nil
     },
     userdata: {
         snow_ticket: "INC0011211"
@@ -864,6 +864,7 @@ client.orchestrator_v1.scheduled_jobs.create(
 
 ```ruby
 client.orchestrator_v1.scheduled_jobs.update(
+    job_id: "2",
     description: "run facts plan once on node1 in my_environment",
     input: {
     name: "sensitive_params::scheduled_jobs_storage",
@@ -879,12 +880,11 @@ client.orchestrator_v1.scheduled_jobs.update(
     environment: "my_environment",
     schedule: {
     start_time: "2022-01-28T09:35:56-08:00",
-    interval: null
+    interval: nil
     },
     userdata: {
         snow_ticket: "INC0011211"
     },
-    type: "plan",
     enabled: true
 )
 # => {

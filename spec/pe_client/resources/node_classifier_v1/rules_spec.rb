@@ -8,32 +8,39 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Rules do
   let(:base_url) { "https://puppet.example.com:4433" }
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
+  let(:rule) { ["=", ["fact", "is_spaceship"], "true"] }
 
   describe "#translate" do
-    it "translates rules to default format" do
-      stub_request(:get, "#{base_url}/classifier-api/v1/rules/translate")
-        .with(headers: {"X-Authentication" => api_key})
+    it "translates rules to the default nodes format" do
+      stub_request(:post, "#{base_url}/classifier-api/v1/rules/translate")
+        .with(
+          body: rule.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
         .to_return(
           status: 200,
-          body: '{"query": []}',
-          headers: {"Content-Type" => "application/json"}
+          body: "nodes { fact.is_spaceship = 'true' }",
+          headers: {"Content-Type" => "text/plain"}
         )
 
-      response = resource.translate
-      expect(response).to eq({"query" => []})
+      response = resource.translate(rule: rule)
+      expect(response).to eq("nodes { fact.is_spaceship = 'true' }")
     end
 
     it "translates rules to inventory format" do
-      stub_request(:get, "#{base_url}/classifier-api/v1/rules/translate?format=inventory")
-        .with(headers: {"X-Authentication" => api_key})
+      stub_request(:post, "#{base_url}/classifier-api/v1/rules/translate?format=inventory")
+        .with(
+          body: rule.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
         .to_return(
           status: 200,
-          body: '{"query": []}',
-          headers: {"Content-Type" => "application/json"}
+          body: "inventory { facts.is_spaceship = 'true' }",
+          headers: {"Content-Type" => "text/plain"}
         )
 
-      response = resource.translate(format: "inventory")
-      expect(response).to eq({"query" => []})
+      response = resource.translate(rule: rule, format: "inventory")
+      expect(response).to eq("inventory { facts.is_spaceship = 'true' }")
     end
   end
 end
