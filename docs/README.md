@@ -14,3 +14,4 @@ Only high-level information is provided in each API reference. For more detailed
 - [Node Classifier Service API](node_classifier_service.md)
 - [Orchestrator API](orchestrator.md)
 - [Code Manager API](code_manager.md)
+- [Status API](status.md)
