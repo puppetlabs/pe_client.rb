@@ -13,3 +13,4 @@ Only high-level information is provided in each API reference. For more detailed
 - [RBAC Service v2 API](rbac_service_v2.md)
 - [Node Classifier Service API](node_classifier_service.md)
 - [Orchestrator API](orchestrator.md)
+- [Code Manager API](code_manager.md)
