@@ -15,3 +15,4 @@ Only high-level information is provided in each API reference. For more detailed
 - [Orchestrator API](orchestrator.md)
 - [Code Manager API](code_manager.md)
 - [Status API](status.md)
+- [Activity Service API](activity_service.md)
