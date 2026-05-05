@@ -1,6 +1,6 @@
-# Node Inventory v1 API
+# Node Inventory API
 
-[The Node Inventory v1 API](https://help.puppet.com/pe/current/topics/node_inventory_api.htm) is useful for:
+[The Node Inventory API](https://help.puppet.com/pe/current/topics/node_inventory_api.htm) is useful for:
 
 - Making requests to the Puppet inventory service API.
 - Creating and deleting connection entries in the inventory service database.
