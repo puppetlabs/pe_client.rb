@@ -21,3 +21,4 @@ Only high-level information is provided in each API reference. For more detailed
 - Open source Puppet Server, Puppet, PuppetDB, and Forge APIs
   - [Metrics API](metrics.md)
   - [Puppet Server API](puppet_server.md)
+  - [Certificate Authority API](ca.md)

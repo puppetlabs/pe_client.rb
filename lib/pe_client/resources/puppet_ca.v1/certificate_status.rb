@@ -45,7 +45,7 @@ module PEClient
           @client.get "#{BASE_PATH}es/any_key", params: {state:}.compact
         end
 
-        # Change the status of the specified certificate. The desired state is sent in the body of the PUT request as a one-item PSON hash; the two allowed complete hashes are:
+        # Change the status of the specified certificate.
         #
         # @param certname [String]
         # @param desired_state [String] The desired state for the certificate.
