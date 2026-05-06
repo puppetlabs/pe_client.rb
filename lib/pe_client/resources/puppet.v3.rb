@@ -83,12 +83,13 @@ module PEClient
       #     Per-module sub-paths can not be specified.
       #   - `tasks/<MODULE>` --- a semi-magical mount point which allows access to files in the tasks subdirectory of <MODULE>
       # @param name [String]
+      # @param environment [String] The environment to use when retrieving the file content.
       #
       # @return [String]
       #
       # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_file_content.htm
-      def file_content(mount_point:, name:)
-        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), headers: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
+      def file_content(mount_point:, name:, environment:)
+        @client.get File.join("#{BASE_PATH}/file_content", mount_point, name), params: {environment:}, headers: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
       end
 
       # This endpoint allows clients to send reports to the master.
@@ -132,12 +133,14 @@ module PEClient
       # That source must be a file from the files or tasks directory of a module in a specific environment.
       #
       # @param file_path [String] The path corresponds to the requested file's path on the Server relative to the given environment's root directory, and must point to a file in the */*/files/**, */*/lib/**, */*/scripts/**, or */*/tasks/** glob.
+      # @param code_id [String] A unique string provided by the catalog that identifies which version of the file to return.
+      # @param environment [String] The environment that contains the desired file.
       #
       # @return [String]
       #
       # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/puppet-api/v3/static_file_content.htm
-      def static_file_content(file_path:)
-        @client.get File.join("#{BASE_PATH}/static_file_content", file_path)
+      def static_file_content(file_path:, code_id:, environment:)
+        @client.get File.join("#{BASE_PATH}/static_file_content", file_path), params: {code_id:, environment:}, headers: {"Content-Type": "application/octet-stream", Accept: "application/octet-stream"}
       end
 
       # @return [PEClient::Resource::PuppetV3::FileBucket]

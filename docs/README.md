@@ -20,3 +20,4 @@ Only high-level information is provided in each API reference. For more detailed
   - [Activity Service API](activity_service.md)
 - Open source Puppet Server, Puppet, PuppetDB, and Forge APIs
   - [Metrics API](metrics.md)
+  - [Puppet Server API](puppet_server.md)

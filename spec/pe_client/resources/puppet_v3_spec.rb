@@ -7,6 +7,15 @@ RSpec.describe PEClient::Resource::PuppetV3 do
   let(:base_url) { "https://puppet.example.com:8140" }
   let(:client) { PEClient::Client.new(api_key: api_key, base_url: base_url, ca_file: nil) }
   let(:resource) { described_class.new(client) }
+  let(:environment) { "production" }
+  let(:code_id) { "urn:puppet:code-id:1:67eb71417fbd736a619c8b5f9bfc0056ea8c53ca" }
+  let(:binary_headers) do
+    {
+      "X-Authentication" => api_key,
+      "Accept" => "application/octet-stream",
+      "Content-Type" => "application/octet-stream"
+    }
+  end
 
   describe "#environment_classes" do
     it "retrieves classes for the specified environment" do
@@ -189,14 +198,21 @@ RSpec.describe PEClient::Resource::PuppetV3 do
   describe "#static_file_content" do
     it "retrieves static file content from module files directory" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/apache/files/httpd.conf")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "# Apache Configuration\nServerRoot /etc/httpd\n",
-          headers: {"Content-Type" => "text/plain"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/apache/files/httpd.conf")
+      result = resource.static_file_content(
+        file_path: "modules/apache/files/httpd.conf",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to include("Apache Configuration")
       expect(result).to include("ServerRoot /etc/httpd")
@@ -204,14 +220,21 @@ RSpec.describe PEClient::Resource::PuppetV3 do
 
     it "retrieves static file content from module lib directory" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/stdlib/lib/puppet/parser/functions/flatten.rb")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "# Flatten function\nmodule Puppet::Parser::Functions\n  newfunction(:flatten) do\n  end\nend\n",
-          headers: {"Content-Type" => "text/plain"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/stdlib/lib/puppet/parser/functions/flatten.rb")
+      result = resource.static_file_content(
+        file_path: "modules/stdlib/lib/puppet/parser/functions/flatten.rb",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to include("Flatten function")
       expect(result).to include("newfunction(:flatten)")
@@ -219,14 +242,21 @@ RSpec.describe PEClient::Resource::PuppetV3 do
 
     it "retrieves static file content from module tasks directory" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/package/tasks/install.sh")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "#!/bin/bash\napt-get install -y $PT_package\n",
-          headers: {"Content-Type" => "text/plain"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/package/tasks/install.sh")
+      result = resource.static_file_content(
+        file_path: "modules/package/tasks/install.sh",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to include("#!/bin/bash")
       expect(result).to include("apt-get install")
@@ -234,42 +264,63 @@ RSpec.describe PEClient::Resource::PuppetV3 do
 
     it "retrieves static file content from module scripts directory" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/mymodule/scripts/setup.sh")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "#!/bin/bash\necho 'Setup complete'\n",
-          headers: {"Content-Type" => "text/plain"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/mymodule/scripts/setup.sh")
+      result = resource.static_file_content(
+        file_path: "modules/mymodule/scripts/setup.sh",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to include("Setup complete")
     end
 
     it "retrieves binary file content" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/mymodule/files/logo.png")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "\x89PNG\r\n\x1A\n\x00\x00\x00\rIHDR",
-          headers: {"Content-Type" => "image/png"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/mymodule/files/logo.png")
+      result = resource.static_file_content(
+        file_path: "modules/mymodule/files/logo.png",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to start_with("\x89PNG")
     end
 
     it "handles nested directory paths" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/static_file_content/modules/apache/files/conf.d/ssl.conf")
-        .with(headers: {"X-Authentication" => api_key})
+        .with(
+          query: {"code_id" => code_id, "environment" => environment},
+          headers: binary_headers
+        )
         .to_return(
           status: 200,
           body: "SSLEngine on\n",
-          headers: {"Content-Type" => "text/plain"}
+          headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.static_file_content(file_path: "modules/apache/files/conf.d/ssl.conf")
+      result = resource.static_file_content(
+        file_path: "modules/apache/files/conf.d/ssl.conf",
+        code_id: code_id,
+        environment: environment
+      )
       expect(result).to be_a(String)
       expect(result).to include("SSLEngine on")
     end
@@ -381,11 +432,8 @@ RSpec.describe PEClient::Resource::PuppetV3 do
     it "retrieves file content from modules mount point" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/modules/apache/httpd.conf")
         .with(
-          headers: {
-            "X-Authentication" => api_key,
-            "Accept" => "application/octet-stream",
-            "Content-Type" => "application/octet-stream"
-          }
+          query: {"environment" => environment},
+          headers: binary_headers
         )
         .to_return(
           status: 200,
@@ -393,7 +441,7 @@ RSpec.describe PEClient::Resource::PuppetV3 do
           headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.file_content(mount_point: "modules/apache", name: "httpd.conf")
+      result = resource.file_content(mount_point: "modules", name: "apache/httpd.conf", environment: environment)
       expect(result).to be_a(String)
       expect(result).to include("ServerRoot")
     end
@@ -401,11 +449,8 @@ RSpec.describe PEClient::Resource::PuppetV3 do
     it "retrieves file content from plugins mount point" do
       stub_request(:get, "https://puppet.example.com:8140/puppet/v3/file_content/plugins/mylib.rb")
         .with(
-          headers: {
-            "X-Authentication" => api_key,
-            "Accept" => "application/octet-stream",
-            "Content-Type" => "application/octet-stream"
-          }
+          query: {"environment" => environment},
+          headers: binary_headers
         )
         .to_return(
           status: 200,
@@ -413,7 +458,7 @@ RSpec.describe PEClient::Resource::PuppetV3 do
           headers: {"Content-Type" => "application/octet-stream"}
         )
 
-      result = resource.file_content(mount_point: "plugins", name: "mylib.rb")
+      result = resource.file_content(mount_point: "plugins", name: "mylib.rb", environment: environment)
       expect(result).to be_a(String)
       expect(result).to include("module MyLib")
     end
