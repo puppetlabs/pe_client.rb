@@ -157,7 +157,7 @@ client.status_v1.orchestrator_simple
 
 ```ruby
 client.status_v1.console_simple(service_name: "activity-service")
-# => {}
+# => "running"
 ```
 
 ## Metrics Endpoints

@@ -963,7 +963,7 @@ client.rbac_v1.ldap.ds(
     }
 )
 # => {
-#   help_link => "https://help.example.com",
+#   "help_link" => "https://help.example.com",
 #   "ssl" => true,
 #   "group_name_attr" => "name",
 #   "password" => "<password>",
