@@ -64,7 +64,7 @@ module PEClient
         # @return [Hash]
         def events(job_id:, event_id: nil, start: nil)
           if event_id
-            @client.get "#{BASE_PATH}/#{job_id}/events/#{event_id}"
+            @client.get "#{BASE_PATH}/#{job_id}/event/#{event_id}"
           else
             @client.get "#{BASE_PATH}/#{job_id}/events", params: {start:}.compact
           end

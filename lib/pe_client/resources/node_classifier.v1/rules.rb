@@ -28,13 +28,14 @@ module PEClient
 
         # Translate a node group rule condition into PuppetDB query syntax.
         #
+        # @param rule [Array] The rule condition must be structured like a rule key for a node group object.
         # @param format [String] Optional format parameter to change the response format.
         #   The default value is "nodes".
         #   If you specify format: "inventory", the response returns classifier rules in a compatible dot notation format, instead of the PuppetDB AST format.
         #
-        # @return [Hash]
-        def translate(format: nil)
-          @client.get "#{BASE_PATH}/translate", params: {format:}.compact
+        # @return [String]
+        def translate(rule:, format: nil)
+          @client.post "#{BASE_PATH}/translate", params: {format:}.compact, body: rule
         end
       end
     end

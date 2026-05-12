@@ -48,7 +48,7 @@ module PEClient
         #
         # @return [Hash]
         def create(name)
-          @client.put BASE_PATH, body: {name: name}
+          @client.put "#{BASE_PATH}/#{name}"
         end
 
         # Retrieve a list of all classes (that the node classifier knows about) or a specific class in a specific environment.

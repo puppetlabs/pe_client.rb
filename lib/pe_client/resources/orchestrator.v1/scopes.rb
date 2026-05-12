@@ -27,7 +27,7 @@ module PEClient
         BASE_PATH = "#{OrchestratorV1::BASE_PATH}/scopes/task_targets".freeze
 
         # Retrieve information about all orchestrator task-targets.
-        # Or Get information about a specific task-target.
+        # Or get information about a specific task-target.
         #
         # @param task_target_id [String]
         #

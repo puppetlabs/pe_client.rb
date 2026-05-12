@@ -44,7 +44,8 @@ module PEClient
               params: {query: query&.to_json}.merge!(QueryV4.query_paging(**kwargs)).compact
           end
 
-          # This will return the facts for the given node. Facts from deactivated and expired nodes aren't included in the response.
+          # This will return the facts for the given node.
+          # Facts from deactivated and expired nodes aren't included in the response.
           # This is a shortcut to the {QueryV4#facts} endpoint.
           # It behaves the same as a call to {QueryV4#facts} with a query string of ["=", "certname", "<NODE>"].
           # Facts from deactivated and expired nodes aren't included in the response.

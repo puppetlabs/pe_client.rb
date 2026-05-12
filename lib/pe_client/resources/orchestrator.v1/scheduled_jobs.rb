@@ -76,6 +76,32 @@ module PEClient
         def create(type:, input:, environment:, schedule:, description: "", userdata: {})
           @client.post "#{BASE_PATH}/environment_jobs", body: {type:, input:, environment:, schedule:, description:, userdata:}
         end
+
+        # Edit or disable scheduled environment jobs.
+        #
+        # @param job_id [String] Identifying a specific scheduled job.
+        # @param input [Hash{Symbol, String => Any}] A Hash describing job parameters, scope, or targets.
+        #   The contents depends on the type.
+        # @param environment [String] A string specifying the name of the relevant environment.
+        #   For task and plan jobs, this is the environment from which to load the task or plan.
+        #   For deploy jobs, this can be an empty string or the name of the environment to deploy.
+        # @param schedule [Hash{Symbol, String => Any}] An object that uses the start_time and interval keys to describe the job's schedule.
+        #   The start_time key accepts an ISO-8601 timestamp indicating the first time that you want the job to run.
+        #   The interval key accepts either a Hash or `nil`.
+        #   To only run the job once, use `nil`.
+        #   To schedule a recurring job, supply an object containing value and units.
+        #   The units key is an enum that must be set to seconds.
+        #   The value key is an integer representing the number of units to wait between job runs.
+        # @param description [String] A string describing the job.
+        #   You can supply an empty string.
+        # @param userdata [Hash{Symbol, String => Any}] An object containing arbitrary key-value pairs supplied to the job, such as a support ticket number.
+        #   You can supply an empty Hash.
+        # @param enabled [Boolean] While you can't delete a scheduled job, you can disable the job as a form of soft deletion.
+        #
+        # @return [Hash]
+        def update(job_id:, input: nil, environment: nil, schedule: nil, description: nil, userdata: nil, enabled: nil)
+          @client.put "#{BASE_PATH}/environment_jobs/#{job_id}", body: {input:, environment:, schedule:, description:, userdata:, enabled:}.compact
+        end
       end
     end
   end

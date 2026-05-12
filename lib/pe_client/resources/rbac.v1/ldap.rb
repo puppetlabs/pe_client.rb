@@ -34,7 +34,7 @@ module PEClient
         #
         # @param attributes [Hash] The attributes for the new LDAP connection.
         # @option attributes [String] :display_name Directory name.
-        # @option attributes [String] :"help-link" Login help.
+        # @option attributes [String] :help_link Login help.
         # @option attributes [String] :hostname Hostname.
         # @option attributes [Integer] :port Port.
         # @option attributes [String] :login Lookup user.
@@ -73,7 +73,7 @@ module PEClient
         #
         # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def update(attributes)
-          @client.put "#{COMMAND_BASE_PATH}/update", body: attributes
+          @client.post "#{COMMAND_BASE_PATH}/update", body: attributes
         end
 
         # Delete an existing directory service connection.
@@ -126,7 +126,7 @@ module PEClient
         # @see https://help.puppet.com/pe/current/topics/rbac_ldap_ext_directory_settings.htm
         def ds(attributes)
           PEClient.deprecated "ds", "create, update, or delete"
-          @client.put("#{BASE_PATH}/ds", body: attributes)
+          @client.put(BASE_PATH, body: attributes)
         end
       end
     end

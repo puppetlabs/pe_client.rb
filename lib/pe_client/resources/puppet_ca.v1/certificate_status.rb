@@ -21,7 +21,7 @@ module PEClient
     class PuppetCAV1
       # The `certificate_status` endpoint allows a client to read or alter the status of a certificate or pending certificate request.
       #
-      # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_certificate_request.htm
+      # @see https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_certificate_status.htm
       class CertificateStatus < Base
         # The base path for Puppet CA API v1 Certificate Status endpoints.
         BASE_PATH = "#{PuppetCAV1::BASE_PATH}/certificate_status".freeze
@@ -45,7 +45,7 @@ module PEClient
           @client.get "#{BASE_PATH}es/any_key", params: {state:}.compact
         end
 
-        # Change the status of the specified certificate. The desired state is sent in the body of the PUT request as a one-item PSON hash; the two allowed complete hashes are:
+        # Change the status of the specified certificate.
         #
         # @param certname [String]
         # @param desired_state [String] The desired state for the certificate.

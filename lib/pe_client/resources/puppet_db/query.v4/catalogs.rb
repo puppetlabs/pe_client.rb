@@ -43,7 +43,8 @@ module PEClient
           end
 
           # This will return all edges for a particular catalog, designated by a node certname.
-          # This is a shortcut to the {QueryV4#edges} endpoint. It behaves the same as a call to {QueryV4#edges} with `query: ["=", "certname", "<NODE>"]`.
+          # This is a shortcut to the {QueryV4#edges} endpoint.
+          # It behaves the same as a call to {QueryV4#edges} with `query: ["=", "certname", "<NODE>"]`.
           # Except results are returned even if the node is deactivated or expired.
           #
           # @param node [String]
@@ -57,7 +58,8 @@ module PEClient
           end
 
           # This will return all resources for a particular catalog, designated by a node certname.
-          # This is a shortcut to the {QueryV4#resources} endpoint. It behaves the same as a call to {QueryV4#resources} with `query: ["=", "certname", "<NODE>"]`.
+          # This is a shortcut to the {QueryV4#resources} endpoint.
+          # It behaves the same as a call to {QueryV4#resources} with `query: ["=", "certname", "<NODE>"]`.
           # Except results are returned even if the node is deactivated or expired.
           #
           # @param node [String]
