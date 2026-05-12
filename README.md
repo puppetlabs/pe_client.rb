@@ -118,7 +118,7 @@ client = PEClient.new(
   ca_file:  "/path/to/ca_crt.pem"
 ) do |conn|
   conn.ssl[:client_cert] = OpenSSL::X509::Certificate.new(File.read("/path/to/client_cert.pem"))
-  conn.ssl[:client_key]  = OpenSSL::PKey::RSA.new(File.read("/path/to/client_key.pem"))
+  conn.ssl[:client_key]  = OpenSSL::PKey.read(File.read("/path/to/client_key.pem"))
 end
 ```
 

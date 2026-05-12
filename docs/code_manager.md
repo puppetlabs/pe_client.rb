@@ -45,7 +45,7 @@ client.code_manager_v1.deploys(
 #       "environment-commit" => "6939889b679fdb1449545c44f26aa06174d25c21",
 #       "code-commit" => "ce5f7158615759151f77391c7b2b8b497aaebce1"},
 #     "environment" => "production",
-#     "id" => 3,Code Manager
+#     "id" => 3,
 #     "status" => "complete"
 #   }
 # ]

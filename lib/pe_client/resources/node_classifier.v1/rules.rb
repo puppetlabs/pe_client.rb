@@ -33,7 +33,7 @@ module PEClient
         #   The default value is "nodes".
         #   If you specify format: "inventory", the response returns classifier rules in a compatible dot notation format, instead of the PuppetDB AST format.
         #
-        # @return [Hash]
+        # @return [String]
         def translate(rule:, format: nil)
           @client.post "#{BASE_PATH}/translate", params: {format:}.compact, body: rule
         end

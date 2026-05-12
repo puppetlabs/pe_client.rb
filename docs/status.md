@@ -139,7 +139,7 @@ These endpoints return simple string bodies (either the service's state or a sim
 ```ruby
 # Console Services
 client.status_v1.console_simple
-# => {}
+# => "running"
 
 # PuppetDB
 client.status_v1.puppetdb_simple

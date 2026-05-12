@@ -4,7 +4,7 @@ module PEClient
       class Rules < Base
         BASE_PATH: String
 
-        def translate: (rule: Array[untyped], ?format: String?) -> untyped
+        def translate: (rule: Array[untyped], ?format: String?) -> String
       end
     end
   end
