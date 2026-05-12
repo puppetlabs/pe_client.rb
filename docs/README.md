@@ -22,3 +22,7 @@ Only high-level information is provided in each API reference. For more detailed
   - [Metrics API](metrics.md)
   - [Puppet Server API](puppet_server.md)
   - [Certificate Authority API](ca.md)
+  - [PuppetDB API](puppetdb.md)
+    - [Query V4 API](puppetdb/query_v4.md)
+    - [Admin V1 API](puppetdb/admin_v1.md)
+    - [Metadata V1 API](puppetdb/metadata_v1.md)
