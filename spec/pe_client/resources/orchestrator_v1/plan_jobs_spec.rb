@@ -75,7 +75,7 @@ RSpec.describe PEClient::Resource::OrchestratorV1::PlanJobs do
 
     it "retrieves details of a specific event for a plan job" do
       event_id = 10
-      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs/#{job_id}/events/#{event_id}")
+      stub_request(:get, "#{base_url}/orchestrator/v1/plan_jobs/#{job_id}/event/#{event_id}")
         .with(headers: {"X-Authentication" => api_key})
         .to_return(
           status: 200,

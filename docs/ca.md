@@ -72,7 +72,7 @@ client.puppet_ca_v1.certificate_request.get("agency")
 Submit a CSR
 
 ```ruby
-client.puppet_ca_v1.certificate_request.put("agency", "-----BEGIN CERTIFICATE REQUEST-----...-----END CERTIFICATE REQUEST-----")
+client.puppet_ca_v1.certificate_request.submit("agency", "-----BEGIN CERTIFICATE REQUEST-----...-----END CERTIFICATE REQUEST-----")
 # => {}
 ```
 
@@ -120,7 +120,7 @@ client.puppet_ca_v1.certificate_status.get("mycertname")
 Retrieve information about all known certificates.
 
 ```ruby
-client.puppet_ca_v1.certificate_statuses.list(state: "requested")
+client.puppet_ca_v1.certificate_status.list(state: "requested")
 # => [
 #     {
 #       "name" => "mycertname1",
@@ -194,7 +194,7 @@ client.puppet_ca_v1.certificate_revocation_list.get
 # -----END X509 CRL-----"
 ```
 
-### PUT /puppet-ca/v1/certificate_revocation_list
+### PUT /puppet-ca/v1/certificate_revocation_list/ca
 
 [Reference](https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_certificate_revocation_list.htm#UpdateupstreamCRLs)
 

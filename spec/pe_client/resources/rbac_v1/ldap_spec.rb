@@ -38,7 +38,7 @@ RSpec.describe PEClient::Resource::RBACV1::LDAP do
     it "updates an LDAP connection" do
       ldap_config = {"hostname" => "ldap2.example.com"}
 
-      stub_request(:put, "#{base_url}/rbac-api/v1/command/ldap/update")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/ldap/update")
         .with(
           body: ldap_config.to_json,
           headers: {"X-Authentication" => api_key}
@@ -81,6 +81,62 @@ RSpec.describe PEClient::Resource::RBACV1::LDAP do
 
       response = resource.test(ldap_config)
       expect(response).to eq({"success" => true})
+    end
+  end
+
+  describe "#ds_test" do
+    it "tests the configured directory service" do
+      stub_request(:get, "#{base_url}/rbac-api/v1/ds/test")
+        .with(headers: {"X-Authentication" => api_key})
+        .to_return(status: 200, body: '{"elapsed":10}', headers: {"Content-Type" => "application/json"})
+
+      response = nil
+
+      expect {
+        response = resource.ds_test
+      }.to output(/\[DEPRECATION\] `ds_test` is deprecated. Please use `test` instead./).to_stderr
+
+      expect(response).to eq({"elapsed" => 10})
+    end
+
+    it "tests supplied deprecated directory service settings" do
+      ldap_config = {"hostname" => "ldap.example.com", "port" => 389}
+
+      stub_request(:put, "#{base_url}/rbac-api/v1/ds/test")
+        .with(
+          body: ldap_config.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"elapsed":10}', headers: {"Content-Type" => "application/json"})
+
+      response = nil
+
+      expect {
+        response = resource.ds_test(ldap_config)
+      }.to output(/\[DEPRECATION\] `ds_test` is deprecated. Please use `test` instead./).to_stderr
+
+      expect(response).to eq({"elapsed" => 10})
+    end
+  end
+
+  describe "#ds" do
+    it "replaces deprecated directory service settings" do
+      ldap_config = {"hostname" => "ldap.example.com", "port" => 389}
+
+      stub_request(:put, "#{base_url}/rbac-api/v1/ds")
+        .with(
+          body: ldap_config.to_json,
+          headers: {"X-Authentication" => api_key}
+        )
+        .to_return(status: 200, body: '{"hostname":"ldap.example.com"}', headers: {"Content-Type" => "application/json"})
+
+      response = nil
+
+      expect {
+        response = resource.ds(ldap_config)
+      }.to output(/\[DEPRECATION\] `ds` is deprecated. Please use `create, update, or delete` instead./).to_stderr
+
+      expect(response).to eq({"hostname" => "ldap.example.com"})
     end
   end
 end

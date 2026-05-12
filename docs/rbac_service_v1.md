@@ -1095,7 +1095,7 @@ client.rbac_v1.saml.delete
 Retrieve the public SAML certificate and URLs you need to configure an identity provider.
 
 ```ruby
-client.rbac_v1.saml.get_meta
+client.rbac_v1.saml.meta
 # => {
 #    "meta": "https://localhost/saml/v1/meta",
 #    "acs": "https://localhost/saml/v1/acs",

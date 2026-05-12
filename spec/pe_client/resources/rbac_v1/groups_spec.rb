@@ -40,7 +40,7 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
 
   describe "#create" do
     it "creates a remote directory user group" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups/create")
         .with(
           body: '{"login":"ldap-group","role_ids":["role1"],"identity_provider_id":"uuid-123"}',
           headers: {"X-Authentication" => api_key}
@@ -60,7 +60,7 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
     end
 
     it "creates a group with display name" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups")
+      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups/create")
         .with(
           body: '{"login":"ldap-group","role_ids":[],"identity_provider_id":"uuid-123","display_name":"Test Group"}',
           headers: {"X-Authentication" => api_key}
@@ -106,7 +106,7 @@ RSpec.describe PEClient::Resource::RBACV1::Groups do
 
   describe "#create_deprecated" do
     it "warns about deprecation and creates a remote directory user group" do
-      stub_request(:post, "#{base_url}/rbac-api/v1/command/groups")
+      stub_request(:post, "#{base_url}/rbac-api/v1/groups")
         .with(
           body: '{"login":"ldap-group","role_ids":["role1"]}',
           headers: {"X-Authentication" => api_key}

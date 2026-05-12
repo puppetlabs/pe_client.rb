@@ -17,7 +17,7 @@ Use the events endpoints to retrieve activity service events.
 Fetch information about events the activity service tracks.
 
 ```ruby
-client.activity_service_v1.events(
+client.activity_v1.events(
     service_id: "classifier",
     subject_type: "users",
     subject_id: "kai"
@@ -56,8 +56,8 @@ Fetches information about events the activity service tracks.
 Allows filtering through query parameters and supports multiple objects for filtering results.
 
 ```ruby
-client.activity_service_v2.events(
-    service_id=classifier
+client.activity_v2.events(
+    service_id: "classifier",
     query: [
         {object_id: "415", object_type: "node_group"}
     ]

@@ -71,6 +71,8 @@ gem specific_install -l https://github.com/puppetlabs/pe_client.rb -t v<VERSION>
 
 ## Usage
 
+[Usage Documentation](docs/README.md)
+
 ### Basic Usage with API Key
 
 ```ruby

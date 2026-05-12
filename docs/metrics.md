@@ -50,7 +50,7 @@ client.metrics_v1.mbeans
 Retrieves requested MBean metrics.
 
 ```ruby
-client.metrics_v1.mbeans(["java.lang:type=Memory"])
+client.metrics_v1.get(["java.lang:type=Memory"])
 # => [
 #   {
 #     "ObjectPendingFinalizationCount" => 0,
@@ -79,7 +79,7 @@ client.metrics_v1.mbeans(["java.lang:type=Memory"])
 Retrieves requested MBean metrics.
 
 ```ruby
-client.metrics_v1.mbeans("java.lang:type=Memory")
+client.metrics_v1.get("java.lang:type=Memory")
 # => {
 #   "ObjectPendingFinalizationCount" => 0,
 #   "HeapMemoryUsage" => {
@@ -144,7 +144,7 @@ client.metrics_v2.list
 # }
 ```
 
-### GET /metrics/v2/
+### GET /metrics/v2/read/\<mbean_names>/\<attributes>
 
 [Reference](https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/metrics-api/v2/metrics_api.htm)
 

@@ -16,7 +16,7 @@ RSpec.describe PEClient::Resource::RBACV1::SAML do
         "idp_sso_url" => "https://idp.example.com/sso"
       }
 
-      stub_request(:put, "#{base_url}/rbac-api/v1/saml/configure")
+      stub_request(:put, "#{base_url}/rbac-api/v1/saml")
         .with(
           body: saml_config.to_json,
           headers: {"X-Authentication" => api_key}

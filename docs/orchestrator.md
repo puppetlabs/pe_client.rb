@@ -11,7 +11,7 @@ Communicates with Puppet Enterprise on port 8143.
 
 Use the orchestrator endpoint to get orchestrator API metadata.
 
-### GET /orchestrator
+### GET /orchestrator/v1
 
 [Reference](https://help.puppet.com/pe/current/topics/orchestrator_api_get_orchestrator.htm)
 
@@ -1173,7 +1173,7 @@ client.orchestrator_v1.plan_jobs.events(job_id: "352")
 Retrieve the details of a specific event for a specific plan job.
 
 ```ruby
-client.orchestrator_v1.plan_jobs.event(job_id: "352", event_id: "1265")
+client.orchestrator_v1.plan_jobs.events(job_id: "352", event_id: "1265")
 # => {    
 #     "id" => "1265",
 #     "type" => "out_message",

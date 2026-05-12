@@ -193,7 +193,7 @@ client.puppet_v3.file_bucket.get(md5: "eb61eead90e3b899c6bcbe27ac581660", enviro
 Retrieve the contents of a file.
 
 ```ruby
-client.puppet_v3.file_bucket.get(md5: "eb61eead90e3b899c6bcbe27ac581660", original_path: "/home/user/myfile.txt", environment: "production")
+client.puppet_v3.file_bucket.get(md5: "eb61eead90e3b899c6bcbe27ac581660", filename: "/home/user/myfile.txt", environment: "production")
 # => "This is the file content"
 ```
 
@@ -216,7 +216,7 @@ Check if a file is present in the filebucket
 This behaves identically to [GET /puppet/v3/file_bucket_file/\<md5>/\<original_path>](#get-puppetv3file_bucket_filemd5original_path), only returning headers.
 
 ```ruby
-client.puppet_v3.file_bucket.head(md5: "eb61eead90e3b899c6bcbe27ac581660", original_path: "/home/user/myfile.txt", environment: "production")
+client.puppet_v3.file_bucket.head(md5: "eb61eead90e3b899c6bcbe27ac581660", filename: "/home/user/myfile.txt", environment: "production")
 # => {
 #   "Content-Length" => 24,
 #   ...
@@ -230,7 +230,7 @@ The body should contain the file contents. This saves the file using the md5 sum
 If the md5 sum in the request is incorrect, the file will be instead saved under the correct checksum.
 
 ```ruby
-client.puppet_v3.file_bucket.put(md5: "eb61eead90e3b899c6bcbe27ac581660", file: "This is the file content", environment: "production")
+client.puppet_v3.file_bucket.save(md5: "eb61eead90e3b899c6bcbe27ac581660", file: "This is the file content", environment: "production")
 # => {}
 ```
 
@@ -242,7 +242,7 @@ The body should contain the file contents. This saves the file using the md5 sum
 If the md5 sum in the request is incorrect, the file will be instead saved under the correct checksum.
 
 ```ruby
-client.puppet_v3.file_bucket.put(md5: "eb61eead90e3b899c6bcbe27ac581660", file: "This is the file content", filename: "/home/user/myfile.txt", environment: "production")
+client.puppet_v3.file_bucket.save(md5: "eb61eead90e3b899c6bcbe27ac581660", file: "This is the file content", filename: "/home/user/myfile.txt", environment: "production")
 # => {}
 ```
 
@@ -368,7 +368,7 @@ client.puppet_v3.file_metadata.search(file_path: "modules/example", environment:
 [Reference](https://help.puppet.com/core/current/Content/PuppetCore/server/http_api/http_report.htm)
 
 ```ruby
-client.puppet_v3.report(node_name: "kermit.com", environment: "production")
+client.puppet_v3.report(node_name: "kermit.com", environment: "production", report: report)
 # => {
 #  "host" => "kermit.com",
 #  "time" => "2013-09-12T03:50:59.009301000+02:00",

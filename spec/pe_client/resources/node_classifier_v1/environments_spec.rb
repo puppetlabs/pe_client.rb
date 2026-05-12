@@ -39,9 +39,8 @@ RSpec.describe PEClient::Resource::NodeClassifierV1::Environments do
 
   describe "#create" do
     it "creates a new environment" do
-      stub_request(:put, "#{base_url}/classifier-api/v1/environments")
+      stub_request(:put, "#{base_url}/classifier-api/v1/environments/staging")
         .with(
-          body: '{"name":"staging"}',
           headers: {"X-Authentication" => api_key}
         )
         .to_return(

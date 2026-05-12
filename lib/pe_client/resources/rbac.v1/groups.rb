@@ -53,7 +53,7 @@ module PEClient
         #
         # @return [Hash]
         def create(login:, role_ids:, identity_provider_id:, display_name: nil)
-          @client.post COMMAND_BASE_PATH, body: {login:, role_ids:, identity_provider_id:, display_name:}.compact
+          @client.post "#{COMMAND_BASE_PATH}/create", body: {login:, role_ids:, identity_provider_id:, display_name:}.compact
         end
 
         # Edit the content of the specified user group object. For example, you can update the group's roles or membership.
@@ -89,7 +89,7 @@ module PEClient
         # @return [Hash]
         def create_deprecated(login, role_ids)
           PEClient.deprecated "create_deprecated", "create"
-          @client.post COMMAND_BASE_PATH, body: {login:, role_ids:}
+          @client.post BASE_PATH, body: {login:, role_ids:}
         end
       end
     end

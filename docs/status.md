@@ -109,7 +109,7 @@ client.status_v1.orchestrator_services
 [Reference](https://help.puppet.com/pe/current/topics/status_api_get_status_services_name.htm)
 
 ```ruby
-client.status_v1.console_services("rbac-service")
+client.status_v1.console_services(service_name: "rbac-service")
 # => {
 #   "rbac-service" => 
 #     {"service_version" => "1.8.11-SNAPSHOT", 
@@ -138,17 +138,17 @@ These endpoints return simple string bodies (either the service's state or a sim
 
 ```ruby
 # Console Services
-client.status_v1.console_services_simple
+client.status_v1.console_simple
 # => {}
 
 # PuppetDB
-client.status_v1.puppetdb_services_simple
+client.status_v1.puppetdb_simple
 
 # Puppet Server
-client.status_v1.puppet_server_services_simple
+client.status_v1.puppet_server_simple
 
 # Orchestrator
-client.status_v1.orchestrator_services_simple
+client.status_v1.orchestrator_simple
 ```
 
 ### GET /status/v1/simple/\<SERVICE NAME>
@@ -156,7 +156,7 @@ client.status_v1.orchestrator_services_simple
 [Reference](https://help.puppet.com/pe/current/topics/status_api_status_simple_name.htm)
 
 ```ruby
-client.status_v1.console_services_simple("activity-service")
+client.status_v1.console_simple(service_name: "activity-service")
 # => {}
 ```
 

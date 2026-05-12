@@ -34,7 +34,7 @@ module PEClient
         #
         # @see https://help.puppet.com/pe/current/topics/rbac-saml-config-reference.htm
         def configure(attributes)
-          @client.put "#{BASE_PATH}/configure", body: attributes
+          @client.put BASE_PATH, body: attributes
         end
 
         # Retrieves the current SAML configuration settings.
