@@ -249,13 +249,13 @@ client.orchestrator_v1.inventory.get
 #       "name" => "node1.example.com",
 #       "connected" => true,
 #       "broker" => "pcp://broker1.example.com/server",
-#       "timestamp" => "2016-010-22T13:36:41.449Z"
+#       "timestamp" => "2016-10-22T13:36:41.449Z"
 #     },
 #     {
 #       "name" => "node2.example.com",
 #       "connected" => true,
 #       "broker" => "pcp://broker2.example.com/server",
-#       "timestamp" => "2016-010-22T13:39:16.377Z"
+#       "timestamp" => "2016-10-22T13:39:16.377Z"
 #     },
 #     {
 #       "name" => "node3.example.com",
@@ -973,13 +973,13 @@ client.orchestrator_v1.plan_jobs.get(
 #       "finished_timestamp" => "2020-09-23T18:00:13Z",
 #       "name" => "38",
 #       "events" => {
-#         "id" => "https://orchestrator.example.com:8143:8143/orchestrator/v1/plan_jobs/38/events"
+#         "id" => "https://orchestrator.example.com:8143/orchestrator/v1/plan_jobs/38/events"
 #       },
 #       "state" => "success",
 #       "result" => [
 #         "orchestrator.example.com: CentOS 7.2.1511 (RedHat)"
 #       ],
-#       "id" => "https://orchestrator.example.com:8143:8143/orchestrator/v1/plan_jobs/38",
+#       "id" => "https://orchestrator.example.com:8143/orchestrator/v1/plan_jobs/38",
 #       "created_timestamp" => "2020-09-23T18:00:08Z",
 #       "duration" => 123.456,
 #       "options" => {

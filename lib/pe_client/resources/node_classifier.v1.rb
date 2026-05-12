@@ -18,8 +18,10 @@ require_relative "base_with_port"
 
 module PEClient
   module Resource
-    # The role-based access control (RBAC) API v2 service enables you to fetch information about users, create groups, revoke tokens, validate tokens, and get information about your LDAP directory service.
-    # The v2 endpoints either extend or replace some RBAC API v1 endpoints.
+    # The Node Classifier API v1 service enables you to:
+    # - Query the groups that a node matches.
+    # - Query the classes, parameters, and variables that have been assigned to a node or group.
+    # - Query the environment that a node is in.
     #
     # @see https://help.puppet.com/pe/current/topics/node_classifier_service_api.htm
     class NodeClassifierV1 < BaseWithPort

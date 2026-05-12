@@ -9,7 +9,8 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) a
 
 ### Breaking Changes
 
-- `PuppetV3#file_content` and `PuppetV3#static_file_content` now require an `environment` parameter. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
+- `PuppetV3#file_content` now requires an `environment` parameter. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
+- `PuppetV3#static_file_content` now requires the `code_id` and `environment` parameters. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
 - `ImportHierarchy#replace` now accepts an Array of Hashes instead of a single Hash. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
 
 ### Documentation

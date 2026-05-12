@@ -122,7 +122,7 @@ client.rbac_v1.users.tokens(
 )
 # => {
 #  "items" => [{
-#       "id" => "d46b06b3-eb89-4146-900f-303a0aa2cfbe"
+#       "id" => "d46b06b3-eb89-4146-900f-303a0aa2cfbe",
 #       "creation_date" => "2026-04-09T01:40:09Z",
 #       "expiration_date" =>  "2027-04-09T01:40:09Z",
 #       "last_active_date" => "2026-04-16T05:26:28Z",
@@ -858,7 +858,7 @@ Test a directory service connection based on supplied settings.
 ```ruby
 client.rbac_v1.ldap.ds_test
 # => {
-#   help_link => "https://help.example.com",
+#   "help_link" => "https://help.example.com",
 #   "ssl" => true,
 #   "group_name_attr" => "name",
 #   "password" => "<password>",
