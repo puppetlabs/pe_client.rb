@@ -5,17 +5,13 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/) and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [Unreleased]
+## [v0.3.0](https://github.com/puppetlabs/pe_client.rb/tree/v0.3.0) - 2026-05-13
 
-### Breaking Changes
+[Full Changelog](https://github.com/puppetlabs/pe_client.rb/compare/v0.2.0...v0.3.0)
 
-- `PuppetV3#file_content` now requires an `environment` parameter. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
-- `PuppetV3#static_file_content` now requires the `code_id` and `environment` parameters. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
-- `ImportHierarchy#replace` now accepts an Array of Hashes instead of a single Hash. [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
+### Fixed
 
-### Documentation
-
-- Added end user documentation for all API endpoints [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
+- End User Documentation [#17](https://github.com/puppetlabs/pe_client.rb/pull/17) ([zaben903](https://github.com/zaben903))
 
 ## [v0.2.0](https://github.com/puppetlabs/pe_client.rb/tree/v0.2.0) - 2026-03-10
 
