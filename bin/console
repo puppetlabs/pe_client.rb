@@ -16,7 +16,7 @@ if ENV["PE_CLIENT_BASE_URL"]
   end
 
   puts "PEClient defined as `@client`."
-  puts "\e[33mWarning: SSL verification is disabled.\e[0m" if ENV["PE_CLIENT_CA_FILE"].nil?
+  puts "\e[33mWarning: SSL verification is disabled. This should only be used for development or testing purposes.\e[0m" if ENV["PE_CLIENT_CA_FILE"].nil?
 end
 
 require "irb"

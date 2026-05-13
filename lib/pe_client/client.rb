@@ -21,19 +21,25 @@ require "uri"
 module PEClient
   # Client for interacting with PE services
   #
-  # @attr_reader [String] api_key API key for authentication
   # @attr_reader [String, URI] base_url Base URL for the PE API
   # @attr_reader [Faraday::Connection] connection Faraday connection object
   class Client
-    attr_reader :api_key, :base_url, :connection
+    # Default timeouts in seconds.
+    DEFAULT_TIMEOUT = 30
+    # Default open timeout in seconds.
+    DEFAULT_OPEN_TIMEOUT = 10
+
+    attr_reader :base_url, :connection
 
     # @param api_key [String] API key for authentication
     # @param base_url [String, URI] Base URL for the PE API
     # @param ca_file [String] Path to CA certificate file
+    # @param timeout [Integer] Request timeout in seconds
+    # @param open_timeout [Integer] Connection open timeout in seconds
     # @param block [Proc] Optional block for Faraday connection customization
     #
     # @yield [Faraday::Connection] Faraday connection for customization
-    def initialize(api_key:, base_url:, ca_file:, &block)
+    def initialize(api_key:, base_url:, ca_file:, timeout: DEFAULT_TIMEOUT, open_timeout: DEFAULT_OPEN_TIMEOUT, &block)
       @api_key = api_key
       @base_url = base_url.is_a?(URI) ? base_url : URI.parse(base_url)
       @provisioning_block = block
@@ -46,6 +52,8 @@ module PEClient
         conn.headers["X-Authentication"] = @api_key unless @api_key.nil?
         conn.ssl[:ca_file] = ca_file
         conn.options.params_encoder = Faraday::FlatParamsEncoder
+        conn.options.timeout = timeout
+        conn.options.open_timeout = open_timeout
 
         block&.call(conn)
 

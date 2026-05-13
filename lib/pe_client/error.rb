@@ -29,7 +29,7 @@ module PEClient
     # @param message [String] An optional custom error message.
     def initialize(response, message = nil)
       @response = response
-      super(message || "HTTP #{@response.status} Error: #{@response.body}")
+      super(message || "HTTP #{@response.status} Error")
     end
   end
 

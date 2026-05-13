@@ -12,7 +12,6 @@ RSpec.describe PEClient do
     it "creates a new PEClient::Client instance" do
       client = described_class.new(api_key: api_key, base_url: base_url, ca_file: "")
       expect(client).to be_a(PEClient::Client)
-      expect(client.api_key).to eq(api_key)
       expect(client.base_url.to_s).to eq(base_url)
     end
 

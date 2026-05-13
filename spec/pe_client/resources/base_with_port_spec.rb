@@ -25,7 +25,6 @@ RSpec.describe PEClient::Resource::BaseWithPort do
       resource = TestResourceWithPort.new(client)
       resource_client = resource.instance_variable_get(:@client)
       expect(resource_client).not_to equal(client)
-      expect(resource_client.api_key).to eq(client.api_key)
     end
 
     it "changes the port to the resource's PORT constant" do

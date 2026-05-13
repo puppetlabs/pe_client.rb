@@ -8,7 +8,6 @@ RSpec.describe PEClient::Client do
   describe "#initialize" do
     it "creates a client with required parameters" do
       expect(client).to be_a(PEClient::Client)
-      expect(client.api_key).to eq(api_key)
       expect(client.base_url).to be_a(URI)
       expect(client.base_url.to_s).to eq(base_url)
     end
@@ -54,7 +53,6 @@ RSpec.describe PEClient::Client do
       duplicate = client.deep_dup
       expect(duplicate).to be_a(PEClient::Client)
       expect(duplicate.object_id).not_to equal(client.object_id)
-      expect(duplicate.api_key.object_id).not_to eq(client.api_key.object_id)
       expect(duplicate.base_url.object_id).not_to eq(client.base_url.object_id)
       expect(duplicate.connection.ssl[:ca_file].object_id).not_to eq(client.connection.ssl[:ca_file].object_id)
     end
