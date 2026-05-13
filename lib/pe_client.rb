@@ -25,13 +25,15 @@ module PEClient
   # @param api_key [String] API key for authentication
   # @param base_url [String, URI] Base URL for the PE API
   # @param ca_file [String] Path to CA certificate file
+  # @param timeout [Integer] Request timeout in seconds
+  # @param open_timeout [Integer] Connection open timeout in seconds
   # @param block [Proc] Optional block for Faraday connection customization
   #
   # @yield [Faraday::Connection] Faraday connection for customization
   #
   # @see PEClient::Client#initialize
-  def self.new(api_key:, base_url:, ca_file:, &block)
-    Client.new(api_key:, base_url:, ca_file:, &block)
+  def self.new(api_key:, base_url:, ca_file:, timeout: Client::DEFAULT_TIMEOUT, open_timeout: Client::DEFAULT_OPEN_TIMEOUT, &block)
+    Client.new(api_key:, base_url:, ca_file:, timeout:, open_timeout:, &block)
   end
 
   # Deprecation warnings

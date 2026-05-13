@@ -69,6 +69,8 @@ module PEClient
         api_key: @api_key.dup,
         base_url: @base_url.dup,
         ca_file: @connection.ssl[:ca_file].dup,
+        timeout: @connection.options.timeout,
+        open_timeout: @connection.options.open_timeout,
         &@provisioning_block
       )
     end
